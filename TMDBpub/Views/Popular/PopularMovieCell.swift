@@ -51,9 +51,11 @@ class PopularMovieCell: UICollectionViewCell {
     
     fileprivate func setupLayout() {
         posterImageView.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
-        posterImageView.contentMode = .scaleAspectFit
+        posterImageView.contentMode = .scaleAspectFill
         posterImageView.layer.cornerRadius = 16
         posterImageView.clipsToBounds = true
+        posterImageView.layer.borderWidth = 0.1
+        posterImageView.layer.borderColor = UIColor.darkGray.cgColor
         
         let titleStackView = VerticalStackView(arrangedSubviews: [titleLabel, originalTitleLabel, UIView()], spacing: 2)
         titleStackView.constrainHeight(constant: 56)

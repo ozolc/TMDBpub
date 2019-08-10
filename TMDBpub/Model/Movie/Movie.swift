@@ -20,5 +20,5 @@ struct Movie: Codable {
     let backdrop_path: String?
     let overview: String
     let release_date: String
-//    let genre_ids: [Genres]
+    let genre_ids: [Int]
 }

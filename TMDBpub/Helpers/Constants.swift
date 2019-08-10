@@ -41,9 +41,23 @@ struct Constants {
         return (Constants.imageBaseURL + resourcePath)
     }
     
+    static func fetchBackdropUrl(withBackdropPath backdropPath: String, backdropSize: String) -> String {
+        let resourcePath = backdropSize + "/" + backdropPath
+        return (Constants.imageBaseURL + resourcePath)
+    }
+    
     enum PosterSize: String {
         case w92
         case w154
         case w185
+        case w342
+        case w500
+        case w780
+    }
+    
+    enum BackdropSize: String {
+        case w300
+        case w780
+        case w1280
     }
 }

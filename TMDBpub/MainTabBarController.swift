@@ -18,7 +18,7 @@ class MainTabBarController: UITabBarController {
     
     func setupViewControllers() {
         viewControllers = [
-            generateNavigationController(for: PopularMoviesControllers(), title: "Popular", image: #imageLiteral(resourceName: "Popular"))
+            generateNavigationController(for: PopularMoviesControllers(), title: "Popular", image: #imageLiteral(resourceName: "Popular").withRenderingMode(.alwaysOriginal))
         ]
     }
     

@@ -30,11 +30,11 @@ class PopularMoviesControllers: BaseListController {
     }
     
     fileprivate func fetchData() {
-        APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, page: self.currentPage) { (result: ResultsMovie) in
+        APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, page: self.currentPage) { [weak self] (result: ResultsMovie) in
             
-            self.totalPages = result.total_pages ?? 1
-            self.movies = result.results
-            self.collectionView.reloadData()
+            self?.totalPages = result.total_pages ?? 1
+            self?.movies = result.results
+            self?.collectionView.reloadData()
         }
     }
     
@@ -53,30 +53,36 @@ class PopularMoviesControllers: BaseListController {
         cell.movie = movie
         
 //        // initiate pagination
-        if indexPath.item == self.movies.count - 1 && !isPaginating && self.currentPage < self.totalPages {
+        if indexPath.item == self.movies.count - 1 && !isPaginating {
             
             self.currentPage += 1
             print("fetch more data from page", self.currentPage)
 
             isPaginating = true
             
-            APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, page: currentPage) { (result: ResultsMovie) in
+            APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, page: currentPage) { [weak self] (result: ResultsMovie) in
 
                 if result.results.count == 0 {
-                    self.isDonePaginating = true
-                    print(self.isDonePaginating)
+                    self?.isDonePaginating = true
                 }
 
-//                sleep(2)
-
-                self.movies += result.results
+                self?.movies += result.results
                 DispatchQueue.main.async {
-                    self.collectionView.reloadData()
+                    self?.collectionView.reloadData()
                 }
-                self.isPaginating = false
+                self?.isPaginating = false
             }
         }
+        
         return cell
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let movie = movies[indexPath.item]
+        
+        let controller = MovieDetailController(movie: movie)
+        controller.navigationItem.title = movie.title
+        navigationController?.pushViewController(controller, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -89,8 +95,8 @@ class PopularMoviesControllers: BaseListController {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let width = (view.frame.width - 3 * 16) / 2
-        return CGSize(width: width, height: width + 156)
+        let width = (view.frame.width - 4 * 16) / 3
+        return CGSize(width: width, height: width + 126)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -99,7 +105,7 @@ class PopularMoviesControllers: BaseListController {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        let height: CGFloat = isDonePaginating ? 0 : 100
+        let height: CGFloat = (isDonePaginating || self.currentPage > self.totalPages) ? 0 : 100
         return .init(width: view.frame.width, height: height)
     }
     
