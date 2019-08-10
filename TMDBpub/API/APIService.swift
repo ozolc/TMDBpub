@@ -14,8 +14,7 @@ class APIService {
     // singleton
     static let shared = APIService()
     
-    func fetchMoviesStat(typeOfRequest: String, page: Int = 1, completionHandler: @escaping ([Movie]) -> ()) {
-        print("Getting popular movies...")
+    func fetchMoviesStat<T: Decodable>(typeOfRequest: String, page: Int = 1, completionHandler: @escaping (T) -> ()) {
         
         let parameters = [
             "api_key": Constants.apiKey,
@@ -30,15 +29,14 @@ class APIService {
                 print("Failed to contact \(requestURL)", err)
                 return
             }
-            
             guard let data = dataResponse.data else { return }
             do {
-                let searchResult = try JSONDecoder().decode(ResultsMovie.self, from: data)
-                completionHandler(searchResult.results)
+                let objects = try JSONDecoder().decode(T.self, from: data)
+                completionHandler(objects)
             } catch let decodeErr {
                 print("Failed to decode:", decodeErr)
             }
         }
-        
     }
+    
 }

@@ -24,6 +24,7 @@
 		B0DB172C22FEB8B900323CEC /* UILabel+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DB172B22FEB8B900323CEC /* UILabel+Ext.swift */; };
 		B0DB172E22FEBBD300323CEC /* VerticalStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DB172D22FEBBD300323CEC /* VerticalStackView.swift */; };
 		B0DB173022FEBDB400323CEC /* UIImageView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DB172F22FEBDB400323CEC /* UIImageView+Ext.swift */; };
+		B0DB173222FEDE5900323CEC /* PopularMovieFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DB173122FEDE5900323CEC /* PopularMovieFooter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +47,7 @@
 		B0DB172B22FEB8B900323CEC /* UILabel+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+Ext.swift"; sourceTree = "<group>"; };
 		B0DB172D22FEBBD300323CEC /* VerticalStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalStackView.swift; sourceTree = "<group>"; };
 		B0DB172F22FEBDB400323CEC /* UIImageView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Ext.swift"; sourceTree = "<group>"; };
+		B0DB173122FEDE5900323CEC /* PopularMovieFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMovieFooter.swift; sourceTree = "<group>"; };
 		C51E767BA36F4AD0F333EEA0 /* Pods-TMDBpub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TMDBpub.release.xcconfig"; path = "Target Support Files/Pods-TMDBpub/Pods-TMDBpub.release.xcconfig"; sourceTree = "<group>"; };
 		F2503399D8BD873AEB955595 /* Pods_TMDBpub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TMDBpub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -74,8 +76,8 @@
 		B05330AE22FDE84500ECA238 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				B05330AF22FDE86000ECA238 /* UIView+Layout.swift */,
 				B0DB171E22FE94D700323CEC /* Constants.swift */,
+				B05330AF22FDE86000ECA238 /* UIView+Layout.swift */,
 				B0DB172B22FEB8B900323CEC /* UILabel+Ext.swift */,
 				B0DB172D22FEBBD300323CEC /* VerticalStackView.swift */,
 				B0DB172F22FEBDB400323CEC /* UIImageView+Ext.swift */,
@@ -113,6 +115,7 @@
 			isa = PBXGroup;
 			children = (
 				B05330B922FDEC0400ECA238 /* PopularMovieCell.swift */,
+				B0DB173122FEDE5900323CEC /* PopularMovieFooter.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -307,6 +310,7 @@
 				B0DB172822FE9ECA00323CEC /* Movie.swift in Sources */,
 				B0DB173022FEBDB400323CEC /* UIImageView+Ext.swift in Sources */,
 				B0DB171F22FE94D700323CEC /* Constants.swift in Sources */,
+				B0DB173222FEDE5900323CEC /* PopularMovieFooter.swift in Sources */,
 				B067029422FDE4F00020F393 /* AppDelegate.swift in Sources */,
 				B0DB172222FE9CBC00323CEC /* APIService.swift in Sources */,
 				B0DB172522FE9DC300323CEC /* ResultsMovie.swift in Sources */,

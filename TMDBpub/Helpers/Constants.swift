@@ -35,4 +35,15 @@ struct Constants {
         static let page = "page"
         static let totalPages = "total_pages"
     }
+    
+    static func fetchPosterUrl(withPosterPath posterPath: String, posterSize: String) -> String {
+        let resourcePath = posterSize + "/" + posterPath
+        return (Constants.imageBaseURL + resourcePath)
+    }
+    
+    enum PosterSize: String {
+        case w92
+        case w154
+        case w185
+    }
 }
