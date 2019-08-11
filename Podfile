@@ -8,6 +8,7 @@ target 'TMDBpub' do
   # Pods for TMDBpub
   pod 'Alamofire', '~> 5.0.0-beta.5'
   pod 'SDWebImage', '~> 5.0'
-  pod 'FeedKit', '~> 8.0'
+  #pod 'FeedKit', '~> 8.0'
+  #pod 'SwiftyJSON', '~> 4.0'
 
 end

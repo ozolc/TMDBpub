@@ -12,40 +12,36 @@ class MovieDetailMiddleCell: UITableViewCell {
     
     var movie: Movie! {
         didSet {
-//            releaseDateLabel.text = movie.release_date
+            overviewTextView.text = movie.overview ?? "Без описания"
         }
     }
-
-    let topLineView: UIView = {
-        let view = UIView()
-        view.layer.borderColor = UIColor.init(white: 0.75, alpha: 1).cgColor
-        view.layer.borderWidth = 1
-        return view
-    }()
     
-    let releaseDateLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        label.textColor = UIColor.black
-        label.text = "movie.release_date"
-        return label
+    let overviewTextView: UITextView = {
+        let tv = UITextView()
+        tv.textColor = UIColor.black
+        tv.backgroundColor = .clear
+        tv.font = .systemFont(ofSize: 14, weight: .regular)
+        tv.sizeToFit()
+        tv.isScrollEnabled = false
+        tv.isEditable = false
+        return tv
     }()
-    
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .yellow
         
-//        print(movie.release_date)
         setupLayout()
     }
     
     fileprivate func setupLayout() {
-//        addSubview(topLineView)
-//        topLineView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 2, left: 5, bottom: 0, right: 5))
+        addSeparator(at: .top,
+                     color: UIColor.init(white: 0.75, alpha: 1),
+                     weight: 1,
+                     insets: .init(top: 5, left: 15, bottom: 0, right: 15))
+        addSubview(overviewTextView)
+        overviewTextView.fillSuperview(padding: .init(top: 4, left: 12, bottom: 4, right: 12))
         
-        addSubview(releaseDateLabel)
-        releaseDateLabel.centerInSuperview()
+//        overviewTextView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor)
     }
     
     required init?(coder aDecoder: NSCoder) {

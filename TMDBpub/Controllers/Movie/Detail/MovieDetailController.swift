@@ -94,7 +94,7 @@ class MovieDetailController: UITableViewController {
         if indexPath.row == 0 {
             return 390
         } else {
-            return 100
+            return UITableView.automaticDimension
         }
     }
     

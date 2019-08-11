@@ -18,6 +18,16 @@ class MovieDetailCell: UITableViewCell {
             originalTitleLabel.text = movie.original_title
             voteAverageLabel.text = String(movie.vote_average)
             
+            let releaseYearSubstring = movie.release_date.prefix(4)
+            releaseDateLabel.text = releaseYearSubstring.toYear()
+            
+            if let runtime = movie.runtime {
+                runtimeLabel.text = runtime.toTime()
+            }
+            
+            countryLabel.text = movie.production_countries?[0].iso_3166_1 ?? ""
+            genreLabel.text = movie.genres?[0].name
+            
             if let backdropUrl = URL(string: Constants.fetchBackdropUrl(withBackdropPath: movie.backdrop_path ?? "", backdropSize: Constants.BackdropSize.w780.rawValue)) {
                 backdropImageView.sd_setImage(with: backdropUrl)
             }
@@ -51,23 +61,68 @@ class MovieDetailCell: UITableViewCell {
         return label
     }()
     
+    let releaseDateLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        label.textColor = UIColor.black
+        label.constrainWidth(constant: 34)
+        return label
+    }()
+    
+    let productionCompanyLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        label.textColor = UIColor.black
+        return label
+    }()
+    
+    let runtimeLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        label.textColor = UIColor.black
+        label.constrainWidth(constant: 40)
+        return label
+    }()
+    
+    let countryLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        label.textColor = UIColor.black
+        return label
+    }()
+    
+    let genreLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        label.textColor = UIColor.black
+        return label
+    }()
+    
+    
+    let tmdbImageView: UIImageView = {
+        let iv = UIImageView(image: #imageLiteral(resourceName: "tmdb").withRenderingMode(.alwaysOriginal))
+        iv.constrainHeight(constant: 35)
+        iv.constrainWidth(constant: 35)
+        iv.contentMode = .scaleAspectFill
+        return iv
+    }()
+    
     let voteAverageLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         label.textColor = .black
+//        label.backgroundColor = .yellow
         label.textAlignment = .center
         return label
     }()
     
     lazy var backdropImageView: UIImageView = {
-//        let iv = UIImageView(image: UIImage(named: Constants.moviePosterPlaceholderImageName))
         let iv = UIImageView(image: nil)
         iv.contentMode = .scaleAspectFill
         return iv
     }()
     
     let miniPosterImageView: UIImageView = {
-//        let iv = UIImageView(image: UIImage(named: Constants.moviePosterPlaceholderImageName))
         let iv = UIImageView(image: nil)
         iv.layer.cornerRadius = 8
         iv.clipsToBounds = true
@@ -80,7 +135,6 @@ class MovieDetailCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = .white
-//        setupGradientLayer()
         setupLayout()
     }
     
@@ -105,29 +159,37 @@ class MovieDetailCell: UITableViewCell {
         
         backgrondView.addSubview(posterView)
         posterView.anchor(top: nil, leading: leadingAnchor, bottom: backdropImageView.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 12, bottom: -24, right: 0), size: .init(width: 104, height: 154))
-        posterView.addSubview(titleLabel)
         
         voteAverageLabel.constrainWidth(constant: 40)
         
-        let sv = UIStackView(arrangedSubviews: [
+        let titleStackView = UIStackView(arrangedSubviews: [
             VerticalStackView(arrangedSubviews: [titleLabel, originalTitleLabel], spacing: 2),
+            tmdbImageView,
             voteAverageLabel
             ])
-        sv.spacing = 2
-        sv.alignment = .center
+        titleStackView.spacing = 4
+        titleStackView.alignment = .center
+        backgrondView.addSubview(titleStackView)
+        titleStackView.anchor(top: miniPosterImageView.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 4, left: 12, bottom: 2, right: 12))
         
-        backgrondView.addSubview(sv)
-        sv.anchor(top: miniPosterImageView.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 4, left: 12, bottom: 2, right: 12))
-//        titleLabel.anchor(top: miniPosterImageView.bottomAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 4, left: 12, bottom: 0, right: 12))
-//        backgrondView.addSubview(originalTitleLabel)
-//        originalTitleLabel.anchor(top: titleLabel.bottomAnchor, leading: titleLabel.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 2, left: 0, bottom: 0, right: 0))
+        let sideTopStackView = UIStackView(arrangedSubviews: [
+            releaseDateLabel,
+            runtimeLabel,
+            genreLabel,
+            countryLabel,
+            UIView()
+            ])
+        sideTopStackView.spacing = 6
+        sideTopStackView.distribution = .fill
         
+        backgrondView.addSubview(sideTopStackView)
+        sideTopStackView.anchor(top: backdropImageView.bottomAnchor, leading: posterView.trailingAnchor, bottom: nil, trailing: titleStackView.trailingAnchor, padding: .init(top: 2, left: 16, bottom: 0, right: 0))
     }
     
     fileprivate func setupGradientLayer() {
 //         how we can draw a gradient with Swift
         gradientLayer.colors = [UIColor.clear.cgColor, UIColor.white.cgColor]
-        gradientLayer.locations = [0.3, 0.85]
+        gradientLayer.locations = [0.5, 0.75]
         // self.frame is actually zero frame
         backdropImageView.layer.addSublayer(gradientLayer)
     }
