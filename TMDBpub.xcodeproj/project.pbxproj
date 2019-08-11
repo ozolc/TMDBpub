@@ -16,6 +16,8 @@
 		B067029422FDE4F00020F393 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067029322FDE4F00020F393 /* AppDelegate.swift */; };
 		B067029B22FDE4F20020F393 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B067029A22FDE4F20020F393 /* Assets.xcassets */; };
 		B067029E22FDE4F20020F393 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B067029C22FDE4F20020F393 /* LaunchScreen.storyboard */; };
+		B0C6791122FFCFF200EC3C7A /* MovieDetailMiddleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6791022FFCFF200EC3C7A /* MovieDetailMiddleCell.swift */; };
+		B0C6791322FFE7AD00EC3C7A /* LoaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6791222FFE7AD00EC3C7A /* LoaderController.swift */; };
 		B0DB171F22FE94D700323CEC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DB171E22FE94D700323CEC /* Constants.swift */; };
 		B0DB172222FE9CBC00323CEC /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DB172122FE9CBC00323CEC /* APIService.swift */; };
 		B0DB172522FE9DC300323CEC /* ResultsMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DB172422FE9DC300323CEC /* ResultsMovie.swift */; };
@@ -41,6 +43,8 @@
 		B067029A22FDE4F20020F393 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B067029D22FDE4F20020F393 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B067029F22FDE4F20020F393 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0C6791022FFCFF200EC3C7A /* MovieDetailMiddleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailMiddleCell.swift; sourceTree = "<group>"; };
+		B0C6791222FFE7AD00EC3C7A /* LoaderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderController.swift; sourceTree = "<group>"; };
 		B0DB171E22FE94D700323CEC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B0DB172122FE9CBC00323CEC /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		B0DB172422FE9DC300323CEC /* ResultsMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsMovie.swift; sourceTree = "<group>"; };
@@ -85,6 +89,7 @@
 				B0DB172B22FEB8B900323CEC /* UILabel+Ext.swift */,
 				B0DB172D22FEBBD300323CEC /* VerticalStackView.swift */,
 				B0DB172F22FEBDB400323CEC /* UIImageView+Ext.swift */,
+				B0C6791222FFE7AD00EC3C7A /* LoaderController.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -205,6 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				B0DB173322FF018000323CEC /* MovieDetailCell.swift */,
+				B0C6791022FFCFF200EC3C7A /* MovieDetailMiddleCell.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -349,7 +355,9 @@
 				B0DB172822FE9ECA00323CEC /* Movie.swift in Sources */,
 				B0DB173022FEBDB400323CEC /* UIImageView+Ext.swift in Sources */,
 				B0DB171F22FE94D700323CEC /* Constants.swift in Sources */,
+				B0C6791322FFE7AD00EC3C7A /* LoaderController.swift in Sources */,
 				B0DB173222FEDE5900323CEC /* PopularMovieFooter.swift in Sources */,
+				B0C6791122FFCFF200EC3C7A /* MovieDetailMiddleCell.swift in Sources */,
 				B067029422FDE4F00020F393 /* AppDelegate.swift in Sources */,
 				B0DB172222FE9CBC00323CEC /* APIService.swift in Sources */,
 				B0DB172522FE9DC300323CEC /* ResultsMovie.swift in Sources */,
@@ -505,7 +513,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ozolc.TMDBpub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -524,7 +532,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.ozolc.TMDBpub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

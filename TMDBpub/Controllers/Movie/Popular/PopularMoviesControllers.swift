@@ -80,7 +80,7 @@ class PopularMoviesControllers: BaseListController {
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let movie = movies[indexPath.item]
         
-        let controller = MovieDetailController(movie: movie)
+        let controller = MovieDetailController(movieId: movie.id)
         controller.navigationItem.title = movie.title
         navigationController?.pushViewController(controller, animated: true)
     }

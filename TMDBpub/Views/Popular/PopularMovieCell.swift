@@ -52,7 +52,7 @@ class PopularMovieCell: UICollectionViewCell {
     fileprivate func setupLayout() {
         posterImageView.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
         posterImageView.contentMode = .scaleAspectFill
-        posterImageView.layer.cornerRadius = 16
+        posterImageView.layer.cornerRadius = 8
         posterImageView.clipsToBounds = true
         posterImageView.layer.borderWidth = 0.1
         posterImageView.layer.borderColor = UIColor.darkGray.cgColor
