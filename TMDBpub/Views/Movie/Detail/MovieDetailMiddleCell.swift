@@ -41,7 +41,6 @@ class MovieDetailMiddleCell: UITableViewCell {
         addSubview(overviewTextView)
         overviewTextView.fillSuperview(padding: .init(top: 4, left: 12, bottom: 4, right: 12))
         
-//        overviewTextView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor)
     }
     
     required init?(coder aDecoder: NSCoder) {

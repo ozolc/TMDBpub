@@ -14,16 +14,23 @@ class APIService {
     // singleton
     static let shared = APIService()
     
-    func fetchMoviesStat<T: Decodable>(typeOfRequest: String, page: Int? = nil, completionHandler: @escaping (T) -> ()) {
+    func fetchMoviesStat<T: Decodable>(typeOfRequest: String, query: String? = nil, page: Int? = nil, include_adult: Bool? = nil, completionHandler: @escaping (T) -> ()) {
         
         var parameters = [
             "api_key": Constants.apiKey,
             "language": Constants.language,
-//            "page": page ?? 1
             ] as [String : Any]
         
         if page != nil {
-            parameters["page"] = page ?? 1
+            parameters["page"] = page
+        }
+        
+        if include_adult != nil {
+            parameters["include_adult"] = true
+        }
+        
+        if query != nil {
+            parameters["query"] = query
         }
         
         let requestURL = Constants.baseURL + typeOfRequest

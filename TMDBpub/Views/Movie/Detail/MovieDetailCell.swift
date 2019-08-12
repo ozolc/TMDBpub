@@ -25,8 +25,8 @@ class MovieDetailCell: UITableViewCell {
                 runtimeLabel.text = runtime.toTime()
             }
             
-            countryLabel.text = movie.production_countries?[0].iso_3166_1 ?? ""
-            genreLabel.text = movie.genres?[0].name
+            countryLabel.text = movie.production_countries?.first?.iso_3166_1 ?? ""
+            genreLabel.text = movie.genres?.first?.name
             
             if let backdropUrl = URL(string: Constants.fetchBackdropUrl(withBackdropPath: movie.backdrop_path ?? "", backdropSize: Constants.BackdropSize.w780.rawValue)) {
                 backdropImageView.sd_setImage(with: backdropUrl)
@@ -111,7 +111,6 @@ class MovieDetailCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
         label.textColor = .black
-//        label.backgroundColor = .yellow
         label.textAlignment = .center
         return label
     }()
