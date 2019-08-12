@@ -13,6 +13,7 @@ struct Constants {
     static let baseURL = "https://api.themoviedb.org/3/"
     static let apiKey = "894ef0c8f1e1986a8da271985a21d48b"
     static let imageBaseURL = "https://image.tmdb.org/t/p/"
+    static let infoAboutGenre = "genre/movie/list"
     static let moviePosterPlaceholderImageName = "placeholder.png"
     static let language = "ru-RU"
     

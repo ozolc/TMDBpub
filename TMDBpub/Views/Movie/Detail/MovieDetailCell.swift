@@ -18,6 +18,8 @@ class MovieDetailCell: UITableViewCell {
             originalTitleLabel.text = movie.original_title
             voteAverageLabel.text = String(movie.vote_average)
             
+            print(movie.id)
+            
             let releaseYearSubstring = movie.release_date.prefix(4)
             releaseDateLabel.text = releaseYearSubstring.toYear()
             
@@ -26,7 +28,8 @@ class MovieDetailCell: UITableViewCell {
             }
             
             countryLabel.text = movie.production_countries?.first?.iso_3166_1 ?? ""
-            genreLabel.text = movie.genres?.first?.name
+//            genreLabel.text = movie.genres.
+//            ge first?.name
             
             if let backdropUrl = URL(string: Constants.fetchBackdropUrl(withBackdropPath: movie.backdrop_path ?? "", backdropSize: Constants.BackdropSize.w780.rawValue)) {
                 backdropImageView.sd_setImage(with: backdropUrl, placeholderImage: UIImage(named: Constants.moviePosterPlaceholderImageName), options: .continueInBackground) { (_, _, _, _) in
@@ -163,7 +166,7 @@ class MovieDetailCell: UITableViewCell {
         backgrondView.addSubview(posterView)
         posterView.anchor(top: nil, leading: leadingAnchor, bottom: backdropImageView.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 12, bottom: -24, right: 0), size: .init(width: 104, height: 154))
         
-        voteAverageLabel.constrainWidth(constant: 40)
+        voteAverageLabel.constrainWidth(constant: 45)
         
         let titleStackView = UIStackView(arrangedSubviews: [
             VerticalStackView(arrangedSubviews: [titleLabel, originalTitleLabel], spacing: 2),

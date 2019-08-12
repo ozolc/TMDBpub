@@ -15,13 +15,31 @@ class MainTabBarController: UITabBarController {
         
         setupViewControllers()
     }
+
+//        DispatchQueue.background(delay: 3.0, background: {
+//            self.getGenresArray()
+//        }) {
+//            genresArray.forEach( { print($0.name)})
+//        }
+//    }
+    
+    func getGenresArray() {
+        let infoAboutGenre = Constants.infoAboutGenre
+        LoaderController.sharedInstance.showLoader()
+        APIService.shared.fetchMoviesStat(typeOfRequest: infoAboutGenre, completionHandler: { (genre: Genre) in
+            genresArray += genre.genres
+            
+                LoaderController.sharedInstance.removeLoader()
+        })
+    }
     
     func setupViewControllers() {
         viewControllers = [
             generateNavigationController(for: SearchMovieController(), title: "Search", image: #imageLiteral(resourceName: "search").withRenderingMode(.alwaysOriginal)),
             generateNavigationController(for: PopularMoviesControllers(), title: "Popular", image: #imageLiteral(resourceName: "Popular").withRenderingMode(.alwaysOriginal)),
-            
         ]
+        
+//        getGenresArray()
     }
     
     //MARK: - Helper Functions
@@ -32,6 +50,8 @@ class MainTabBarController: UITabBarController {
         navController.tabBarItem.title = title
         navController.tabBarItem.image = image
         return navController
+        
     }
+    
     
 }

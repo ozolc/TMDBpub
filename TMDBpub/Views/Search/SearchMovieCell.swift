@@ -10,16 +10,29 @@ import UIKit
 
 class SearchMovieCell: UITableViewCell {
     
+    var genreNameArray: [String]! {
+        didSet {
+            let attributedGenreText = NSMutableAttributedString(string: "Жанр: ", attributes: [.foregroundColor: UIColor.black, .font: UIFont.systemFont(ofSize: 12, weight: .bold)])
+            attributedGenreText.append(NSAttributedString(string: genreNameArray.first ?? "", attributes: [.foregroundColor: UIColor.darkGray, .font: UIFont.systemFont(ofSize: 12, weight: .bold)]))
+            genreLabel.attributedText = attributedGenreText
+            }
+        }
+    
     var movie: Movie! {
         didSet {
             titleLabel.text = movie.title
             voteAverageLabel.text = String(movie.vote_average)
             
+            print(movie.title)
+            
             if let posterUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: movie.poster_path ?? "", posterSize: Constants.PosterSize.w154.rawValue)) {
                 posterImageView.sd_setImage(with: posterUrl)
             }
             
-            releaseDateLabel.text = movie.release_date
+            let attributedReleaseDateText = NSMutableAttributedString(string: "Дата выхода: ", attributes: [.foregroundColor: UIColor.black, .font: UIFont.systemFont(ofSize: 12, weight: .bold)])
+            attributedReleaseDateText.append(NSAttributedString(string: movie.release_date, attributes: [.foregroundColor: UIColor.darkGray, .font: UIFont.systemFont(ofSize: 12, weight: .bold)]))
+            releaseDateLabel.attributedText = attributedReleaseDateText
+            
         }
     }
     
@@ -28,7 +41,7 @@ class SearchMovieCell: UITableViewCell {
         label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         label.numberOfLines = 2
         label.textColor = .black
-        label.numberOfLines = 2
+        label.numberOfLines = 1
         return label
     }()
     
@@ -85,7 +98,7 @@ class SearchMovieCell: UITableViewCell {
         infoStackView.distribution = .fillEqually
         
         let tmdbStackView = UIStackView(arrangedSubviews: [tmdbImageView, voteAverageLabel])
-        tmdbStackView.constrainWidth(constant: 84)
+        tmdbStackView.constrainWidth(constant: 90)
         tmdbStackView.spacing = 4
         tmdbStackView.distribution = .fillEqually
 

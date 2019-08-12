@@ -9,6 +9,10 @@
 import Foundation
 
 struct Genre: Codable {
+    let genres: [GenreStruct]
+}
+
+struct GenreStruct: Codable {
     let id: Int
     let name: String
 }

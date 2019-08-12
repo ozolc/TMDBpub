@@ -12,6 +12,8 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
     
     fileprivate var currentPage = 1
     fileprivate let typeOfRequest = "search/movie"
+    fileprivate let infoAboutMovie = "/movie/"
+    
     fileprivate var totalPages = 0
     fileprivate var movies = [Movie]()
     fileprivate var query = ""
@@ -79,14 +81,25 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
     var isPaginating = false
     var isDonePaginating = false
     
+    // FIXME: - при results = nil перебирает пустые значения
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell: UITableViewCell = {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? SearchMovieCell else {
                 return UITableViewCell(style: .default, reuseIdentifier: cellId)
             }
+            
             let movie = movies[indexPath.row]
             cell.movie = movie
             
+            if let genres = movie.genre_ids {
+                if genres.count > 0 {
+                    let filteredGenres = genresArray.filter({ (e) -> Bool in
+                        return e.id == genres[0]
+                    })
+                    cell.genreNameArray = filteredGenres.map({$0.name})
+                }
+            }
+        
             // initiate pagination
             if indexPath.item == self.movies.count - 1 && !isPaginating {
 
@@ -95,13 +108,15 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
 
                 isPaginating = true
 
+//                let movieIdString = String(movie.id)
+//                let infoAboutMediaUrlString = infoAboutMovie + movieIdString
+                
                 APIService.shared.fetchMoviesStat(typeOfRequest: self.typeOfRequest, query: self.query, page: self.currentPage) { [weak self] (result: ResultsMovie) in
 
 //                    if result.results.count != 0 {
 //                        self?.isDonePaginating = true
 //                    }
 
-                    print(result.results.count)
 
                     self?.movies += result.results
                     DispatchQueue.main.async {

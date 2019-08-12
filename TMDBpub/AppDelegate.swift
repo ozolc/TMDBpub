@@ -8,18 +8,31 @@
 
 import UIKit
 
+var genresArray = [GenreStruct]()
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    func getGenresArray() {
+        let infoAboutGenre = Constants.infoAboutGenre
+        LoaderController.sharedInstance.showLoader()
+        APIService.shared.fetchMoviesStat(typeOfRequest: infoAboutGenre, completionHandler: { (genre: Genre) in
+            genresArray += genre.genres
+            
+            DispatchQueue.main.async {
+                LoaderController.sharedInstance.removeLoader()
+            }
+        })
+    }
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow()
         window?.makeKeyAndVisible()
         window?.rootViewController = MainTabBarController()
-        
+        getGenresArray()
         return true
     }
 
