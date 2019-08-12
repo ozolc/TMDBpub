@@ -7,19 +7,25 @@
 //
 
 import UIKit
-
 class SearchMovieController: UITableViewController, UISearchBarDelegate {
     
     fileprivate var currentPage = 1
-    fileprivate let typeOfRequest = "search/movie"
+    fileprivate let typeOfRequest = Constants.searchMovies
     fileprivate let infoAboutMovie = "/movie/"
-    
     fileprivate var totalPages = 0
-    fileprivate var movies = [Movie]()
     fileprivate var query = ""
     
+    fileprivate var movies = [Movie]()
+    fileprivate lazy var listCells = [
+        ListCell(id: 1, title: "Upcoming", description: "Get a list of upcoming movies in theatres."),
+        ListCell(id: 2, title: "Top Rated", description: "Get the top rated movies on TMDb.")
+    ]
+    
     fileprivate let cellId = "cellId"
+    fileprivate let upcomingId = "upcomingId"
     fileprivate let footerId = "footerId"
+    
+    fileprivate var isUseMovies = false
     
     fileprivate let searchController = UISearchController(searchResultsController: nil)
     var timer: Timer?
@@ -29,29 +35,56 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
         
         setupTableView()
         setupSearchBar()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Grid").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleClearSearchResult))
+    }
+    
+    fileprivate func listePressed() {
+        print("Pressed")
+    }
+    
+    @objc fileprivate func handleClearSearchResult() {
+        movies.removeAll()
+        isUseMovies = false
+        self.tableView.reloadData()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        // Stop doing the search stuff
+        // and clear the text in the search bar
+        searchBar.text = ""
+        // Hide the cancel button
+        searchBar.showsCancelButton = false
+        handleClearSearchResult()
+        // You could also change the position, frame etc of the searchBar
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        timer?.invalidate()
-        
-        timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
+        if searchText.isEmpty {
+            handleClearSearchResult()
+        } else {
+            isUseMovies = true
             
-            APIService.shared.fetchMoviesStat(typeOfRequest: self.typeOfRequest, query: searchText, page: self.currentPage) { [weak self] (result: ResultsMovie) in
+            timer?.invalidate()
+            timer = Timer.scheduledTimer(withTimeInterval: 0.5, repeats: false, block: { (_) in
                 
-                self?.totalPages = result.total_pages ?? 1
-                self?.movies = result.results
-                self?.query = searchText
-                
-                DispatchQueue.main.async {
-                    self?.tableView.reloadData()
+                APIService.shared.fetchMoviesStat(typeOfRequest: self.typeOfRequest, query: searchText, page: self.currentPage) { [weak self] (result: ResultsMovie) in
+                    
+                    self?.totalPages = result.total_pages ?? 1
+                    self?.movies = result.results
+                    self?.query = searchText
+                    
+                    DispatchQueue.main.async {
+                        self?.tableView.reloadData()
+                    }
                 }
-            }
-        })
+            })
+        }
     }
     
     fileprivate func setupTableView() {
         tableView.backgroundColor = .white
         tableView.register(SearchMovieCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(MovieUpcomingCell.self, forCellReuseIdentifier: upcomingId)
         tableView.register(SearchMovieFooterCell.self, forHeaderFooterViewReuseIdentifier: footerId)
         
         tableView.separatorStyle = .none
@@ -67,15 +100,40 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let movie = movies[indexPath.item]
-        
-        let controller = MovieDetailController(movieId: movie.id)
-        controller.navigationItem.title = movie.title
-        navigationController?.pushViewController(controller, animated: true)
+        if isUseMovies {
+            let movie = movies[indexPath.row]
+            
+            let controller = MovieDetailController(movieId: movie.id)
+            controller.navigationItem.title = movie.title
+            navigationController?.pushViewController(controller, animated: true)
+        } else {
+            let cell = listCells[indexPath.row]
+            print(cell.description)
+            
+            var controller = UIViewController()
+            switch cell.id {
+            case 1:
+                controller = PopularMoviesControllers(typeOfRequest: Constants.upcoming)
+            case 2:
+                controller = PopularMoviesControllers(typeOfRequest: Constants.topRatedMovies)
+            default:
+                break
+            }
+            
+            controller.navigationItem.title = cell.title
+            navigationController?.pushViewController(controller, animated: true)
+        }
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return movies.count
+        if isUseMovies {
+            return movies.count
+        } else {
+            if section == 0 {
+                return listCells.count
+            }
+        }
+        return 5
     }
     
     var isPaginating = false
@@ -83,7 +141,8 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
     
     // FIXME: - при results = nil перебирает пустые значения
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell: UITableViewCell = {
+        switch isUseMovies {
+        case true:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? SearchMovieCell else {
                 return UITableViewCell(style: .default, reuseIdentifier: cellId)
             }
@@ -99,25 +158,22 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
                     cell.genreNameArray = filteredGenres.map({$0.name})
                 }
             }
-        
+            
             // initiate pagination
             if indexPath.item == self.movies.count - 1 && !isPaginating {
-
+                
                 self.currentPage += 1
                 print("fetch more data from page", self.currentPage)
-
+                
                 isPaginating = true
-
-//                let movieIdString = String(movie.id)
-//                let infoAboutMediaUrlString = infoAboutMovie + movieIdString
                 
                 APIService.shared.fetchMoviesStat(typeOfRequest: self.typeOfRequest, query: self.query, page: self.currentPage) { [weak self] (result: ResultsMovie) in
-
-//                    if result.results.count != 0 {
-//                        self?.isDonePaginating = true
-//                    }
-
-
+                    
+                    //                    if result.results.count != 0 {
+                    //                        self?.isDonePaginating = true
+                    //                    }
+                    
+                    
                     self?.movies += result.results
                     DispatchQueue.main.async {
                         self?.tableView.reloadData()
@@ -127,29 +183,48 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
             }
             
             return cell
-        }()
-        
-        return cell
-    }
-    
-    // Make the background color show through
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView()
-        headerView.backgroundColor = UIColor.clear
-        return headerView
-    }
-    
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
-    }
-    
-//    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
-//        let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: footerId)
-//        return footer
-//    }
+            
+        case false:
+            switch indexPath.section {
+            case 0:
+                guard let cell = tableView.dequeueReusableCell(withIdentifier: upcomingId, for: indexPath) as? MovieUpcomingCell else {
+                    return UITableViewCell(style: .default, reuseIdentifier: "defaultCell")
+                }
+                let list = listCells[indexPath.row]
+                cell.listCell = list
+                
+//                APIService.shared.fetchMoviesStat(typeOfRequest: Constants.upcoming) { [weak self] (result: ResultsMovie) in
 //
-//    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-//        let height: CGFloat = (isDonePaginating || self.currentPage > self.totalPages) ? 0 : 100
-//        return height
-//    }
+//                    self?.totalPages = result.total_pages ?? 1
+//                    self?.movies = result.results
+//                    self?.isUseMovies = true
+//
+//                    DispatchQueue.main.async {
+//                        self?.tableView.reloadData()
+//                    }
+//
+//                }
+                
+                return cell
+                
+            default:
+                return UITableViewCell(style: .default, reuseIdentifier: cellId)
+            }
+        }
+        
+    }
+    
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        switch isUseMovies {
+        case false:
+            if section == 0 {
+                return "Lists"
+            } else if section == 1 {
+                return "Section 1"
+            }
+        default:
+            return "Searched"
+        }
+        return nil
+    }
 }

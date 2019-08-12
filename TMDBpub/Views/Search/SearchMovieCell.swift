@@ -23,8 +23,6 @@ class SearchMovieCell: UITableViewCell {
             titleLabel.text = movie.title
             voteAverageLabel.text = String(movie.vote_average)
             
-            print(movie.title)
-            
             if let posterUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: movie.poster_path ?? "", posterSize: Constants.PosterSize.w154.rawValue)) {
                 posterImageView.sd_setImage(with: posterUrl)
             }
@@ -49,7 +47,7 @@ class SearchMovieCell: UITableViewCell {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         label.textColor = UIColor.black
-        label.text = "Приключения"
+        label.text = "Жанр"
         return label
     }()
     

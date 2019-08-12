@@ -12,11 +12,20 @@ class PopularMoviesControllers: BaseListController {
     
     var movies = [Movie]()
     var currentPage = 1
-    let typeOfRequest = "movie/popular"
+    var typeOfRequest = Constants.popularMovies
     var totalPages = 0
     
     let cellId = "cellId"
     fileprivate let footerId = "footerId"
+    
+    init(typeOfRequest: String) {
+        super.init()
+        self.typeOfRequest = typeOfRequest
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
