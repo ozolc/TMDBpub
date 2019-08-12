@@ -82,7 +82,6 @@ class MovieDetailController: UITableViewController {
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: middleId) as! MovieDetailMiddleCell
-        print("Middle cell")
         if let movie = self.movie {
             cell.movie = movie
         }

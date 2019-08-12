@@ -29,7 +29,9 @@ class MovieDetailCell: UITableViewCell {
             genreLabel.text = movie.genres?.first?.name
             
             if let backdropUrl = URL(string: Constants.fetchBackdropUrl(withBackdropPath: movie.backdrop_path ?? "", backdropSize: Constants.BackdropSize.w780.rawValue)) {
-                backdropImageView.sd_setImage(with: backdropUrl)
+                backdropImageView.sd_setImage(with: backdropUrl, placeholderImage: UIImage(named: Constants.moviePosterPlaceholderImageName), options: .continueInBackground) { (_, _, _, _) in
+                    self.backdropImageView.isHidden = false
+                }
             }
             
             if let miniPosterUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: movie.poster_path ?? "", posterSize: Constants.PosterSize.w92.rawValue)) {
@@ -98,7 +100,6 @@ class MovieDetailCell: UITableViewCell {
         return label
     }()
     
-    
     let tmdbImageView: UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "tmdb").withRenderingMode(.alwaysOriginal))
         iv.constrainHeight(constant: 35)
@@ -116,8 +117,9 @@ class MovieDetailCell: UITableViewCell {
     }()
     
     lazy var backdropImageView: UIImageView = {
-        let iv = UIImageView(image: nil)
+        let iv = UIImageView(image: UIImage(named: Constants.moviePosterPlaceholderImageName))
         iv.contentMode = .scaleAspectFill
+        iv.isHidden = true
         return iv
     }()
     
@@ -125,6 +127,7 @@ class MovieDetailCell: UITableViewCell {
         let iv = UIImageView(image: nil)
         iv.layer.cornerRadius = 8
         iv.clipsToBounds = true
+        iv.backgroundColor = .clear
         iv.layer.borderWidth = 0.1
         iv.layer.borderColor = UIColor.white.cgColor
         return iv
@@ -134,6 +137,7 @@ class MovieDetailCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = .white
+        setupGradientLayer()
         setupLayout()
     }
     
@@ -145,7 +149,7 @@ class MovieDetailCell: UITableViewCell {
         backdropImageView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor)
         backdropImageView.constrainHeight(constant: 300)
         
-        setupGradientLayer()
+//        setupGradientLayer()
         
         let posterView = UIView()
         posterView.layer.shadowOpacity = 0.1
@@ -178,7 +182,7 @@ class MovieDetailCell: UITableViewCell {
             countryLabel,
             UIView()
             ])
-        sideTopStackView.spacing = 6
+        sideTopStackView.spacing = 8
         sideTopStackView.distribution = .fill
         
         backgrondView.addSubview(sideTopStackView)
