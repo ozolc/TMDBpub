@@ -24,7 +24,7 @@ class SearchMovieCell: UITableViewCell {
             voteAverageLabel.text = String(movie.vote_average)
             
             if let posterUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: movie.poster_path ?? "", posterSize: Constants.PosterSize.w154.rawValue)) {
-                posterImageView.sd_setImage(with: posterUrl)
+                posterImageView.sd_setImage(with: posterUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"), options: .continueInBackground, completed: nil)
             }
             
             let attributedReleaseDateText = NSMutableAttributedString(string: "Дата выхода: ", attributes: [.foregroundColor: UIColor.black, .font: UIFont.systemFont(ofSize: 12, weight: .bold)])
@@ -89,6 +89,7 @@ class SearchMovieCell: UITableViewCell {
         backgroundColor = .white
         setupLayout()
         selectionStyle = .none
+        
     }
     
     fileprivate func setupLayout() {

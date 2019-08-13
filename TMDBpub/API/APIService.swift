@@ -14,7 +14,7 @@ class APIService {
     // singleton
     static let shared = APIService()
     
-    func fetchMoviesStat<T: Decodable>(typeOfRequest: String, query: String? = nil, page: Int? = nil, include_adult: Bool? = nil, completionHandler: @escaping (T) -> ()) {
+    func fetchMoviesStat<T: Decodable>(typeOfRequest: String, query: String? = nil, page: Int? = nil, include_adult: Bool? = nil, with_genres: String? = nil, completionHandler: @escaping (T) -> ()) {
         
         var parameters = [
             "api_key": Constants.apiKey,
@@ -29,9 +29,15 @@ class APIService {
             parameters["include_adult"] = true
         }
         
+        if with_genres != nil {
+            parameters["with_genres"] = with_genres
+        }
+        
         if query != nil {
             parameters["query"] = query
         }
+        
+        
         
         let requestURL = Constants.baseURL + typeOfRequest
         AF.request(requestURL, method: .get, parameters: parameters, encoding: URLEncoding.default).response { (dataResponse) in
@@ -44,6 +50,7 @@ class APIService {
             do {
                 let objects = try JSONDecoder().decode(T.self, from: data)
                 completionHandler(objects)
+                
             } catch let decodeErr {
                 print("Failed to decode:", decodeErr)
             }

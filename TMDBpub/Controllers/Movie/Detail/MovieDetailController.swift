@@ -61,11 +61,11 @@ class MovieDetailController: UITableViewController {
         
         dispatchGroup.enter()
         let typeOfRequest = "movie/\(movieId ?? 0)"
-        APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest) { (movie: Movie) in
+        APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, completionHandler:  { (movie: Movie) in
             
             self.movie = movie
             dispatchGroup.leave()
-        }
+        })
         
         dispatchGroup.notify(queue: .main) {
             LoaderController.sharedInstance.removeLoader()

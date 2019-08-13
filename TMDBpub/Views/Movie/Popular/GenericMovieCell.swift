@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class PopularMovieCell: UICollectionViewCell {
+class GenericMovieCell: UICollectionViewCell {
     
     var movie: Movie! {
         didSet {
@@ -17,7 +17,7 @@ class PopularMovieCell: UICollectionViewCell {
             originalTitleLabel.text = movie.original_title
             
             if let posterUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: movie.poster_path ?? "", posterSize: Constants.PosterSize.w154.rawValue)) {
-                posterImageView.sd_setImage(with: posterUrl)
+                posterImageView.sd_setImage(with: posterUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"), options: .continueInBackground, completed: nil)
             }
         }
     }

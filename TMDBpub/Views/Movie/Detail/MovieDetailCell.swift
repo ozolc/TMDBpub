@@ -28,8 +28,7 @@ class MovieDetailCell: UITableViewCell {
             }
             
             countryLabel.text = movie.production_countries?.first?.iso_3166_1 ?? ""
-//            genreLabel.text = movie.genres.
-//            ge first?.name
+            genreLabel.text = movie.genres?.first?.name
             
             if let backdropUrl = URL(string: Constants.fetchBackdropUrl(withBackdropPath: movie.backdrop_path ?? "", backdropSize: Constants.BackdropSize.w780.rawValue)) {
                 backdropImageView.sd_setImage(with: backdropUrl, placeholderImage: UIImage(named: Constants.moviePosterPlaceholderImageName), options: .continueInBackground) { (_, _, _, _) in

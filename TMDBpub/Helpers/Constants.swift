@@ -18,6 +18,7 @@ struct Constants {
     static let searchMovies = "search/movie"
     static let popularMovies = "movie/popular"
     static let infoAboutGenre = "genre/movie/list"
+    static let discoverMovie = "discover/movie"
     static let moviePosterPlaceholderImageName = "placeholder.png"
     static let language = "ru-RU"
     

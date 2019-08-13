@@ -14,32 +14,16 @@ class MainTabBarController: UITabBarController {
         super .viewDidLoad()
         
         setupViewControllers()
-    }
-
-//        DispatchQueue.background(delay: 3.0, background: {
-//            self.getGenresArray()
-//        }) {
-//            genresArray.forEach( { print($0.name)})
-//        }
-//    }
-    
-    func getGenresArray() {
-        let infoAboutGenre = Constants.infoAboutGenre
-        LoaderController.sharedInstance.showLoader()
-        APIService.shared.fetchMoviesStat(typeOfRequest: infoAboutGenre, completionHandler: { (genre: Genre) in
-            genresArray += genre.genres
-            
-                LoaderController.sharedInstance.removeLoader()
-        })
+        
     }
     
     func setupViewControllers() {
         viewControllers = [
-            generateNavigationController(for: SearchMovieController(), title: "Search", image: #imageLiteral(resourceName: "search").withRenderingMode(.alwaysOriginal)),
-            generateNavigationController(for: PopularMoviesControllers(typeOfRequest: Constants.popularMovies), title: "Popular", image: #imageLiteral(resourceName: "Popular").withRenderingMode(.alwaysOriginal)),
+            generateNavigationController(for: SearchMovieController(), title: "Поиск", image: #imageLiteral(resourceName: "search").withRenderingMode(.alwaysOriginal)),
+            generateNavigationController(for: GenericMoviesControllers(typeOfRequest: Constants.popularMovies), title: "Популярные", image: #imageLiteral(resourceName: "popular").withRenderingMode(.alwaysOriginal)),
         ]
         
-//        getGenresArray()
+        
     }
     
     //MARK: - Helper Functions

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PopularMovieFooter: UICollectionReusableView {
+class GenericMovieFooter: UICollectionReusableView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)

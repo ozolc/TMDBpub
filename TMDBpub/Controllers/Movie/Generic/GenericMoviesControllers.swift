@@ -8,43 +8,56 @@
 
 import UIKit
 
-class PopularMoviesControllers: BaseListController {
+class GenericMoviesControllers: BaseListController {
     
     var movies = [Movie]()
     var currentPage = 1
-    var typeOfRequest = Constants.popularMovies
+    var typeOfRequest = ""
     var totalPages = 0
+    var with_genres: String? = nil
     
-    let cellId = "cellId"
+    fileprivate let cellId = "cellId"
     fileprivate let footerId = "footerId"
     
-    init(typeOfRequest: String) {
+    init(_ coder: NSCoder? = nil, typeOfRequest: String) {
         super.init()
         self.typeOfRequest = typeOfRequest
+    }
+    
+    init(_ coder: NSCoder?, typeOfRequest: String, with_genres: String) {
+        self.typeOfRequest = typeOfRequest
+        self.with_genres = with_genres
+        print("from init",with_genres)
+        
+        if let coder = coder {
+            super.init(coder: coder)!
+        } else {
+            super.init()
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         collectionView.backgroundColor = .white
         
-        collectionView.register(PopularMovieCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.register(PopularMovieFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerId)
+        collectionView.register(GenericMovieCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView.register(GenericMovieFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerId)
         
         fetchData()
     }
     
     fileprivate func fetchData() {
-        APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, page: self.currentPage) { [weak self] (result: ResultsMovie) in
+        APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, page: self.currentPage, with_genres: with_genres ,completionHandler: { [weak self] (result: ResultsMovie) in
             
             self?.totalPages = result.total_pages ?? 1
             self?.movies = result.results
             self?.collectionView.reloadData()
-        }
+        })
     }
     
     // MARK: - UICollectionView
@@ -56,7 +69,7 @@ class PopularMoviesControllers: BaseListController {
     var isDonePaginating = false
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! PopularMovieCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! GenericMovieCell
         
         let movie = self.movies[indexPath.item]
         cell.movie = movie
@@ -69,7 +82,7 @@ class PopularMoviesControllers: BaseListController {
 
             isPaginating = true
             
-            APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, page: currentPage) { [weak self] (result: ResultsMovie) in
+            APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, page: currentPage, with_genres: with_genres, completionHandler: { [weak self] (result: ResultsMovie) in
 
                 if result.results.count == 0 {
                     self?.isDonePaginating = true
@@ -80,7 +93,7 @@ class PopularMoviesControllers: BaseListController {
                     self?.collectionView.reloadData()
                 }
                 self?.isPaginating = false
-            }
+            })
         }
         
         return cell
