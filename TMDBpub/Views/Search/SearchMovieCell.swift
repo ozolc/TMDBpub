@@ -107,7 +107,7 @@ class SearchMovieCell: UITableViewCell {
         
         addSubview(overallStackView)
         overallStackView.fillSuperview(padding: .init(top: 8, left: 16, bottom: 8, right: 26))
-        addSeparator(at: .bottom,
+        addSeparator(at: [.bottom],
                      color: UIColor.init(white: 0.75, alpha: 1),
                      weight: 1,
                      insets: .init(top: 5, left: 15, bottom: 0, right: 15))

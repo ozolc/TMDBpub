@@ -14,11 +14,10 @@ class APIService {
     // singleton
     static let shared = APIService()
     
-    func fetchMoviesStat<T: Decodable>(typeOfRequest: String, query: String? = nil, page: Int? = nil, include_adult: Bool? = nil, with_genres: String? = nil, completionHandler: @escaping (T) -> ()) {
+    func fetchMoviesStat<T: Decodable>(typeOfRequest: String, query: String? = nil, page: Int? = nil, include_adult: Bool? = nil, with_genres: String? = nil, language: String? = nil, completionHandler: @escaping (T) -> ()) {
         
         var parameters = [
-            "api_key": Constants.apiKey,
-            "language": Constants.language,
+            "api_key": Constants.apiKey
             ] as [String : Any]
         
         if page != nil {
@@ -37,6 +36,11 @@ class APIService {
             parameters["query"] = query
         }
         
+        if language != nil {
+            parameters["language"] = language
+        }
+            
+        
         
         
         let requestURL = Constants.baseURL + typeOfRequest
@@ -48,6 +52,7 @@ class APIService {
             }
             guard let data = dataResponse.data else { return }
             do {
+                print(dataResponse.request)
                 let objects = try JSONDecoder().decode(T.self, from: data)
                 completionHandler(objects)
                 

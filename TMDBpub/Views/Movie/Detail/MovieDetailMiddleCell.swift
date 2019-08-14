@@ -34,7 +34,7 @@ class MovieDetailMiddleCell: UITableViewCell {
     }
     
     fileprivate func setupLayout() {
-        addSeparator(at: .top,
+        addSeparator(at: [.top],
                      color: UIColor.init(white: 0.75, alpha: 1),
                      weight: 1,
                      insets: .init(top: 5, left: 15, bottom: 0, right: 15))

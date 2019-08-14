@@ -12,6 +12,7 @@ class MovieDetailController: UITableViewController {
     
     fileprivate var movieId: Int!
     fileprivate var movie: Movie!
+    fileprivate var reviews: Review!
     
     // dependency injection constructor
     init(movieId: Int) {
@@ -20,6 +21,7 @@ class MovieDetailController: UITableViewController {
     }
     
     let cellId = "cellId"
+    let toolId = "toolId"
     let middleId = "middleId"
     
     override func viewDidLoad() {
@@ -33,6 +35,7 @@ class MovieDetailController: UITableViewController {
     
     fileprivate func setupTableView() {
         tableView.register(MovieDetailCell.self, forCellReuseIdentifier: cellId)
+        tableView.register(MovieDetailTool.self, forCellReuseIdentifier: toolId)
         tableView.register(MovieDetailMiddleCell.self, forCellReuseIdentifier: middleId)
         
         tableView.backgroundColor = .white
@@ -44,7 +47,7 @@ class MovieDetailController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     fileprivate func setupVisualBlurEffectView() {
@@ -61,9 +64,10 @@ class MovieDetailController: UITableViewController {
         
         dispatchGroup.enter()
         let typeOfRequest = "movie/\(movieId ?? 0)"
-        APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, completionHandler:  { (movie: Movie) in
+        APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, completionHandler:  {[weak self] (movie: Movie) in
             
-            self.movie = movie
+            self?.movie = movie
+            self?.fetchReview(byId: self?.movieId ?? 0)
             dispatchGroup.leave()
         })
         
@@ -73,11 +77,25 @@ class MovieDetailController: UITableViewController {
         }
     }
     
+    fileprivate func fetchReview(byId id: Int) {
+        let typeOfRequest = "movie/\(movieId ?? 0)/reviews"
+        APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, completionHandler:  { (reviews: Review) in
+//            print(reviews)
+            self.reviews = reviews
+        })
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! MovieDetailCell
             if let movie = self.movie {
                 cell.movie = movie
+            }
+            return cell
+        } else if indexPath.row == 1 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: toolId) as! MovieDetailTool
+            if let reviews = self.reviews  {
+                cell.reviews = reviews
             }
             return cell
         }

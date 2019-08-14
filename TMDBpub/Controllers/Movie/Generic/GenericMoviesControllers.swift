@@ -27,7 +27,6 @@ class GenericMoviesControllers: BaseListController {
     init(_ coder: NSCoder?, typeOfRequest: String, with_genres: String) {
         self.typeOfRequest = typeOfRequest
         self.with_genres = with_genres
-        print("from init",with_genres)
         
         if let coder = coder {
             super.init(coder: coder)!
