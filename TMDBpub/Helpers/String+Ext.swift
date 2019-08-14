@@ -1,5 +1,5 @@
 //
-//  Substring+Ext.swift
+//  String+Ext.swift
 //  TMDBpub
 //
 //  Created by Maksim Nosov on 11/08/2019.
@@ -11,5 +11,14 @@ import Foundation
 extension Substring {
     func toYear() -> String {
         return String(self.prefix(4))
+    }
+}
+
+extension StringProtocol {
+    var firstUppercased: String {
+        return prefix(1).uppercased() + dropFirst()
+    }
+    var firstCapitalized: String {
+        return prefix(1).capitalized + dropFirst()
     }
 }

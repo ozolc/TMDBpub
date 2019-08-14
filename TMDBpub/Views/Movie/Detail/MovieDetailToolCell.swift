@@ -11,7 +11,8 @@ import UIKit
 protocol MovieDetailToolCellDelegate: class {
     // Method used to tell the delegate that the button was pressed in the subview.
     // You can add parameters here as you like.
-    func buttonWasPressed(sender: MovieDetailToolCell)
+    func reviewButtonPressed(sender: MovieDetailToolCell)
+    func castButtonPressed(sender: MovieDetailToolCell)
 }
 
 class MovieDetailToolCell: UITableViewCell {
@@ -60,16 +61,12 @@ class MovieDetailToolCell: UITableViewCell {
         return titleButton
     }
     
-    @objc fileprivate func handleTapReviews() {
-        delegate?.buttonWasPressed(sender: self)
-    }
-    
     fileprivate func setupLayout() {
         let toolsStackView = UIStackView(arrangedSubviews: [
-            createButtonView(withImage: #imageLiteral(resourceName: "reviews"), andCaption: "Отзывы", action: #selector(handleTapReviews)),
-            createButtonView(withImage: #imageLiteral(resourceName: "cast"), andCaption: "Актёры", action: #selector(handleTapReviews)),
-            createButtonView(withImage: #imageLiteral(resourceName: "playVideo"), andCaption: "Трейлеры", action: #selector(handleTapReviews)),
-            createButtonView(withImage: #imageLiteral(resourceName: "similarMovies"), andCaption: "Похожие", action: #selector(handleTapReviews))
+            createButtonView(withImage: #imageLiteral(resourceName: "reviews"), andCaption: "Отзывы", action: #selector(handleReviewTapped)),
+            createButtonView(withImage: #imageLiteral(resourceName: "cast"), andCaption: "Состав", action: #selector(handleCastTapped)),
+            createButtonView(withImage: #imageLiteral(resourceName: "playVideo"), andCaption: "Трейлеры", action: #selector(handleReviewTapped)),
+            createButtonView(withImage: #imageLiteral(resourceName: "similarMovies"), andCaption: "Похожие", action: #selector(handleReviewTapped))
             ])
         
         toolsStackView.distribution = .fillEqually
@@ -81,6 +78,14 @@ class MovieDetailToolCell: UITableViewCell {
         
         addSubview(toolsStackView)
         toolsStackView.fillSuperview(padding: .init(top: 4, left: 16, bottom: 16, right: 16))
+    }
+    
+    @objc fileprivate func handleReviewTapped() {
+        delegate?.reviewButtonPressed(sender: self)
+    }
+    
+    @objc fileprivate func handleCastTapped() {
+        delegate?.castButtonPressed(sender: self)
     }
     
     required init?(coder aDecoder: NSCoder) {

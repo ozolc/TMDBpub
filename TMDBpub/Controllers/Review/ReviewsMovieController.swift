@@ -25,7 +25,7 @@ class ReviewsMovieController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        LoaderController.sharedInstance.showLoader()
+        LoaderController.shared.showLoader()
         fetchReview(byId: movieId)
         
         setupTableView()
@@ -59,7 +59,7 @@ class ReviewsMovieController: UITableViewController {
             dispatchGroup.leave()
             
             dispatchGroup.notify(queue: .main) {
-                LoaderController.sharedInstance.removeLoader()
+                LoaderController.shared.removeLoader()
                 self?.tableView.reloadData()
             }
         })

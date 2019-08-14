@@ -44,7 +44,7 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
 
     func loadingGenresFromNet() {
         let infoAboutGenre = Constants.infoAboutGenre
-        APIService.shared.fetchMoviesStat(typeOfRequest: infoAboutGenre, completionHandler: { [weak self] (genre: Genre) in
+        APIService.shared.fetchMoviesStat(typeOfRequest: infoAboutGenre, language: Constants.language, completionHandler: { [weak self] (genre: Genre) in
             genresArray += genre.genres
             
             DispatchQueue.main.async {
@@ -140,7 +140,7 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
                 let genre = genresArray[indexPath.row]
                 let with_genresString = String(genre.id)
                 controller = GenericMoviesControllers(nil, typeOfRequest: Constants.discoverMovie, with_genres: with_genresString)
-                controller.navigationItem.title = genre.name
+                controller.navigationItem.title = genre.name.firstCapitalized
                 navigationController?.pushViewController(controller, animated: true)
             }
         }

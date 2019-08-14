@@ -29,10 +29,10 @@ class MovieDetailController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        setupVisualBlurEffectView()
+        //        setupVisualBlurEffectView()
         setupTableView()
         
-        LoaderController.sharedInstance.showLoader()
+        LoaderController.shared.showLoader()
         fetchData()
     }
     
@@ -74,7 +74,7 @@ class MovieDetailController: UITableViewController {
         })
         
         dispatchGroup.notify(queue: .main) {
-            LoaderController.sharedInstance.removeLoader()
+            LoaderController.shared.removeLoader()
             self.tableView.reloadData()
         }
     }
@@ -89,14 +89,9 @@ class MovieDetailController: UITableViewController {
         }
         
         if indexPath.row == 1 {
-            print(indexPath.row)
             let cell = tableView.dequeueReusableCell(withIdentifier: toolId) as! MovieDetailToolCell
-            
             cell.delegate = self
-//            if let reviews = self.reviews  {
-//                cell.reviews = reviews
-//            }
-//            print(indexPath.row)
+            
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: middleId) as! MovieDetailMiddleCell
@@ -121,7 +116,14 @@ class MovieDetailController: UITableViewController {
 }
 
 extension MovieDetailController: MovieDetailToolCellDelegate {
-    func buttonWasPressed(sender: MovieDetailToolCell) {
+    func castButtonPressed(sender: MovieDetailToolCell) {
+        let typeOfRequest = "movie/\(movieId ?? 0)/credits"
+        let controller = CastMovieController(typeOfRequest: typeOfRequest)
+        controller.navigationItem.title = movie.title
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+    func reviewButtonPressed(sender: MovieDetailToolCell) {
         let controller = ReviewsMovieController(movieId: movieId)
         controller.navigationItem.title = movie.title
         navigationController?.pushViewController(controller, animated: true)

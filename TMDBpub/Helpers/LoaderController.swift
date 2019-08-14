@@ -10,7 +10,7 @@ import UIKit
 
 class LoaderController: NSObject {
     
-    static let sharedInstance = LoaderController()
+    static let shared = LoaderController()
     private let activityIndicator = UIActivityIndicatorView()
     
     //MARK: - Private Methods -
