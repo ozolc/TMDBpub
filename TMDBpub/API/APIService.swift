@@ -39,9 +39,6 @@ class APIService {
         if language != nil {
             parameters["language"] = language
         }
-            
-        
-        
         
         let requestURL = Constants.baseURL + typeOfRequest
         AF.request(requestURL, method: .get, parameters: parameters, encoding: URLEncoding.default).response { (dataResponse) in
@@ -52,7 +49,6 @@ class APIService {
             }
             guard let data = dataResponse.data else { return }
             do {
-                print(dataResponse.request)
                 let objects = try JSONDecoder().decode(T.self, from: data)
                 completionHandler(objects)
                 

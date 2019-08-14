@@ -10,6 +10,8 @@ import UIKit
 
 class MovieDetailController: UITableViewController {
     
+    weak var movieDetailToolCellView: MovieDetailToolCell?
+    
     fileprivate var movieId: Int!
     fileprivate var movie: Movie!
     fileprivate var reviews: Review!
@@ -26,7 +28,8 @@ class MovieDetailController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupVisualBlurEffectView()
+        
+//        setupVisualBlurEffectView()
         setupTableView()
         
         LoaderController.sharedInstance.showLoader()
@@ -35,7 +38,7 @@ class MovieDetailController: UITableViewController {
     
     fileprivate func setupTableView() {
         tableView.register(MovieDetailCell.self, forCellReuseIdentifier: cellId)
-        tableView.register(MovieDetailTool.self, forCellReuseIdentifier: toolId)
+        tableView.register(MovieDetailToolCell.self, forCellReuseIdentifier: toolId)
         tableView.register(MovieDetailMiddleCell.self, forCellReuseIdentifier: middleId)
         
         tableView.backgroundColor = .white
@@ -67,7 +70,6 @@ class MovieDetailController: UITableViewController {
         APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, completionHandler:  {[weak self] (movie: Movie) in
             
             self?.movie = movie
-            self?.fetchReview(byId: self?.movieId ?? 0)
             dispatchGroup.leave()
         })
         
@@ -77,14 +79,6 @@ class MovieDetailController: UITableViewController {
         }
     }
     
-    fileprivate func fetchReview(byId id: Int) {
-        let typeOfRequest = "movie/\(movieId ?? 0)/reviews"
-        APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, completionHandler:  { (reviews: Review) in
-//            print(reviews)
-            self.reviews = reviews
-        })
-    }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.row == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! MovieDetailCell
@@ -92,11 +86,17 @@ class MovieDetailController: UITableViewController {
                 cell.movie = movie
             }
             return cell
-        } else if indexPath.row == 1 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: toolId) as! MovieDetailTool
-            if let reviews = self.reviews  {
-                cell.reviews = reviews
-            }
+        }
+        
+        if indexPath.row == 1 {
+            print(indexPath.row)
+            let cell = tableView.dequeueReusableCell(withIdentifier: toolId) as! MovieDetailToolCell
+            
+            cell.delegate = self
+//            if let reviews = self.reviews  {
+//                cell.reviews = reviews
+//            }
+//            print(indexPath.row)
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: middleId) as! MovieDetailMiddleCell
@@ -118,4 +118,13 @@ class MovieDetailController: UITableViewController {
     required init?(coder aDecoder: NSCoder) {
         fatalError()
     }
+}
+
+extension MovieDetailController: MovieDetailToolCellDelegate {
+    func buttonWasPressed(sender: MovieDetailToolCell) {
+        let controller = ReviewsMovieController(movieId: movieId)
+        controller.navigationItem.title = movie.title
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
 }

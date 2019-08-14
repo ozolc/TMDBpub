@@ -151,8 +151,6 @@ class MovieDetailCell: UITableViewCell {
         backdropImageView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor)
         backdropImageView.constrainHeight(constant: 300)
         
-//        setupGradientLayer()
-        
         let posterView = UIView()
         posterView.layer.shadowOpacity = 0.1
         posterView.layer.shadowRadius = 10

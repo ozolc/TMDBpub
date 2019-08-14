@@ -12,7 +12,7 @@ struct Review: Codable {
     let id: Int
     let page: Int
     let results: [ReviewResult]
-    let total_pages: Int
+    let total_pages: Int?
     let total_results: Int
 }
 

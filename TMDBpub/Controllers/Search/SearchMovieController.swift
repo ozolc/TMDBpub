@@ -281,7 +281,6 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
         title.frame =  CGRect(x: 16, y: 5, width: headerFrame.size.width-16, height: 20) //width equals to parent view with 10 left and right margin
         title.font = title.font.withSize(18)
         title.text = self.tableView(tableView, titleForHeaderInSection: section) //This will take title of section from 'titleForHeaderInSection' method or you can write directly
-//        title.textColor = UIColor.blue
         
         let headerView:UIView = UIView(frame: CGRect(x: 0, y: 0, width: headerFrame.size.width, height: headerFrame.size.height))
         headerView.backgroundColor = #colorLiteral(red: 0.9368147254, green: 0.9384798408, blue: 0.955131948, alpha: 1)

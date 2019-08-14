@@ -8,13 +8,16 @@
 
 import UIKit
 
-class MovieDetailTool: UITableViewCell {
+protocol MovieDetailToolCellDelegate: class {
+    // Method used to tell the delegate that the button was pressed in the subview.
+    // You can add parameters here as you like.
+    func buttonWasPressed(sender: MovieDetailToolCell)
+}
+
+class MovieDetailToolCell: UITableViewCell {
     
-    var reviews: Review! {
-        didSet {
-//            print("Reviews:",reviews.id)
-        }
-    }
+    // Define the view's delegate.
+    weak var delegate: MovieDetailToolCellDelegate?
     
     let reviewView: UIView = {
         let view = UIView()
@@ -35,60 +38,49 @@ class MovieDetailTool: UITableViewCell {
         setupLayout()
     }
     
-    fileprivate func createButtonView(withImage image: UIImage, andCaption text: String) -> UIView {
-//        let wrapperView: UIView = {
-//            let view = UIView()
-//            view.constrainHeight(constant: 50)
-//            view.constrainWidth(constant: 50)
-//            return view
-//        }()
+    fileprivate func createButtonView(withImage image: UIImage, andCaption text: String, action: Selector) -> UIButton {
         
-        let titleLabel: UILabel = {
-            let label = UILabel()
-            label.textAlignment = .center
-            label.textColor = .black
-            label.font = .systemFont(ofSize: 14, weight: .regular)
-            label.text = text
-            return label
+        let titleButton: UIButton = {
+            let button = UIButton()
+            button.setTitle(text, for: .normal)
+            button.setImage(image, for: .normal)
+            button.imageView?.contentMode = .scaleAspectFit
+            button.titleLabel?.font = .systemFont(ofSize: 14, weight: .regular)
+            button.setTitleColor(.black, for: .normal)
+            button.alignTextUnderImage()
+            button.addTarget(self, action: action, for: .touchUpInside)
+            return button
         }()
         
-        let imageView: UIImageView = {
-            let iv = UIImageView(image: image)
-            iv.contentMode = .scaleAspectFit
-            return iv
-        }()
+        titleButton.addSeparator(at: [ .top, .bottom, .right],
+                                       color: UIColor.init(white: 0.75, alpha: 1),
+                                       weight: 2,
+                                       insets: .init(top: -4, left: -2, bottom: -4, right: 0))
         
-        let verticalStackView = VerticalStackView(arrangedSubviews: [imageView, titleLabel], spacing: 2)
-        verticalStackView.alignment = .center
-        verticalStackView.constrainHeight(constant: 60)
-        
-        verticalStackView.addSeparator(at: [ .top, .bottom, .right],
-                                color: UIColor.init(white: 0.75, alpha: 1),
-                                weight: 2,
-                                insets: .init(top: -4, left: -2, bottom: -4, right: -4))
-//        wrapperView.addSubview(imageView)
-//        wrapperView.fillSuperview(padding: .init(top: 4, left: 4, bottom: 4, right: 4))
-        return verticalStackView
+        return titleButton
+    }
+    
+    @objc fileprivate func handleTapReviews() {
+        delegate?.buttonWasPressed(sender: self)
     }
     
     fileprivate func setupLayout() {
         let toolsStackView = UIStackView(arrangedSubviews: [
-            createButtonView(withImage: #imageLiteral(resourceName: "reviews"), andCaption: "Reviews"),
-            createButtonView(withImage: #imageLiteral(resourceName: "cast"), andCaption: "Credits"),
-            createButtonView(withImage: #imageLiteral(resourceName: "playVideo"), andCaption: "Trailers"),
-            createButtonView(withImage: #imageLiteral(resourceName: "similarMovies"), andCaption: "Similars")
+            createButtonView(withImage: #imageLiteral(resourceName: "reviews"), andCaption: "Отзывы", action: #selector(handleTapReviews)),
+            createButtonView(withImage: #imageLiteral(resourceName: "cast"), andCaption: "Актёры", action: #selector(handleTapReviews)),
+            createButtonView(withImage: #imageLiteral(resourceName: "playVideo"), andCaption: "Трейлеры", action: #selector(handleTapReviews)),
+            createButtonView(withImage: #imageLiteral(resourceName: "similarMovies"), andCaption: "Похожие", action: #selector(handleTapReviews))
             ])
         
         toolsStackView.distribution = .fillEqually
         toolsStackView.addSeparator(at: [.right],
                           color: UIColor.white,
                           weight: 2,
-                          insets: .init(top: -2, left: -2, bottom: -2, right: -4))
+                          insets: .init(top: -2, left: -4, bottom: -2, right: 0))
+        toolsStackView.constrainHeight(constant: 100)
         
         addSubview(toolsStackView)
-        toolsStackView.fillSuperview(padding: .init(top: 16, left: 16, bottom: 16, right: 16))
-//        toolsStackView.fillSuperview()
-        
+        toolsStackView.fillSuperview(padding: .init(top: 4, left: 16, bottom: 16, right: 16))
     }
     
     required init?(coder aDecoder: NSCoder) {

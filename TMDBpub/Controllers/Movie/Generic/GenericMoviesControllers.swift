@@ -55,7 +55,11 @@ class GenericMoviesControllers: BaseListController {
             
             self?.totalPages = result.total_pages ?? 1
             self?.movies = result.results
-            self?.collectionView.reloadData()
+            
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+            
         })
     }
     
