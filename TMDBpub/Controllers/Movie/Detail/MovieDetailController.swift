@@ -129,6 +129,14 @@ extension MovieDetailController: MovieDetailToolCellDelegate {
         controller.navigationItem.title = movie.title
         navigationController?.pushViewController(controller, animated: true)
     }
+    
+    func trailersButtonPressed(sender: MovieDetailToolCell) {
+        let movieIdString = String(movieId)
+        let controller = TrailerMovieController(movieId: movieIdString)
+        controller.navigationItem.title = movie.title
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
     func similarsButtonPressed(sender: MovieDetailToolCell) {
         let typeOfRequest = "movie/\(movieId ?? 0)/similar"
         let controller = GenericMoviesControllers(typeOfRequest: typeOfRequest)

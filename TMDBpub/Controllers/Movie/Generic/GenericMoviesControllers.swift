@@ -11,9 +11,9 @@ import UIKit
 class GenericMoviesControllers: BaseListController {
     
     var movies = [Movie]()
-    var currentPage = 1
+    var currentPage = AppState.shared.currentPage
     var typeOfRequest = ""
-    var totalPages = 0
+    var totalPages = AppState.shared.totalPages
     var with_genres: String? = nil
     
     fileprivate let cellId = "cellId"
@@ -39,15 +39,20 @@ class GenericMoviesControllers: BaseListController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView.backgroundColor = .white
         
+        AppState.shared.resetPageDetails()
+        
+        setupCollectionView()
+        fetchData()
+    }
+    
+    
+    fileprivate func setupCollectionView() {
+        collectionView.backgroundColor = .white
         collectionView.register(GenericMovieCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(GenericMovieFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerId)
-        
-        fetchData()
     }
     
     fileprivate func fetchData() {

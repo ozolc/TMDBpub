@@ -11,7 +11,7 @@ import UIKit
 class ReviewsMovieController: UITableViewController {
     
     var reviews = [ReviewResult]()
-    var totalPages = 0
+    var totalPages = AppState.shared.totalPages
     
     fileprivate var movieId: Int!
     fileprivate let reviewId = "reviewId"
@@ -24,6 +24,8 @@ class ReviewsMovieController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        AppState.shared.resetPageDetails()
         
         LoaderController.shared.showLoader()
         fetchReview(byId: movieId)

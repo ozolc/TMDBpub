@@ -32,7 +32,7 @@ class LoaderController: NSObject {
             self.activityIndicator.center = holdingView.center
             self.activityIndicator.startAnimating()
             holdingView.addSubview(self.activityIndicator)
-            UIApplication.shared.beginIgnoringInteractionEvents()
+//            UIApplication.shared.beginIgnoringInteractionEvents()
         }
     }
     
@@ -40,7 +40,7 @@ class LoaderController: NSObject {
         DispatchQueue.main.async {
             self.activityIndicator.stopAnimating()
             self.activityIndicator.removeFromSuperview()
-            UIApplication.shared.endIgnoringInteractionEvents()
+//            UIApplication.shared.endIgnoringInteractionEvents()
         }
     }
 }

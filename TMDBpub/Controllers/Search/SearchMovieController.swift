@@ -9,10 +9,10 @@
 import UIKit
 class SearchMovieController: UITableViewController, UISearchBarDelegate {
     
-    fileprivate var currentPage = 1
+    fileprivate var currentPage = AppState.shared.currentPage
     fileprivate let typeOfRequest = Constants.searchMovies
     fileprivate let infoAboutMovie = "/movie/"
-    fileprivate var totalPages = 0
+    fileprivate var totalPages = AppState.shared.totalPages
     fileprivate var query = ""
     
     fileprivate var movies = [Movie]()
@@ -33,6 +33,8 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        AppState.shared.resetPageDetails()
         
         setupTableView()
         setupSearchBar()
