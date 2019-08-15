@@ -116,6 +116,7 @@ class MovieDetailController: UITableViewController {
 }
 
 extension MovieDetailController: MovieDetailToolCellDelegate {
+    
     func castButtonPressed(sender: MovieDetailToolCell) {
         let typeOfRequest = "movie/\(movieId ?? 0)/credits"
         let controller = CastMovieController(typeOfRequest: typeOfRequest)
@@ -126,6 +127,12 @@ extension MovieDetailController: MovieDetailToolCellDelegate {
     func reviewButtonPressed(sender: MovieDetailToolCell) {
         let controller = ReviewsMovieController(movieId: movieId)
         controller.navigationItem.title = movie.title
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    func similarsButtonPressed(sender: MovieDetailToolCell) {
+        let typeOfRequest = "movie/\(movieId ?? 0)/similar"
+        let controller = GenericMoviesControllers(typeOfRequest: typeOfRequest)
+        controller.navigationItem.title = "Похожие фильмы"
         navigationController?.pushViewController(controller, animated: true)
     }
     

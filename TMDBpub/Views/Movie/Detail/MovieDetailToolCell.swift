@@ -13,6 +13,8 @@ protocol MovieDetailToolCellDelegate: class {
     // You can add parameters here as you like.
     func reviewButtonPressed(sender: MovieDetailToolCell)
     func castButtonPressed(sender: MovieDetailToolCell)
+    
+    func similarsButtonPressed(sender: MovieDetailToolCell)
 }
 
 class MovieDetailToolCell: UITableViewCell {
@@ -66,7 +68,7 @@ class MovieDetailToolCell: UITableViewCell {
             createButtonView(withImage: #imageLiteral(resourceName: "reviews"), andCaption: "Отзывы", action: #selector(handleReviewTapped)),
             createButtonView(withImage: #imageLiteral(resourceName: "cast"), andCaption: "Состав", action: #selector(handleCastTapped)),
             createButtonView(withImage: #imageLiteral(resourceName: "playVideo"), andCaption: "Трейлеры", action: #selector(handleReviewTapped)),
-            createButtonView(withImage: #imageLiteral(resourceName: "similarMovies"), andCaption: "Похожие", action: #selector(handleReviewTapped))
+            createButtonView(withImage: #imageLiteral(resourceName: "similarMovies"), andCaption: "Похожие", action: #selector(handleSimilarsTapped))
             ])
         
         toolsStackView.distribution = .fillEqually
@@ -86,6 +88,12 @@ class MovieDetailToolCell: UITableViewCell {
     
     @objc fileprivate func handleCastTapped() {
         delegate?.castButtonPressed(sender: self)
+    }
+    
+    
+    
+    @objc fileprivate func handleSimilarsTapped() {
+        delegate?.similarsButtonPressed(sender: self)
     }
     
     required init?(coder aDecoder: NSCoder) {
