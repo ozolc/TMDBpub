@@ -274,11 +274,15 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
         }
     }
     
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 24
+    }
+    
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerFrame = tableView.frame
         
         let title = UILabel()
-        title.frame =  CGRect(x: 16, y: 5, width: headerFrame.size.width-16, height: 20) //width equals to parent view with 10 left and right margin
+        title.frame =  CGRect(x: 16, y: 2, width: headerFrame.size.width-16, height: 20) //width equals to parent view with 10 left and right margin
         title.font = title.font.withSize(18)
         title.text = self.tableView(tableView, titleForHeaderInSection: section) //This will take title of section from 'titleForHeaderInSection' method or you can write directly
         
