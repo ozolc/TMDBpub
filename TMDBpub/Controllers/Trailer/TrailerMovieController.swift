@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVKit
 
 class TrailerMovieController: BaseListController {
     
@@ -48,6 +49,7 @@ class TrailerMovieController: BaseListController {
         })
     }
     
+    
     // MARK: - UICollectionView
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return videos.count
@@ -58,6 +60,10 @@ class TrailerMovieController: BaseListController {
         
         let video = self.videos[indexPath.item]
         cell.video = video
+        
+        cell.delegate = self
+        
+        cell.selectedCell = indexPath.item
         
         return cell
     }
@@ -79,6 +85,18 @@ class TrailerMovieController: BaseListController {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+}
+
+extension TrailerMovieController: TrailerCellDelegate {
+    
+    func didTrailerImageTapped(sender: TrailerMovieCell) {
+        let index = sender.thumbnailImageView.tag
+        let key = videos[index].key
+        let controller = YoutubePlayer(key: key)
+//        controller.navigationItem.title = "Похожие фильмы"
+        navigationController?.pushViewController(controller, animated: true)
     }
     
 }

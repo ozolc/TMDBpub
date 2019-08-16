@@ -36,6 +36,7 @@
 		B072280D2305944900DA248A /* TrailerMovieController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B072280C2305944900DA248A /* TrailerMovieController.swift */; };
 		B072280F230594A700DA248A /* Video.swift in Sources */ = {isa = PBXBuildFile; fileRef = B072280E230594A700DA248A /* Video.swift */; };
 		B0722812230595C500DA248A /* TrailerMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0722811230595C500DA248A /* TrailerMovieCell.swift */; };
+		B072281423068BEE00DA248A /* YoutubePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B072281323068BEE00DA248A /* YoutubePlayer.swift */; };
 		B0C6791122FFCFF200EC3C7A /* MovieDetailMiddleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6791022FFCFF200EC3C7A /* MovieDetailMiddleCell.swift */; };
 		B0C6791322FFE7AD00EC3C7A /* LoaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6791222FFE7AD00EC3C7A /* LoaderController.swift */; };
 		B0C6791523004A7D00EC3C7A /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6791423004A7D00EC3C7A /* String+Ext.swift */; };
@@ -92,6 +93,7 @@
 		B072280C2305944900DA248A /* TrailerMovieController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerMovieController.swift; sourceTree = "<group>"; };
 		B072280E230594A700DA248A /* Video.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Video.swift; sourceTree = "<group>"; };
 		B0722811230595C500DA248A /* TrailerMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerMovieCell.swift; sourceTree = "<group>"; };
+		B072281323068BEE00DA248A /* YoutubePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubePlayer.swift; sourceTree = "<group>"; };
 		B0C6791022FFCFF200EC3C7A /* MovieDetailMiddleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailMiddleCell.swift; sourceTree = "<group>"; };
 		B0C6791222FFE7AD00EC3C7A /* LoaderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderController.swift; sourceTree = "<group>"; };
 		B0C6791423004A7D00EC3C7A /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 				B0C679202300709700EC3C7A /* Search */,
 				B0DB173722FF067200323CEC /* Movie */,
 				B05330B522FDEB2C00ECA238 /* BaseListController.swift */,
+				B072281323068BEE00DA248A /* YoutubePlayer.swift */,
 				B0C6791C23006F0200EC3C7A /* HorizontalSnappingController.swift */,
 			);
 			path = Controllers;
@@ -564,6 +567,7 @@
 				B0DB172C22FEB8B900323CEC /* UILabel+Ext.swift in Sources */,
 				B02041992304904A0081D726 /* CrewMovieCell.swift in Sources */,
 				B020418C23042A6F0081D726 /* UIButton+Ext.swift in Sources */,
+				B072281423068BEE00DA248A /* YoutubePlayer.swift in Sources */,
 				B02041872303E3CB0081D726 /* Review.swift in Sources */,
 				B0DB173622FF01B500323CEC /* MovieDetailController.swift in Sources */,
 				B05330AD22FDE72B00ECA238 /* MainTabBarController.swift in Sources */,

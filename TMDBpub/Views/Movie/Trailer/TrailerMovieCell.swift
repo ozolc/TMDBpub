@@ -9,14 +9,23 @@
 import UIKit
 import WebKit
 
+protocol TrailerCellDelegate: class {
+    func didTrailerImageTapped(sender: TrailerMovieCell)
+}
+
 class TrailerMovieCell: UICollectionViewCell {
+    
+    var selectedCell: Int! {
+        didSet {
+            thumbnailImageView.tag = selectedCell
+        }
+    }
+    weak var delegate: TrailerCellDelegate?
     
     var video: VideoResult! {
         didSet {
             nameLabel.text = video.name
             typeLabel.text = video.type
-            
-//            loadYoutube(videoID: video.key)
             
             let urlString = Constants.imageYoutubeBaseURL + video.key + "/0.jpg"
             if let url = URL(string: urlString) {
@@ -24,21 +33,11 @@ class TrailerMovieCell: UICollectionViewCell {
             }
         }
     }
-    
-    lazy var webConfiguration: WKWebViewConfiguration = {
-        let config = WKWebViewConfiguration()
-        config.allowsInlineMediaPlayback = true
-        config.mediaTypesRequiringUserActionForPlayback = []
-        return config
-    }()
-    
-    lazy var wkWebView = WKWebView(frame: .zero, configuration: webConfiguration)
-    
+
     let nameLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = .black
-//        label.numberOfLines = 1
         return label
     }()
     
@@ -53,6 +52,10 @@ class TrailerMovieCell: UICollectionViewCell {
         let iv = UIImageView()
         iv.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
         iv.contentMode = .scaleAspectFit
+        iv.isUserInteractionEnabled = true
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleImageTapped))
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        iv.addGestureRecognizer(tapGestureRecognizer)
         return iv
     }()
     
@@ -64,20 +67,23 @@ class TrailerMovieCell: UICollectionViewCell {
         setupLayout()
     }
     
-    func loadYoutube(videoID: String) {
-        guard
-            let youtubeURL = URL(string: "https://www.youtube.com/embed/\(videoID)?playsinline=1")
-            else { return }
-        wkWebView.load( URLRequest(url: youtubeURL) )
-        print(youtubeURL.absoluteString)
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let touch = touches.first
+        if let cell = touch?.view?.superview?.superview as? TrailerMovieCell {
+            delegate?.didTrailerImageTapped(sender: cell)
+        }
+    }
+    
+    
+    @objc fileprivate func handleImageTapped() {
+        delegate?.didTrailerImageTapped(sender: self)
     }
     
     fileprivate func setupLayout() {
         let titleStackView = VerticalStackView(arrangedSubviews: [nameLabel, typeLabel, UIView()], spacing: 4)
         titleStackView.constrainHeight(constant: 50)
         titleStackView.alignment = .center
-//        titleStackView.distribution = .fillEqually
-//        titleStackView.backgroundColor = .yellow
         
         let overallStackView = VerticalStackView(arrangedSubviews: [thumbnailImageView, titleStackView])
         
