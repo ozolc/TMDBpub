@@ -8,9 +8,24 @@
 
 import UIKit
 import WebKit
+import UIKit.UIGestureRecognizerSubclass
 
 protocol TrailerCellDelegate: class {
     func didTrailerImageTapped(sender: TrailerMovieCell)
+}
+
+class UIShortTapGestureRecognizer: UITapGestureRecognizer {
+    let tapMaxDelay: Double = 0.3 //anything below 0.3 may cause doubleTap to be inaccessible by many users
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
+        super.touchesBegan(touches, with: event)
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + tapMaxDelay) { [weak self] in
+            if self?.state != UIGestureRecognizer.State.recognized {
+                self?.state = UIGestureRecognizer.State.failed
+            }
+        }
+    }
 }
 
 class TrailerMovieCell: UICollectionViewCell {
@@ -53,7 +68,7 @@ class TrailerMovieCell: UICollectionViewCell {
         iv.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
         iv.contentMode = .scaleAspectFit
         iv.isUserInteractionEnabled = true
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleImageTapped))
+        let tapGestureRecognizer = UIShortTapGestureRecognizer(target: self, action: #selector(handleImageTapped))
         tapGestureRecognizer.numberOfTapsRequired = 1
         iv.addGestureRecognizer(tapGestureRecognizer)
         return iv

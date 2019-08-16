@@ -22,6 +22,11 @@ class MainTabBarController: UITabBarController {
             generateNavigationController(for: GenericMoviesControllers(typeOfRequest: Constants.popularMovies), title: "Популярные", image: #imageLiteral(resourceName: "popular").withRenderingMode(.alwaysOriginal)),
             generateNavigationController(for: SearchMovieController(), title: "Поиск", image: #imageLiteral(resourceName: "search").withRenderingMode(.alwaysOriginal))
         ]
+        
+        let statusBarCover = UIView()
+        statusBarCover.backgroundColor = .clear
+        view.addSubview(statusBarCover)
+        statusBarCover.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor)
     }
     
     //MARK: - Helper Functions
