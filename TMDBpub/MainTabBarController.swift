@@ -27,6 +27,7 @@ class MainTabBarController: UITabBarController {
         statusBarCover.backgroundColor = .clear
         view.addSubview(statusBarCover)
         statusBarCover.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor)
+        
     }
     
     //MARK: - Helper Functions
@@ -37,7 +38,6 @@ class MainTabBarController: UITabBarController {
         navController.tabBarItem.title = title
         navController.tabBarItem.image = image
         return navController
-        
     }
     
     

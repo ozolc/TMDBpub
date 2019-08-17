@@ -31,6 +31,12 @@ class TrailerMovieController: BaseListController {
         fetchTrailers(byId: movieId)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = false
+        setupNavBar(isClear: false)
+    }
+    
     fileprivate func fetchTrailers(byId id: String) {
         
         let dispatchGroup = DispatchGroup()
