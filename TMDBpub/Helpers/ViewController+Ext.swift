@@ -42,15 +42,20 @@ extension UIViewController  {
         if isClear {
             self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
             self.navigationController?.navigationBar.shadowImage = UIImage()
+//
             self.navigationController?.navigationBar.isTranslucent = true
-            self.navigationController?.view.backgroundColor = UIColor.clear
-            self.navigationController?.navigationBar.tintColor = UIColor.white
+//
+//            self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.9490196078, green: 0.9882352941, blue: 0.9960784314, alpha: 1)
+//            self.navigationController?.view.backgroundColor = .clear
+            
         } else {
-            self.navigationController?.navigationBar.shadowImage = nil
-            self.navigationController?.navigationBar.shadowImage = nil
-            self.navigationController?.navigationBar.isTranslucent = false
-            self.navigationController?.view.backgroundColor = UIColor.white
-            self.navigationController?.navigationBar.tintColor = UIColor.black
+            navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
+            navigationController?.navigationBar.shadowImage = nil
+//
+            self.navigationController?.navigationBar.isOpaque = true
+//
+            self.navigationController?.navigationBar.barTintColor = nil
+            
         }
     }
 }

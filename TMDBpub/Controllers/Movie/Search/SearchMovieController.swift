@@ -38,7 +38,7 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
         
         setupTableView()
         setupSearchBar()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Grid").withRenderingMode(.alwaysOriginal), style: .plain, target: self, action: #selector(handleClearSearchResult))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Grid").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(handleClearSearchResult))
 
         loadingGenresFromNet()
 

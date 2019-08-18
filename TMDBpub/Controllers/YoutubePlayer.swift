@@ -14,8 +14,6 @@ extension WKWebView {
     }
 }
 
-
-
 class YoutubePlayer: UIViewController, WKUIDelegate, WKNavigationDelegate {
     
     let key: String!
@@ -61,15 +59,13 @@ class YoutubePlayer: UIViewController, WKUIDelegate, WKNavigationDelegate {
             setupNavBar(isClear: true)
         
         navigationController?.tabBarController?.tabBar.isHidden = true
-        
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         setupNavBar(isClear: false)
-        navigationController?.tabBarController?.tabBar.isHidden = false
         
+        navigationController?.tabBarController?.tabBar.isHidden = false
         // remove video listeners
         NotificationCenter.default.removeObserver(self, name: UIWindow.didBecomeVisibleNotification, object: view.window)
         NotificationCenter.default.removeObserver(self, name: UIWindow.didBecomeHiddenNotification, object: view.window)
@@ -106,7 +102,7 @@ class YoutubePlayer: UIViewController, WKUIDelegate, WKNavigationDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let imgBack = UIImage(named: "back")
+        let imgBack = UIImage(named: "back")?.withRenderingMode(.alwaysTemplate)
         navigationController?.navigationBar.backIndicatorImage = imgBack
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = imgBack
         navigationItem.leftItemsSupplementBackButton = true
