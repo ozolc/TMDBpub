@@ -96,6 +96,14 @@ class LoginController: UIViewController {
         setupLayout()
         
         setupBindables()
+        
+        APIService.shared.taskForGETMethod(method: Constants.AuthenticationTokenNew) { (result: RequestTokenResult?, err) in
+            if let err = err {
+                print("Error:", err)
+            } else {
+                print(result)
+            }
+        }
     }
     
     fileprivate func setupLayout() {

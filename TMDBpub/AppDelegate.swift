@@ -20,8 +20,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow()
         window?.makeKeyAndVisible()
-        window?.rootViewController = MainTabBarController()
-//        window?.rootViewController = LoginController()
+//        window?.rootViewController = MainTabBarController()
+        window?.rootViewController = LoginController()
         
         let navigationBarAppearnce = UINavigationBar.appearance()
 //        navigationBarAppearnce.backgroundColor = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 1)
@@ -34,8 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarAppearnce.tintColor = #colorLiteral(red: 0.2304878831, green: 0.3483577371, blue: 0.5966511965, alpha: 1) // Change selected icon color
         UITabBar.appearance().unselectedItemTintColor =  .gray
         navigationBarAppearnce.titleTextAttributes = [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2304878831, green: 0.3483577371, blue: 0.5966511965, alpha: 1)]
-        
-//
         
         return true
     }

@@ -35,6 +35,7 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
         super.viewDidLoad()
         
         AppState.shared.resetPageDetails()
+        navigationController?.navigationItem.hidesBackButton = true
         
         setupTableView()
         setupSearchBar()
@@ -54,7 +55,6 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
             }
         })
     }
-    
     
     @objc fileprivate func handleClearSearchResult() {
         movies.removeAll()

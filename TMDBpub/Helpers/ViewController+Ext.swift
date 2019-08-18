@@ -44,9 +44,8 @@ extension UIViewController  {
             self.navigationController?.navigationBar.shadowImage = UIImage()
 //
             self.navigationController?.navigationBar.isTranslucent = true
-//
-//            self.navigationController?.navigationBar.barTintColor = #colorLiteral(red: 0.9490196078, green: 0.9882352941, blue: 0.9960784314, alpha: 1)
-//            self.navigationController?.view.backgroundColor = .clear
+
+            self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 1)
             
         } else {
             navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
@@ -55,6 +54,7 @@ extension UIViewController  {
             self.navigationController?.navigationBar.isOpaque = true
 //
             self.navigationController?.navigationBar.barTintColor = nil
+            self.navigationController?.navigationBar.tintColor = #colorLiteral(red: 0.2304878831, green: 0.3483577371, blue: 0.5966511965, alpha: 1)
             
         }
     }

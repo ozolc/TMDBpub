@@ -26,6 +26,13 @@ class LoginViewModel {
         isLoggingIn.value = true
         
         print("Auth")
+        APIService.shared.authenticateWithViewController { (success, err) in
+            if success {
+                print("Auth without errors")
+            } else {
+                print("Error:", err)
+            }
+        }
 //        Auth.auth().signIn(withEmail: email, password: password) { (res, err) in
 //            completion(err)
 //        }

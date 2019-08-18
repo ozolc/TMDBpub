@@ -27,7 +27,7 @@ class SearchMovieCell: UITableViewCell {
                 posterImageView.sd_setImage(with: posterUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"), options: .continueInBackground, completed: nil)
             }
             
-            let attributedReleaseDateText = NSMutableAttributedString(string: "Дата выхода: ", attributes: [.foregroundColor: UIColor.black, .font: UIFont.systemFont(ofSize: 12, weight: .bold)])
+            let attributedReleaseDateText = NSMutableAttributedString(string: "Дата: ", attributes: [.foregroundColor: UIColor.black, .font: UIFont.systemFont(ofSize: 12, weight: .bold)])
             attributedReleaseDateText.append(NSAttributedString(string: movie.release_date, attributes: [.foregroundColor: UIColor.darkGray, .font: UIFont.systemFont(ofSize: 12, weight: .bold)]))
             releaseDateLabel.attributedText = attributedReleaseDateText
             
@@ -72,12 +72,14 @@ class SearchMovieCell: UITableViewCell {
     let tmdbImageView: UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "tmdb").withRenderingMode(.alwaysOriginal))
         iv.contentMode = .scaleAspectFit
+        iv.constrainWidth(constant: 15)
+        iv.constrainHeight(constant: 15)
         return iv
     }()
     
     let voteAverageLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 24, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         label.textColor = .black
         label.textAlignment = .center
         return label
@@ -97,7 +99,7 @@ class SearchMovieCell: UITableViewCell {
         infoStackView.distribution = .fillEqually
         
         let tmdbStackView = UIStackView(arrangedSubviews: [tmdbImageView, voteAverageLabel])
-        tmdbStackView.constrainWidth(constant: 90)
+        tmdbStackView.constrainWidth(constant: 50)
         tmdbStackView.spacing = 4
         tmdbStackView.distribution = .fillEqually
 
@@ -106,7 +108,7 @@ class SearchMovieCell: UITableViewCell {
         overallStackView.spacing = 8
         
         addSubview(overallStackView)
-        overallStackView.fillSuperview(padding: .init(top: 8, left: 16, bottom: 8, right: 26))
+        overallStackView.fillSuperview(padding: .init(top: 8, left: 16, bottom: 8, right: 16))
         addSeparator(at: [.bottom],
                      color: UIColor.init(white: 0.75, alpha: 1),
                      weight: 1,

@@ -12,7 +12,6 @@ class MainTabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super .viewDidLoad()
-        
         setupViewControllers()
         
     }
@@ -28,6 +27,12 @@ class MainTabBarController: UITabBarController {
         view.addSubview(statusBarCover)
         statusBarCover.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor)
         
+        let imgBack = UIImage(named: "back")?.withRenderingMode(.alwaysTemplate)
+        navigationController?.navigationBar.backIndicatorImage = imgBack
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = imgBack
+        navigationItem.leftItemsSupplementBackButton = true
+        navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        
     }
     
     //MARK: - Helper Functions
@@ -38,9 +43,9 @@ class MainTabBarController: UITabBarController {
         navController.tabBarItem.title = title
         navController.tabBarItem.image = image
         navController.navigationItem.hidesBackButton = true
-        
+//        navController.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         return navController
     }
     
-    
 }
+

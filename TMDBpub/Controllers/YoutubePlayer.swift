@@ -20,7 +20,7 @@ class YoutubePlayer: UIViewController, WKUIDelegate, WKNavigationDelegate {
     var didLoadVideo = false
     var widthVideo: CGFloat = 900
     var heightVideo: CGFloat = 720
-    var countFullscreen = 0
+//    var countFullscreen = 0
     var countStopped = 0
     
     var timer: Timer?
@@ -95,17 +95,13 @@ class YoutubePlayer: UIViewController, WKUIDelegate, WKNavigationDelegate {
             })
         }
         countStopped += 1
-        countFullscreen += 1
+//        countFullscreen += 1
         
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let imgBack = UIImage(named: "back")?.withRenderingMode(.alwaysTemplate)
-        navigationController?.navigationBar.backIndicatorImage = imgBack
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = imgBack
-        navigationItem.leftItemsSupplementBackButton = true
         navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         
         view.addSubview(mainView)

@@ -26,6 +26,18 @@ struct Constants {
     // MARK: Authentication
     static let AuthenticationTokenNew = "/authentication/token/new"
     
+    struct ParameterKeys {
+        static let ApiKey = "api_key"
+        static let SessionID = "session_id"
+        static let RequestToken = "request_token"
+        static let Query = "query"
+    }
+    
+    // authentication state
+    var requestToken: String? = nil
+    var sessionID: String? = nil
+    var userID: Int? = nil
+    
     struct ResponseKey {
         static let id = "id"
         static let title = "title"
