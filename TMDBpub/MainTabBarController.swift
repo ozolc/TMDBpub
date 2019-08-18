@@ -37,6 +37,8 @@ class MainTabBarController: UITabBarController {
         rootViewController.navigationItem.title = title
         navController.tabBarItem.title = title
         navController.tabBarItem.image = image
+        navController.navigationItem.hidesBackButton = true
+        
         return navController
     }
     

@@ -34,10 +34,6 @@ extension UIViewController  {
         }
         
         self.tabBarController?.tabBar.isHidden = hidden
-        
-        
-        
-//        self.setNeedsStatusBarAppearanceUpdate()
     }
     
     
@@ -48,11 +44,13 @@ extension UIViewController  {
             self.navigationController?.navigationBar.shadowImage = UIImage()
             self.navigationController?.navigationBar.isTranslucent = true
             self.navigationController?.view.backgroundColor = UIColor.clear
+            self.navigationController?.navigationBar.tintColor = UIColor.white
         } else {
             self.navigationController?.navigationBar.shadowImage = nil
             self.navigationController?.navigationBar.shadowImage = nil
             self.navigationController?.navigationBar.isTranslucent = false
             self.navigationController?.view.backgroundColor = UIColor.white
+            self.navigationController?.navigationBar.tintColor = UIColor.black
         }
     }
 }

@@ -45,7 +45,8 @@ class MovieDetailController: UITableViewController {
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
         tableView.alwaysBounceVertical = false
-        
+        tableView.showsVerticalScrollIndicator = false
+        tableView.bounces = false
         tableView.tableFooterView = UIView()
     }
     

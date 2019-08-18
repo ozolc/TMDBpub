@@ -22,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
         window?.rootViewController = MainTabBarController()
         
+        let navigationBarAppearnce = UINavigationBar.appearance()
+        navigationBarAppearnce.tintColor = UIColor.black
+        
         return true
     }
 

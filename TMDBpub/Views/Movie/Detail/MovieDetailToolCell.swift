@@ -58,7 +58,7 @@ class MovieDetailToolCell: UITableViewCell {
         titleButton.addSeparator(at: [ .top, .bottom, .right],
                                        color: UIColor.init(white: 0.75, alpha: 1),
                                        weight: 2,
-                                       insets: .init(top: -4, left: -2, bottom: -4, right: 0))
+                                       insets: .init(top: -4, left: 0, bottom: -4, right: 0))
         
         return titleButton
     }
@@ -75,7 +75,7 @@ class MovieDetailToolCell: UITableViewCell {
         toolsStackView.addSeparator(at: [.right],
                           color: UIColor.white,
                           weight: 2,
-                          insets: .init(top: -2, left: -4, bottom: -2, right: 0))
+                          insets: .init(top: -2, left: 0, bottom: -2, right: 0))
         toolsStackView.constrainHeight(constant: 100)
         
         addSubview(toolsStackView)

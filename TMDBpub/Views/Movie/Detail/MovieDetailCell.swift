@@ -36,7 +36,7 @@ class MovieDetailCell: UITableViewCell {
                 }
             }
             
-            if let miniPosterUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: movie.poster_path ?? "", posterSize: Constants.PosterSize.w92.rawValue)) {
+            if let miniPosterUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: movie.poster_path ?? "", posterSize: Constants.PosterSize.w185.rawValue)) {
                 miniPosterImageView.sd_setImage(with: miniPosterUrl)
             }
         }
@@ -182,7 +182,7 @@ class MovieDetailCell: UITableViewCell {
             countryLabel,
             UIView()
             ])
-        sideTopStackView.spacing = 8
+        sideTopStackView.spacing = 4
         sideTopStackView.distribution = .fill
         
         backgrondView.addSubview(sideTopStackView)
