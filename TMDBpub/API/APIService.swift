@@ -14,6 +14,11 @@ class APIService {
     // singleton
     static let shared = APIService()
     
+    // authentication state
+    var requestToken: String? = nil
+    var sessionID: String? = nil
+    var userID: Int? = nil
+    
     func fetchMoviesStat<T: Decodable>(typeOfRequest: String, query: String? = nil, page: Int? = nil, include_adult: Bool? = nil, with_genres: String? = nil, language: String? = nil, completionHandler: @escaping (T) -> ()) {
         
         var parameters = [
@@ -59,23 +64,15 @@ class APIService {
         }
     }
     
-    // MARK: GET
-    //    , completionHandler: @escaping (T) -> ()
-    
-    func taskForGETMethod<T: Decodable>(method: String, completionHandler: @escaping (_ result: T?, _ error: Error?) -> Void) {
-        //        ((_ success: Bool, _ result: [String]?) -> Void)?) {
-        //        (AnyObject?, NSError?) -> Void) {
-        
-        /* 1. Set the parameters */
-        let parameters = [
-            "api_key": Constants.apiKey
-            ] as [String : Any]
-        
+    func taskForGETMethod<T: Decodable>(method: String, parameters: [String: Any], httpMethod: HTTPMethod, completionHandler: @escaping (_ result: T?, _ error: Error?) -> Void) {
+
         /* 2/3. Build the URL, Configure the request */
         let requestURL = Constants.baseURL + method
         
-        AF.request(requestURL, method: .get, parameters: parameters, encoding: URLEncoding.default).responseJSON { (response) in
+        AF.request(requestURL, method: httpMethod, parameters: parameters, encoding: URLEncoding.default).responseJSON { (response) in
             let message: String
+            
+            print(response.request?.url)
             
             switch(response.result) {
             case .success:
@@ -111,18 +108,23 @@ class APIService {
             }
         }
     }
- 
+    
     private func getRequestToken(completionHandlerForToken: @escaping (_ success: Bool, _ requestToken: String?, _ errorString: String?) -> Void) {
         
+        /* 1. Set the parameters */
+        var parameters = [String: Any]()
+        parameters[Constants.ParameterKeys.ApiKey] = Constants.apiKey
+        
         /* 1. Make the request */
-        taskForGETMethod(method: Constants.AuthenticationTokenNew) { (results: RequestTokenResult?, error) in
-            
+        taskForGETMethod(method: Constants.AuthenticationTokenNew, parameters: parameters, httpMethod: .get) { (results: RequestTokenResult?, error) in
+
             /* 2. Send the desired value(s) to completion handler */
             if let error = error {
                 print(error)
                 completionHandlerForToken(false, nil, "Login Failed (Request Token).")
             } else {
                 if let requestToken = results?.token {
+                    print("requestToken =", requestToken)
                     completionHandlerForToken(true, requestToken, nil)
                 } else {
                     print("Could not find \(Constants.ParameterKeys.RequestToken)")
@@ -132,23 +134,24 @@ class APIService {
         }
     }
     
-    func authenticateWithViewController(completionHandlerForAuth: (_ success: Bool, _ errorString: String?) -> Void) {
+    func authenticateWithViewController(hostViewController: UIViewController, completionHandlerForAuth: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
         // chain completion handlers for each request so that they run one after the other
         getRequestToken() { (success, requestToken, errorString) in
             
             if success {
                 // success! we have the requestToken!
+                APIService.shared.requestToken = requestToken
                 print("success! we have the requestToken!")
-            
-                self.loginWithToken(requestToken, hostViewController: hostViewController) { (success, errorString) in
+                
+                self.loginWithToken(requestToken: requestToken, hostViewController: hostViewController) { (success, errorString) in
                     
                     if success {
-                        self.getSessionID(requestToken) { (success, sessionID, errorString) in
+                        print("success! we have the tokenID!")
+                        self.getSessionID(requestToken: requestToken) { (success, sessionID, errorString) in
                             
                             if success {
-                                
-                                // success! we have the sessionID!
+                                print("success! we have the sessionID:", sessionID)
                                 self.sessionID = sessionID
                                 
                                 self.getUserID() { (success, userID, errorString) in
@@ -156,25 +159,113 @@ class APIService {
                                     if success {
                                         
                                         if let userID = userID {
-                                            
-                                            // and the userID 😄!
+                                            print("success! we have the userID:", userID)
                                             self.userID = userID
                                         }
                                     }
                                     
-                                    completionHandlerForAuth(success: success, errorString: errorString)
+                                    completionHandlerForAuth(success, errorString)
                                 }
                             } else {
-                                completionHandlerForAuth(success: success, errorString: errorString)
+                                completionHandlerForAuth(success, errorString)
                             }
                         }
                     } else {
-                        completionHandlerForAuth(success: success, errorString: errorString)
+                        completionHandlerForAuth(success, errorString)
                     }
                 }
-                
             }
         }
     }
+            
+            /* This function opens a TMDBAuthViewController to handle Step 2a of the auth flow */
+            private func loginWithToken(requestToken: String?, hostViewController: UIViewController, completionHandlerForLogin: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
+                
+                guard let authorizationURL = URL(string: "\(Constants.AuthorizationURL)\(requestToken!)") else { return }
+                let request = URLRequest(url: authorizationURL)
+                
+                //            NSURLRequest(URL: authorizationURL!)
+                let webAuthViewController = TMDBAuthViewController()
+                webAuthViewController.urlRequest = request
+                webAuthViewController.requestToken = requestToken
+                webAuthViewController.completionHandlerForView = completionHandlerForLogin
+                
+                let webAuthNavigationController = UINavigationController()
+                
+                webAuthNavigationController.pushViewController(webAuthViewController, animated: false)
+                
+                performUIUpdatesOnMain {
+                    hostViewController.present(webAuthNavigationController, animated: true, completion: nil)
+                }
+            }
+            
+            private func getSessionID(requestToken: String?, completionHandlerForSession: @escaping (_ success: Bool, _ sessionID: String?, _ errorString: String?) -> Void) {
+                
+                /* 1. Set the parameters */
+//                parameters[Constants.ParameterKeys.ApiKey] = Constants.apiKey
+                
+                guard let requestToken = requestToken else {
+                    print("requestToken is nil")
+                    return
+                }
+                
+                print("Before requestion Session ID. requestToken =", requestToken)
+                
+                let parameters = [
+                    "api_key": Constants.apiKey,
+                    "request_token": requestToken
+                    ] as [String : Any]
+                
+                taskForGETMethod(method: Constants.AuthenticationSessionNew, parameters: parameters, httpMethod: .get) { (results: SessionResult?, error) in
+                    
+                    /* 3. Send the desired value(s) to completion handler */
+                    if let error = error {
+                        print(error)
+                        completionHandlerForSession(false, nil, "Login Failed (Session ID).")
+                    } else {
+                        print(self.sessionID)
+                        if let sessionID = results?.sessionId {
+                            completionHandlerForSession(true, sessionID, nil)
+                        } else {
+                            print("Could not find \(Constants.ParameterKeys.SessionID)")
+                            completionHandlerForSession(false, nil, "Login Failed (Session ID).")
+                        }
+                    }
+                }
+            }
     
+    private func getUserID(completionHandlerForUserID: @escaping (_ success: Bool, _ userID: Int?, _ errorString: String?) -> Void) {
+        
+        /* 1. Specify parameters, method (if has {key}), and HTTP body (if POST) */
+        
+        guard let sessionID = sessionID else {
+            print("sessionID is nil")
+            return
+        }
+        
+        print("Before requestion Account ID. sessionID =", sessionID)
+        
+        let parameters = [
+            "api_key": Constants.apiKey,
+            "session_id": sessionID
+            ] as [String : Any]
+        
+        /* 2. Make the request */
+        taskForGETMethod(method: Constants.Account, parameters: parameters, httpMethod: .get) { (results: AccessToken?, error) in
+            
+            /* 3. Send the desired value(s) to completion handler */
+            if let error = error {
+                print(error)
+                completionHandlerForUserID(false, nil, "Login Failed (User ID).")
+            } else {
+                if let userID = results?.id as? Int {
+                    completionHandlerForUserID(true, userID, nil)
+                } else {
+                    print("Could not find \(Constants.UserID)")
+                    completionHandlerForUserID(false, nil, "Login Failed (User ID).")
+                }
+            }
+        }
+    }
+            
 }

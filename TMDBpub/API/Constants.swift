@@ -24,7 +24,14 @@ struct Constants {
     static let language = "ru-RU"
     
     // MARK: Authentication
-    static let AuthenticationTokenNew = "/authentication/token/new"
+    static let AuthenticationTokenNew = "authentication/token/new"
+    static let AuthenticationSessionNew = "authentication/session/new"
+    static let AuthorizationURL = "https://www.themoviedb.org/authenticate/"
+    
+    // MARK: Account
+    static let Account = "account"
+    static let UserID = "id"
+
     
     struct ParameterKeys {
         static let ApiKey = "api_key"
@@ -32,11 +39,6 @@ struct Constants {
         static let RequestToken = "request_token"
         static let Query = "query"
     }
-    
-    // authentication state
-    var requestToken: String? = nil
-    var sessionID: String? = nil
-    var userID: Int? = nil
     
     struct ResponseKey {
         static let id = "id"

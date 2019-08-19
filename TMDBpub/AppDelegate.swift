@@ -22,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.makeKeyAndVisible()
 //        window?.rootViewController = MainTabBarController()
         window?.rootViewController = LoginController()
+//        let navController = UINavigationController(rootViewController: LoginController())
+//        window?.rootViewController = navController
+        
         
         let navigationBarAppearnce = UINavigationBar.appearance()
 //        navigationBarAppearnce.backgroundColor = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 1)

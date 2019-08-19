@@ -10,13 +10,13 @@ import UIKit
 
 class LoginController: UIViewController {
     
-    fileprivate let loginViewModel = LoginViewModel()
+//    fileprivate let loginViewModel = LoginViewModel()
     
     let emailTextField: CustomTextField = {
         let tf = CustomTextField(padding: 24, height: 50)
         tf.placeholder = "Enter email"
         tf.keyboardType = .emailAddress
-        tf.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
+//        tf.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
         return tf
     }()
     
@@ -24,7 +24,7 @@ class LoginController: UIViewController {
         let tf = CustomTextField(padding: 24, height: 50)
         tf.placeholder = "Enter password"
         tf.isSecureTextEntry = true
-        tf.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
+//        tf.addTarget(self, action: #selector(handleTextChange), for: .editingChanged)
         return tf
     }()
     
@@ -35,7 +35,7 @@ class LoginController: UIViewController {
         button.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .heavy)
         button.backgroundColor = .lightGray
         button.setTitleColor(.gray, for: .disabled)
-        button.isEnabled = false
+        //        button.isEnabled = false
         button.heightAnchor.constraint(equalToConstant: 44).isActive = true
         button.layer.cornerRadius = 22
         button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
@@ -56,32 +56,22 @@ class LoginController: UIViewController {
     }
     
     @objc fileprivate func handleLogin() {
-        loginViewModel.performLogin { (err) in
-//            self.loginHUD.dismiss()
-            if let err = err {
-                print("Failed to log in:", err)
-                return
-            }
-            
-            print("Logged in successfully")
+        print("Handle login")
 //            self.dismiss(animated: true, completion: {
-//                self.delegate?.didFinishLoggingIn()
+                APIService.shared.authenticateWithViewController(hostViewController: self) { (success, errorString) in
+                    if success {
+                        print("Ok. About to show main tab bar")
+                    } else {
+                        print("Error during authorization in handle login")
+                    }
+                }
 //            })
-        }
-    }
-    
-    @objc fileprivate func handleTextChange(textField: UITextField) {
-        if textField == emailTextField {
-            loginViewModel.email = textField.text
-        } else {
-            loginViewModel.password = textField.text
-        }
     }
     
     lazy var verticalStackView: UIStackView = {
         let sv = UIStackView(arrangedSubviews: [
-            emailTextField,
-            passwordTextField,
+//            emailTextField,
+//            passwordTextField,
             loginButton
             ])
         sv.axis = .vertical
@@ -95,42 +85,16 @@ class LoginController: UIViewController {
         setupGradientLayer()
         setupLayout()
         
-        setupBindables()
-        
-        APIService.shared.taskForGETMethod(method: Constants.AuthenticationTokenNew) { (result: RequestTokenResult?, err) in
-            if let err = err {
-                print("Error:", err)
-            } else {
-                print(result)
-            }
-        }
     }
     
     fileprivate func setupLayout() {
-        navigationController?.isNavigationBarHidden = true
+//        navigationController?.isNavigationBarHidden = true
         view.addSubview(verticalStackView)
         verticalStackView.anchor(top: nil, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 50, bottom: 0, right: 50))
         verticalStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         view.addSubview(backToRegisterButton)
         backToRegisterButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
-    }
-    
-    fileprivate func setupBindables() {
-        loginViewModel.isFormValid.bind { [unowned self] (isFormValid) in
-            guard let isFormValid = isFormValid else { return }
-            self.loginButton.isEnabled = isFormValid
-            self.loginButton.backgroundColor = isFormValid ? #colorLiteral(red: 0.1098039216, green: 0.5725490196, blue: 0.8509803922, alpha: 1) : .lightGray
-            self.loginButton.setTitleColor(isFormValid ? .white : .gray, for: .normal)
-        }
-        loginViewModel.isLoggingIn.bind { [unowned self] (isRegistering) in
-//            if isRegistering == true {
-//                self.loginHUD.textLabel.text = "Register"
-//                self.loginHUD.show(in: self.view)
-//            } else {
-//                self.loginHUD.dismiss()
-//            }
-        }
     }
     
     let gradientLayer = CAGradientLayer()

@@ -10,12 +10,19 @@ import Foundation
 
 struct AccessToken: Decodable {
     
-    let token: String
-    let accountId: String
+    let id: Int
+    let iso_639_1: String
+    let iso_3166_1: String
+    let name: String
+    let include_adult: Bool
+    let username: String
     
-    private enum CodingKeys: String, CodingKey {
-        case token = "access_token"
-        case accountId = "account_id"
-    }
+//    let token: String
+//    let accountId: String
+//
+//    private enum CodingKeys: String, CodingKey {
+//        case token = "access_token"
+//        case accountId = "account_id"
+//    }
     
 }
