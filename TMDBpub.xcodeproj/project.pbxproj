@@ -40,7 +40,7 @@
 		B0715AF72309713300389D19 /* AuthPermissionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0715AF62309713300389D19 /* AuthPermissionViewController.swift */; };
 		B0715AFD2309839C00389D19 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0715AFC2309839C00389D19 /* APIError.swift */; };
 		B0715B032309859800389D19 /* RequestTokenResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0715B022309859800389D19 /* RequestTokenResult.swift */; };
-		B0715B05230985C600389D19 /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0715B04230985C600389D19 /* AccessToken.swift */; };
+		B0715B05230985C600389D19 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0715B04230985C600389D19 /* User.swift */; };
 		B0715B07230985E800389D19 /* SessionResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0715B06230985E800389D19 /* SessionResult.swift */; };
 		B0715B0D230986B600389D19 /* URLRequest+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0715B0C230986B600389D19 /* URLRequest+Ext.swift */; };
 		B0715B0F230986E400389D19 /* Dictionary+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0715B0E230986E400389D19 /* Dictionary+Ext.swift */; };
@@ -51,6 +51,10 @@
 		B072281423068BEE00DA248A /* YoutubePlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = B072281323068BEE00DA248A /* YoutubePlayer.swift */; };
 		B0793F5D230A7D84006C490A /* TMDBAuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0793F5C230A7D84006C490A /* TMDBAuthViewController.swift */; };
 		B0793F61230AC951006C490A /* GCDBlackBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0793F60230AC951006C490A /* GCDBlackBox.swift */; };
+		B0793F64230AFFBC006C490A /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0793F63230AFFBC006C490A /* AuthenticationManager.swift */; };
+		B0793F66230BC77B006C490A /* AccessToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0793F65230BC77B006C490A /* AccessToken.swift */; };
+		B0793F68230BD4A2006C490A /* RootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0793F67230BD4A2006C490A /* RootViewController.swift */; };
+		B0793F6A230BD5B6006C490A /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0793F69230BD5B6006C490A /* SplashViewController.swift */; };
 		B0C6791122FFCFF200EC3C7A /* MovieDetailMiddleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6791022FFCFF200EC3C7A /* MovieDetailMiddleCell.swift */; };
 		B0C6791322FFE7AD00EC3C7A /* LoaderController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6791222FFE7AD00EC3C7A /* LoaderController.swift */; };
 		B0C6791523004A7D00EC3C7A /* String+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6791423004A7D00EC3C7A /* String+Ext.swift */; };
@@ -111,7 +115,7 @@
 		B0715AF62309713300389D19 /* AuthPermissionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthPermissionViewController.swift; sourceTree = "<group>"; };
 		B0715AFC2309839C00389D19 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		B0715B022309859800389D19 /* RequestTokenResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestTokenResult.swift; sourceTree = "<group>"; };
-		B0715B04230985C600389D19 /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
+		B0715B04230985C600389D19 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B0715B06230985E800389D19 /* SessionResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionResult.swift; sourceTree = "<group>"; };
 		B0715B0C230986B600389D19 /* URLRequest+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "URLRequest+Ext.swift"; sourceTree = "<group>"; };
 		B0715B0E230986E400389D19 /* Dictionary+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dictionary+Ext.swift"; sourceTree = "<group>"; };
@@ -122,6 +126,10 @@
 		B072281323068BEE00DA248A /* YoutubePlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YoutubePlayer.swift; sourceTree = "<group>"; };
 		B0793F5C230A7D84006C490A /* TMDBAuthViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TMDBAuthViewController.swift; sourceTree = "<group>"; };
 		B0793F60230AC951006C490A /* GCDBlackBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDBlackBox.swift; sourceTree = "<group>"; };
+		B0793F63230AFFBC006C490A /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		B0793F65230BC77B006C490A /* AccessToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessToken.swift; sourceTree = "<group>"; };
+		B0793F67230BD4A2006C490A /* RootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootViewController.swift; sourceTree = "<group>"; };
+		B0793F69230BD5B6006C490A /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		B0C6791022FFCFF200EC3C7A /* MovieDetailMiddleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailMiddleCell.swift; sourceTree = "<group>"; };
 		B0C6791222FFE7AD00EC3C7A /* LoaderController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoaderController.swift; sourceTree = "<group>"; };
 		B0C6791423004A7D00EC3C7A /* String+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Ext.swift"; sourceTree = "<group>"; };
@@ -286,6 +294,8 @@
 				B0C6791C23006F0200EC3C7A /* HorizontalSnappingController.swift */,
 				B0715AEC23092E9F00389D19 /* Bindable.swift */,
 				B0793F60230AC951006C490A /* GCDBlackBox.swift */,
+				B0793F67230BD4A2006C490A /* RootViewController.swift */,
+				B0793F69230BD5B6006C490A /* SplashViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -328,6 +338,7 @@
 		B067029222FDE4F00020F393 /* TMDBpub */ = {
 			isa = PBXGroup;
 			children = (
+				B0793F62230AFFAB006C490A /* Managers */,
 				B0DB172322FE9D3500323CEC /* Model */,
 				B0DB172022FE9C8F00323CEC /* API */,
 				B05330B822FDEBEE00ECA238 /* Views */,
@@ -383,6 +394,14 @@
 			path = Old;
 			sourceTree = "<group>";
 		};
+		B0793F62230AFFAB006C490A /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				B0793F63230AFFBC006C490A /* AuthenticationManager.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
 		B0C679202300709700EC3C7A /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -398,8 +417,9 @@
 				B0DB172122FE9CBC00323CEC /* APIService.swift */,
 				B0715AFC2309839C00389D19 /* APIError.swift */,
 				B0715B022309859800389D19 /* RequestTokenResult.swift */,
-				B0715B04230985C600389D19 /* AccessToken.swift */,
+				B0715B04230985C600389D19 /* User.swift */,
 				B0715B06230985E800389D19 /* SessionResult.swift */,
+				B0793F65230BC77B006C490A /* AccessToken.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -612,6 +632,8 @@
 				B0C6791B230056E300EC3C7A /* ProductionCompany.swift in Sources */,
 				B02041852303DF3D0081D726 /* MovieDetailToolCell.swift in Sources */,
 				B0715AFD2309839C00389D19 /* APIError.swift in Sources */,
+				B0793F68230BD4A2006C490A /* RootViewController.swift in Sources */,
+				B0793F66230BC77B006C490A /* AccessToken.swift in Sources */,
 				B0DB172A22FEA11800323CEC /* Genre.swift in Sources */,
 				B072280D2305944900DA248A /* TrailerMovieController.swift in Sources */,
 				B0793F5D230A7D84006C490A /* TMDBAuthViewController.swift in Sources */,
@@ -619,6 +641,7 @@
 				B0715AF72309713300389D19 /* AuthPermissionViewController.swift in Sources */,
 				B020419B23057B4A0081D726 /* CastMovieHeader.swift in Sources */,
 				B0DB172822FE9ECA00323CEC /* Movie.swift in Sources */,
+				B0793F6A230BD5B6006C490A /* SplashViewController.swift in Sources */,
 				B0C6791523004A7D00EC3C7A /* String+Ext.swift in Sources */,
 				B0DB173022FEBDB400323CEC /* UIImageView+Ext.swift in Sources */,
 				B0715AEB23092A7700389D19 /* LoginController.swift in Sources */,
@@ -647,6 +670,7 @@
 				B072280F230594A700DA248A /* Video.swift in Sources */,
 				B0DB172522FE9DC300323CEC /* ResultsMovie.swift in Sources */,
 				B020418F2304523E0081D726 /* ReviewMovieCell.swift in Sources */,
+				B0793F64230AFFBC006C490A /* AuthenticationManager.swift in Sources */,
 				B0DB172E22FEBBD300323CEC /* VerticalStackView.swift in Sources */,
 				B0C679192300518700EC3C7A /* Country.swift in Sources */,
 				B0DB172C22FEB8B900323CEC /* UILabel+Ext.swift in Sources */,
@@ -660,7 +684,7 @@
 				B05330AD22FDE72B00ECA238 /* MainTabBarController.swift in Sources */,
 				B0C6791D23006F0200EC3C7A /* HorizontalSnappingController.swift in Sources */,
 				B043DDCC230158F60070A10F /* SearchMovieFooterCell.swift in Sources */,
-				B0715B05230985C600389D19 /* AccessToken.swift in Sources */,
+				B0715B05230985C600389D19 /* User.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

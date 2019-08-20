@@ -76,7 +76,7 @@ extension TMDBAuthViewController: WKNavigationDelegate {
         
         if webView.url?.absoluteString == "\(Constants.AuthorizationURL)\(requestToken)/allow" {
             
-            print("Allowed", webView.url?.absoluteString)
+            print("Allowed", webView.url?.absoluteString ?? "nil absoluteUrl")
             dismiss(animated: true) {
                 self.completionHandlerForView!(true, nil)
             }

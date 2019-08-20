@@ -47,5 +47,9 @@ class MainTabBarController: UITabBarController {
         return navController
     }
     
+    @objc private func logout() {
+        AppDelegate.shared.rootViewController.switchToLogout()
+    }
+    
 }
 

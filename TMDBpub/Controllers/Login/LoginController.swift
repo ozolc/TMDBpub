@@ -10,8 +10,6 @@ import UIKit
 
 class LoginController: UIViewController {
     
-//    fileprivate let loginViewModel = LoginViewModel()
-    
     let emailTextField: CustomTextField = {
         let tf = CustomTextField(padding: 24, height: 50)
         tf.placeholder = "Enter email"
@@ -52,7 +50,8 @@ class LoginController: UIViewController {
     }()
     
     @objc fileprivate func handleBack() {
-        navigationController?.popViewController(animated: true)
+        AppDelegate.shared.rootViewController.switchToMainScreen()
+//        navigationController?.popViewController(animated: true)
     }
     
     @objc fileprivate func handleLogin() {
@@ -79,6 +78,12 @@ class LoginController: UIViewController {
         return sv
     }()
     
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -93,8 +98,8 @@ class LoginController: UIViewController {
         verticalStackView.anchor(top: nil, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 0, left: 50, bottom: 0, right: 50))
         verticalStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
-        view.addSubview(backToRegisterButton)
-        backToRegisterButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
+//        view.addSubview(backToRegisterButton)
+//        backToRegisterButton.anchor(top: nil, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.bottomAnchor, trailing: view.trailingAnchor)
     }
     
     let gradientLayer = CAGradientLayer()
