@@ -12,6 +12,7 @@ struct Constants {
     
     static let baseURL = "https://api.themoviedb.org/3/"
     static var apiKey = "myApiKey"
+    static var sessionId = "sessionId"
     static let imageBaseURL = "https://image.tmdb.org/t/p/"
     static let upcoming = "movie/upcoming"
     static let topRatedMovies = "movie/top_rated"
@@ -27,6 +28,7 @@ struct Constants {
     static let AuthenticationTokenNew = "authentication/token/new"
     static let AuthenticationSessionNew = "authentication/session/new"
     static let AuthorizationURL = "https://www.themoviedb.org/authenticate/"
+    static let DeletingSessionId = "authentication/session"
     
     // MARK: Account
     static let Account = "account"

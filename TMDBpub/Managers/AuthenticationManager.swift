@@ -12,6 +12,7 @@ import KeychainSwift
 class AuthenticationManager {
     
     private lazy var keychain = KeychainSwift()
+    lazy var authManager = AuthenticationManager()
     
     lazy var apiKey: String = {
         let keys = retrieveKeys()
@@ -35,6 +36,15 @@ class AuthenticationManager {
         deleteSessionId()
         deleteAccessToken()
         deleteUserAccountId()
+        
+        print("sessionId:", Constants.sessionId)
+        APIService.shared.deleteSessionId(sessionId: Constants.sessionId) { (success, error) in
+            if success {
+                print("Deleting sessionId is successful")
+            } else {
+                print("Deleting sessionId is unsuccessful", error!)
+            }
+        }
         print("Data in Keychain were deleted")
     }
     

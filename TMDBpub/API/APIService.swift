@@ -14,7 +14,7 @@ class APIService {
     // singleton
     static let shared = APIService()
     
-    private var authManager = AuthenticationManager()
+    var authManager = AuthenticationManager()
     
     // authentication state
     var requestToken: String? = nil
@@ -164,6 +164,7 @@ class APIService {
                                             
                                             guard let sessionID = sessionID else { return }
                                             self?.authManager.saveCurrentUser(sessionID, accountId: userID)
+                                           Constants.sessionId = sessionID
                                             print("self?.authManager.userCredentials:", self?.authManager.userCredentials)
                                             print("isUserSignedIn?", self?.authManager.isUserSignedIn())
                                         }
@@ -266,6 +267,39 @@ class APIService {
                 } else {
                     print("Could not find \(Constants.UserID)")
                     completionHandlerForUserID(false, nil, "Login Failed (User ID).")
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    func deleteSessionId(sessionId: String?, completionHandlerForDeletingSessionID: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
+        
+        /* 1. Set the parameters */
+        guard let sessionId = sessionId else {
+            print("Cannot get sessionId from userCredentials ")
+            return }
+        let parameters = [
+            "api_key": Constants.apiKey,
+            "session_id": sessionId
+            ] as [String : Any]
+        
+        /* 1. Make the request */
+        taskForGETMethod(method: Constants.DeletingSessionId, parameters: parameters, httpMethod: .delete) { (results: SessionDelete?, error) in
+            
+            /* 2. Send the desired value(s) to completion handler */
+            if let error = error {
+                print(error)
+                completionHandlerForDeletingSessionID(false, "Deleting Failed (Session ID).")
+            } else {
+                if let _ = results?.success {
+                    print("sessionID = \(sessionId) was deleted." )
+                    completionHandlerForDeletingSessionID(true, nil)
+                } else {
+                    print("Could not find \(Constants.ParameterKeys.SessionID)")
+                    completionHandlerForDeletingSessionID(false, "Deleting Failed (Session ID).")
                 }
             }
         }

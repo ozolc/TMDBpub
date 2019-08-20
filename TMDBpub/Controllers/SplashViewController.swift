@@ -45,7 +45,9 @@ class SplashViewController: UIViewController {
         activityIndicator.startAnimating()
         
         Constants.apiKey = authManager.apiKey
+        Constants.sessionId = authManager.userCredentials?.sessionId ?? "nil"
         print(Constants.apiKey)
+        print("Constants.sessionId equal", Constants.sessionId)
         
         loadingGenresFromNet {
 //            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
