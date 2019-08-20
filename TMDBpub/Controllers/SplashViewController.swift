@@ -8,14 +8,22 @@
 
 import UIKit
 
+//protocol SplashViewControllerDelegate: class {
+//    func deleteKeychainData()
+//}
+
 class SplashViewController: UIViewController {
     
     private var authManager = AuthenticationManager()
+    
+//    weak var delegate: SplashViewControllerDelegate!
     
     private let activityIndicator = UIActivityIndicatorView(style: .gray)
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
         view.backgroundColor = UIColor.white
         view.addSubview(activityIndicator)
         
@@ -33,30 +41,33 @@ class SplashViewController: UIViewController {
         self.view.insertSubview(backgroundImage, at: 0)
     }
     
-    private func makeServiceCall() {
+    private func makeServiceCall() { 
         activityIndicator.startAnimating()
+        
+        Constants.apiKey = authManager.apiKey
+        print(Constants.apiKey)
+        
         loadingGenresFromNet {
-            
 //            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
                 
-                if !self.isUserSignedIn() {
+                if self.isUserSignedIn() {
                     AppDelegate.shared.rootViewController.switchToMainScreen()
                 } else {
+//                    self.signOutCurrentUser()
                     AppDelegate.shared.rootViewController.switchToLogout()
                     print("No user in Keychain")
                 }
             }
-            
         }
+        
     }
     
     func loadingGenresFromNet(completion: @escaping () -> ()) {
         let infoAboutGenre = Constants.infoAboutGenre
         APIService.shared.fetchMoviesStat(typeOfRequest: infoAboutGenre, language: Constants.language, completionHandler: { (genre: Genre) in
             genresArray += genre.genres
-            print(genresArray.count)
             
             completion()
         })

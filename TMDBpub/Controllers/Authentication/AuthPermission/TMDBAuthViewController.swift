@@ -40,12 +40,12 @@ class TMDBAuthViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .red
+        view.backgroundColor = .white
         
         webView.navigationDelegate = self
         
         view.addSubview(webView)
-        webView.fillSuperview(padding: .init(top: 8, left: 8, bottom: 8, right: 8))
+        webView.fillSuperview()
         
         navigationItem.title = "TheMovieDB Auth"
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(handleCancel))

@@ -11,7 +11,7 @@ import Foundation
 struct Constants {
     
     static let baseURL = "https://api.themoviedb.org/3/"
-    static let apiKey = "894ef0c8f1e1986a8da271985a21d48b"
+    static var apiKey = "myApiKey"
     static let imageBaseURL = "https://image.tmdb.org/t/p/"
     static let upcoming = "movie/upcoming"
     static let topRatedMovies = "movie/top_rated"

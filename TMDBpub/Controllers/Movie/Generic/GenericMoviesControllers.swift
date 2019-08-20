@@ -8,7 +8,10 @@
 
 import UIKit
 
+
 class GenericMoviesControllers: BaseListController {
+    
+    lazy var authManager = AuthenticationManager()
     
     var movies = [Movie]()
     var currentPage = AppState.shared.currentPage
@@ -44,6 +47,9 @@ class GenericMoviesControllers: BaseListController {
         
         AppState.shared.resetPageDetails()
         
+        let logoutButton = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogout))
+        navigationItem.setRightBarButton(logoutButton, animated: true)
+    
         setupCollectionView()
         fetchData()
         LoaderController.shared.showLoader()
@@ -53,6 +59,11 @@ class GenericMoviesControllers: BaseListController {
         collectionView.backgroundColor = .white
         collectionView.register(GenericMovieCell.self, forCellWithReuseIdentifier: cellId)
         collectionView.register(GenericMovieFooter.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerId)
+    }
+    
+    @objc private func handleLogout() {
+        authManager.deleteCurrentUser()
+        AppDelegate.shared.rootViewController.switchToLogout()
     }
     
     fileprivate func fetchData() {

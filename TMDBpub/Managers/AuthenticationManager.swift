@@ -13,6 +13,11 @@ class AuthenticationManager {
     
     private lazy var keychain = KeychainSwift()
     
+    lazy var apiKey: String = {
+        let keys = retrieveKeys()
+        return keys.apiKey
+    }()
+    
     // MARK: - Initializers
     
     init() {
@@ -30,61 +35,49 @@ class AuthenticationManager {
         deleteSessionId()
         deleteAccessToken()
         deleteUserAccountId()
+        print("Data in Keychain were deleted")
     }
     
     // MARK: - Session Id
     
     private func saveSessionId(_ sessionId: String) {
-        keychain.set(sessionId, forKey: Constants.sessionIdKey)
+        keychain.set(sessionId, forKey: localConstants.sessionIdKey)
     }
     
     private func deleteSessionId() {
-        keychain.delete(Constants.sessionIdKey)
+        keychain.delete(localConstants.sessionIdKey)
     }
     
     private func retrieveSessionId() -> String? {
-        return keychain.get(Constants.sessionIdKey)
+        return keychain.get(localConstants.sessionIdKey)
     }
     
     // MARK: - Access Token
     
     func saveAccessToken(_ accessToken: AccessToken) {
-        keychain.set(accessToken.token, forKey: Constants.accessTokenKey)
-        keychain.set(accessToken.accountId, forKey: Constants.accountIdKey)
+        keychain.set(accessToken.sessionId, forKey: localConstants.sessionIdKey)
+        keychain.set(accessToken.accountId, forKey: localConstants.accountIdKey)
     }
     
     private func deleteAccessToken() {
-        keychain.delete(Constants.accessTokenKey)
+        keychain.delete(localConstants.accessTokenKey)
     }
     
     var accessToken: AccessToken? {
-        guard let token = keychain.get(Constants.accessTokenKey),
-            let accountId = keychain.get(Constants.accountIdKey) else {
+        guard let sessionId = retrieveSessionId(),
+            let accountId = retrieveUserAccountId() else {
                 return nil
+        
+//        guard let sessionId = keychain.get(localConstants.sessionIdKey),
+//            let accountId = keychain.get(localConstants.accountIdKey) else {
+//                return nil
         }
-        return AccessToken(token: token, accountId: accountId)
-    }
-    
-    // MARK: - User Account Id
-    
-    private func saveUserAccountId(_ userId: Int) {
-        keychain.set(String(userId), forKey: Constants.currentUserIdKey)
-    }
-    
-    private func deleteUserAccountId() {
-        keychain.delete(Constants.currentUserIdKey)
-    }
-    
-    private func retrieveUserAccountId() -> Int? {
-        guard let userAccountIdString = keychain.get(Constants.currentUserIdKey) else {
-            return nil
-        }
-        return Int(userAccountIdString)
+        return AccessToken(sessionId: sessionId, accountId: accountId)
     }
     
     // MARK: - Credentials
     
-    var userCredentials: (sessionId: String, accountId: Int)? {
+    var userCredentials: (sessionId: String, accountId: String)? {
         guard let sessionId = retrieveSessionId(),
             let accountId = retrieveUserAccountId() else {
                 return nil
@@ -92,11 +85,31 @@ class AuthenticationManager {
         return (sessionId: sessionId, accountId: accountId)
     }
     
+    // MARK: - User Account Id
+    
+    private func saveUserAccountId(_ userId: Int) {
+        keychain.set(String(userId), forKey: localConstants.currentUserIdKey)
+    }
+    
+    private func deleteUserAccountId() {
+        keychain.delete(localConstants.currentUserIdKey)
+    }
+    
+    private func retrieveUserAccountId() -> String? {
+        guard let userAccountIdString = keychain.get(localConstants.currentUserIdKey) else {
+            return nil
+        }
+//        return Int(userAccountIdString)
+        return userAccountIdString
+    }
+    
     // MARK: - Authentitacion Persistence
     
     func isUserSignedIn() -> Bool {
 //        return currentUser() != nil
-        return accessToken?.accountId != nil
+        print("accessToken?.accountId:", accessToken?.accountId)
+        print("accessToken?.sessionId:", accessToken?.sessionId)
+        return (accessToken?.accountId != nil && accessToken?.sessionId != nil)
     }
     
 //    func currentUser() -> User? {
@@ -104,11 +117,29 @@ class AuthenticationManager {
 //        return userStore.find(with: credentials.accountId)
 //    }
     
+    // MARK: - TheMovieDb Keys
+    
+    private func retrieveKeys() -> Keys {
+        guard let url = Bundle.main.url(forResource: "TMDBdb",
+                                        withExtension: ".plist") else {
+                                            fatalError()
+        }
+        do {
+            let data = try Data(contentsOf: url)
+            let decoder = PropertyListDecoder()
+            let plist = try decoder.decode([String: Keys].self, from: data)
+            guard let keys = plist["Keys"] else { fatalError() }
+            return keys
+        } catch {
+            fatalError()
+        }
+    }
+    
 }
 
 extension AuthenticationManager {
     
-    struct Constants {
+    struct localConstants {
         static let accessTokenKey = "TMDBpubAccessToken"
         static let accountIdKey = "TMDBpubAccessAccountId"
         static let sessionIdKey = "TMDBpubSessionId"

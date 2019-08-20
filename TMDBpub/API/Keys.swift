@@ -1,5 +1,5 @@
 //
-//  AccessToken.swift
+//  Keys.swift
 //  TMDBpub
 //
 //  Created by Maksim Nosov on 20/08/2019.
@@ -8,15 +8,13 @@
 
 import Foundation
 
-struct AccessToken: Decodable {
-    
-    let sessionId: String
-    let accountId: String
+/// Decodable Struct to retrieve the read api key from a property list.
+struct Keys: Decodable {
+
+    let apiKey: String
     
     private enum CodingKeys: String, CodingKey {
-        case sessionId = "session_id"
-        case accountId = "account_id"
+        case apiKey = "ApiKey"
     }
     
 }
-

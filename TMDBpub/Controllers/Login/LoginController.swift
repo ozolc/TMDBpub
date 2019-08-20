@@ -10,6 +10,8 @@ import UIKit
 
 class LoginController: UIViewController {
     
+    private lazy var authManager = AuthenticationManager()
+    
     let emailTextField: CustomTextField = {
         let tf = CustomTextField(padding: 24, height: 50)
         tf.placeholder = "Enter email"
@@ -60,6 +62,7 @@ class LoginController: UIViewController {
                 APIService.shared.authenticateWithViewController(hostViewController: self) { (success, errorString) in
                     if success {
                         print("Ok. About to show main tab bar")
+                        AppDelegate.shared.rootViewController.switchToMainScreen()
                     } else {
                         print("Error during authorization in handle login")
                     }

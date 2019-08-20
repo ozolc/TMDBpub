@@ -14,6 +14,8 @@ class APIService {
     // singleton
     static let shared = APIService()
     
+    private var authManager = AuthenticationManager()
+    
     // authentication state
     var requestToken: String? = nil
     var sessionID: String? = nil
@@ -71,8 +73,6 @@ class APIService {
         
         AF.request(requestURL, method: httpMethod, parameters: parameters, encoding: URLEncoding.default).responseJSON { (response) in
             let message: String
-            
-            print(response.request?.url ?? "nil Request url")
             
             switch(response.result) {
             case .success:
@@ -137,30 +137,35 @@ class APIService {
     func authenticateWithViewController(hostViewController: UIViewController, completionHandlerForAuth: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
         // chain completion handlers for each request so that they run one after the other
-        getRequestToken() { (success, requestToken, errorString) in
+        getRequestToken() {[weak self] (success, requestToken, errorString) in
             
             if success {
                 // success! we have the requestToken!
                 APIService.shared.requestToken = requestToken
+                
                 print("success! we have the requestToken!")
                 
-                self.loginWithToken(requestToken: requestToken, hostViewController: hostViewController) { (success, errorString) in
+                self?.loginWithToken(requestToken: requestToken, hostViewController: hostViewController) { (success, errorString) in
                     
                     if success {
                         print("success! we have the tokenID!")
-                        self.getSessionID(requestToken: requestToken) { (success, sessionID, errorString) in
+                        self?.getSessionID(requestToken: requestToken) { (success, sessionID, errorString) in
                             
                             if success {
-                                print("success! we have the sessionID:", sessionID ?? "0")
-                                self.sessionID = sessionID
+                                self?.sessionID = sessionID
                                 
-                                self.getUserID() { (success, userID, errorString) in
+                                self?.getUserID() { (success, userID, errorString) in
                                     
                                     if success {
                                         
                                         if let userID = userID {
                                             print("success! we have the userID:", userID)
-                                            self.userID = userID
+                                            self?.userID = userID
+                                            
+                                            guard let sessionID = sessionID else { return }
+                                            self?.authManager.saveCurrentUser(sessionID, accountId: userID)
+                                            print("self?.authManager.userCredentials:", self?.authManager.userCredentials)
+                                            print("isUserSignedIn?", self?.authManager.isUserSignedIn())
                                         }
                                     }
                                     
@@ -222,7 +227,6 @@ class APIService {
                 print(error)
                 completionHandlerForSession(false, nil, "Login Failed (Session ID).")
             } else {
-                print(self.sessionID ?? "nil sessionID")
                 if let sessionID = results?.sessionId {
                     completionHandlerForSession(true, sessionID, nil)
                 } else {

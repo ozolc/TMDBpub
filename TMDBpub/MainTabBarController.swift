@@ -31,10 +31,14 @@ class MainTabBarController: UITabBarController {
         navigationController?.navigationBar.backIndicatorImage = imgBack
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = imgBack
         navigationItem.leftItemsSupplementBackButton = true
-        navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+//        navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        
+//        let logoutButton = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogout))
+//        navigationItem.setLeftBarButton(logoutButton, animated: true)
         
     }
-    
+
+        
     //MARK: - Helper Functions
     
     fileprivate func generateNavigationController(for rootViewController: UIViewController, title: String, image: UIImage) -> UIViewController {
@@ -47,9 +51,6 @@ class MainTabBarController: UITabBarController {
         return navController
     }
     
-    @objc private func logout() {
-        AppDelegate.shared.rootViewController.switchToLogout()
-    }
     
 }
 
