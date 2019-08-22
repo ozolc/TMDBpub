@@ -19,7 +19,7 @@ class MovieDetailMiddleCell: UITableViewCell {
     let overviewTextView: UITextView = {
         let tv = UITextView()
         tv.textColor = UIColor.black
-        tv.backgroundColor = .clear
+        tv.backgroundColor = .white
         tv.font = .systemFont(ofSize: 14, weight: .regular)
         tv.sizeToFit()
         tv.isScrollEnabled = false

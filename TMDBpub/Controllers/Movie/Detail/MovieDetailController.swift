@@ -44,9 +44,9 @@ class MovieDetailController: UITableViewController {
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
-        tableView.alwaysBounceVertical = false
+//        tableView.alwaysBounceVertical = false
         tableView.showsVerticalScrollIndicator = false
-        tableView.bounces = false
+//        tableView.bounces = false
         tableView.tableFooterView = UIView()
     }
     
@@ -105,7 +105,8 @@ class MovieDetailController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
-            return 390
+            return 440
+//            390
         } else {
             return UITableView.automaticDimension
         }

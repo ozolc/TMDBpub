@@ -148,7 +148,7 @@ class MovieDetailCell: UITableViewCell {
         backgrondView.fillSuperview()
         
         backgrondView.addSubview(backdropImageView)
-        backdropImageView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor)
+        backdropImageView.anchor(top: safeAreaLayoutGuide.topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor)
         backdropImageView.constrainHeight(constant: 300)
         
         let posterView = UIView()
@@ -161,7 +161,7 @@ class MovieDetailCell: UITableViewCell {
         miniPosterImageView.fillSuperview()
         
         backgrondView.addSubview(posterView)
-        posterView.anchor(top: nil, leading: leadingAnchor, bottom: backdropImageView.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 12, bottom: -24, right: 0), size: .init(width: 104, height: 154))
+        posterView.anchor(top: nil, leading: leadingAnchor, bottom: backdropImageView.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 12, bottom: -54, right: 0), size: .init(width: 104, height: 154))
         
         voteAverageLabel.constrainWidth(constant: 45)
         
@@ -186,13 +186,13 @@ class MovieDetailCell: UITableViewCell {
         sideTopStackView.distribution = .fill
         
         backgrondView.addSubview(sideTopStackView)
-        sideTopStackView.anchor(top: backdropImageView.bottomAnchor, leading: posterView.trailingAnchor, bottom: nil, trailing: titleStackView.trailingAnchor, padding: .init(top: 2, left: 16, bottom: 0, right: 0))
+        sideTopStackView.anchor(top: nil, leading: posterView.trailingAnchor, bottom: posterView.bottomAnchor, trailing: titleStackView.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 0))
     }
     
     fileprivate func setupGradientLayer() {
 //         how we can draw a gradient with Swift
         gradientLayer.colors = [UIColor.clear.cgColor, UIColor.white.cgColor]
-        gradientLayer.locations = [0.5, 0.75]
+        gradientLayer.locations = [0.5, 0.68]
         // self.frame is actually zero frame
         backdropImageView.layer.addSublayer(gradientLayer)
     }

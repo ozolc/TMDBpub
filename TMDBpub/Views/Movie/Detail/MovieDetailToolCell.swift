@@ -9,8 +9,6 @@
 import UIKit
 
 protocol MovieDetailToolCellDelegate: class {
-    // Method used to tell the delegate that the button was pressed in the subview.
-    // You can add parameters here as you like.
     func reviewButtonPressed(sender: MovieDetailToolCell)
     func castButtonPressed(sender: MovieDetailToolCell)
     func trailersButtonPressed(sender: MovieDetailToolCell)
@@ -39,6 +37,7 @@ class MovieDetailToolCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
      
         setupLayout()
+        backgroundColor = .white
     }
     
     fileprivate func createButtonView(withImage image: UIImage, andCaption text: String, action: Selector) -> UIButton {
@@ -77,6 +76,7 @@ class MovieDetailToolCell: UITableViewCell {
                           weight: 2,
                           insets: .init(top: -2, left: 0, bottom: -2, right: 0))
         toolsStackView.constrainHeight(constant: 100)
+        toolsStackView.backgroundColor = .white
         
         addSubview(toolsStackView)
         toolsStackView.fillSuperview(padding: .init(top: 4, left: 16, bottom: 16, right: 16))
