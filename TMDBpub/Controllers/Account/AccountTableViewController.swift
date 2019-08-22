@@ -10,9 +10,11 @@ import UIKit
 
 class AccountTableViewController: UITableViewController {
     
+    lazy var authManager = AuthenticationManager()
+    
     let accountLists: [AccountListMovie] = [
-        AccountListMovie(name: "Favorites", path: .AccountFavorites.self),
-        AccountListMovie(name: "Watchlist", path: .AccountWatchlist.self)
+        AccountListMovie(name: "Избранное", path: .AccountFavorites.self),
+        AccountListMovie(name: "Отслеживаемое", path: .AccountWatchlist.self)
     ]
     
     fileprivate var user: User!
@@ -29,6 +31,14 @@ class AccountTableViewController: UITableViewController {
         super.viewDidLoad()
         
         setUpTableView()
+        
+        let logoutButton = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogout))
+        navigationItem.setRightBarButton(logoutButton, animated: true)
+    }
+    
+    @objc private func handleLogout() {
+        authManager.deleteCurrentUser()
+        AppDelegate.shared.rootViewController.switchToLogout()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -45,9 +55,18 @@ class AccountTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 1 {
             var controller = UICollectionViewController()
-            
             let list = accountLists[indexPath.row]
-            let path = list.path.description
+            var path = ""
+            
+            switch indexPath.row {
+            case 0:
+                path = list.path.description
+            case 1:
+                path = list.path.description
+            default:
+                break
+            }
+            
             let favoriteTypeOfRequest = Constants.Account + "/" + Constants.accountId + "/" + path
             print(favoriteTypeOfRequest)
             controller = GenericMoviesControllers(nil, typeOfRequest: favoriteTypeOfRequest, sessionId: Constants.sessionId)
