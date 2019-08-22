@@ -39,9 +39,11 @@ class SplashViewController: UIViewController {
         
         Constants.apiKey = authManager.apiKey
         Constants.sessionId = authManager.userCredentials?.sessionId ?? "nil"
-        print(Constants.sessionId)
+        Constants.accountId = authManager.userCredentials?.accountId ?? "nil"
         
+        print(Constants.sessionId)
         print(Constants.apiKey)
+        print(Constants.accountId)
         
         loadingGenresFromNet {
             DispatchQueue.main.async {
@@ -69,7 +71,7 @@ class SplashViewController: UIViewController {
             
             genresArray += genre.genres
             
-            APIService.shared.fetchMoviesStat(typeOfRequest: Constants.Account, sessionID:  Constants.sessionId, completionHandler: { (user: User) in
+            APIService.shared.fetchMoviesStat(typeOfRequest: Constants.Account, sessionId:  Constants.sessionId, completionHandler: { (user: User) in
                 dispatchGroup.leave()
                 
                 globalUser = user

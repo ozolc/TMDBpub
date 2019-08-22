@@ -11,13 +11,15 @@ import UIKit
 class AccountTopCell: UITableViewCell {
     
     let userProfileImageView = CircularImageView(width: 44, image: #imageLiteral(resourceName: "reviewProfile"))
-    let usernameLabel = UILabel(text: "USERNAME", font: .systemFont(ofSize: 16))
-    let nameLabel = UILabel(text: "NAME", font: .systemFont(ofSize: 12))
+    let usernameLabel = UILabel(text: "USERNAME", font: .systemFont(ofSize: 16, weight: .bold))
+    let nameLabel = UILabel(text: "NAME", font: .systemFont(ofSize: 12, weight: .regular))
     
     var user: User! {
         didSet {
-            nameLabel.text = user.name
             usernameLabel.text = user.username
+            
+            let attributedUsernameLabelText = NSMutableAttributedString(string: user.name, attributes: [.foregroundColor: UIColor.darkGray])
+            nameLabel.attributedText = attributedUsernameLabelText
             
             let hashUrl = user.avatar.gravatar.hash
             userProfileImageView.sd_setImage(with: URL(string: Constants.gravatarImageURL + hashUrl))
@@ -40,7 +42,7 @@ class AccountTopCell: UITableViewCell {
             userProfileImageView,
             usernameLabel,
             nameLabel
-            ], spacing: 8)
+            ], spacing: 2)
         middleStack.alignment = .center
         hstack(middleStack).alignment = .center
         

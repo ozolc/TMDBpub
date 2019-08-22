@@ -18,6 +18,7 @@ class GenericMoviesControllers: BaseListController {
     var typeOfRequest = ""
     var totalPages = AppState.shared.totalPages
     var with_genres: String? = nil
+    var sessionId: String? = nil
     
     fileprivate let cellId = "cellId"
     fileprivate let footerId = "footerId"
@@ -30,6 +31,17 @@ class GenericMoviesControllers: BaseListController {
     init(_ coder: NSCoder?, typeOfRequest: String, with_genres: String) {
         self.typeOfRequest = typeOfRequest
         self.with_genres = with_genres
+        
+        if let coder = coder {
+            super.init(coder: coder)!
+        } else {
+            super.init()
+        }
+    }
+    
+    init(_ coder: NSCoder?, typeOfRequest: String, sessionId: String) {
+        self.typeOfRequest = typeOfRequest
+        self.sessionId = sessionId
         
         if let coder = coder {
             super.init(coder: coder)!
@@ -67,7 +79,7 @@ class GenericMoviesControllers: BaseListController {
     }
     
     fileprivate func fetchData() {
-        APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, page: self.currentPage, with_genres: with_genres ,completionHandler: { [weak self] (result: ResultsMovie) in
+        APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, page: self.currentPage, with_genres: with_genres, sessionId: sessionId, completionHandler: { [weak self] (result: ResultsMovie) in
             
             self?.totalPages = result.total_pages ?? 1
             self?.movies = result.results
@@ -147,7 +159,7 @@ class GenericMoviesControllers: BaseListController {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        let height: CGFloat = (isDonePaginating || self.currentPage > self.totalPages) ? 0 : 100
+        let height: CGFloat = (isDonePaginating || self.currentPage >= self.totalPages) ? 0 : 100
         return .init(width: view.frame.width, height: height)
     }
     

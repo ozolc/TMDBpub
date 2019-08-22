@@ -13,6 +13,7 @@ struct Constants {
     static let baseURL = "https://api.themoviedb.org/3/"
     static var apiKey = "myApiKey"
     static var sessionId = "sessionId"
+    static var accountId = "0"
     static let imageBaseURL = "https://image.tmdb.org/t/p/"
     static let upcoming = "movie/upcoming"
     static let topRatedMovies = "movie/top_rated"
@@ -34,7 +35,18 @@ struct Constants {
     // MARK: Account
     static let Account = "account"
     static let UserID = "id"
-
+    
+    enum AccountLists: String {
+        case AccountFavorites = "favorite/movies"
+        case AccountWatchlist = "watchlist/movies"
+        
+        var description : String {
+            switch self {
+            case .AccountFavorites: return String(describing: "favorite/movies")
+            case .AccountWatchlist: return String(describing: "watchlist/movies")
+            }
+        }
+    }
     
     struct ParameterKeys {
         static let ApiKey = "api_key"

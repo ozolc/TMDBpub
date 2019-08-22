@@ -49,7 +49,7 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
 //        let infoAboutGenre = Constants.infoAboutGenre
 //        APIService.shared.fetchMoviesStat(typeOfRequest: infoAboutGenre, language: Constants.language, completionHandler: { [weak self] (genre: Genre) in
 //            genresArray += genre.genres
-//            
+//
 //            DispatchQueue.main.async {
 //                self?.tableView.reloadData()
 //            }

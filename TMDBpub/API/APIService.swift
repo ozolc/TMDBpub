@@ -21,7 +21,7 @@ class APIService {
     var sessionID: String? = nil
     var userID: Int? = nil
     
-    func fetchMoviesStat<T: Decodable>(typeOfRequest: String, query: String? = nil, page: Int? = nil, include_adult: Bool? = nil, with_genres: String? = nil, language: String? = nil, sessionID: String? = nil, completionHandler: @escaping (T) -> ()) {
+    func fetchMoviesStat<T: Decodable>(typeOfRequest: String, query: String? = nil, page: Int? = nil, include_adult: Bool? = nil, with_genres: String? = nil, language: String? = nil, sessionId: String? = nil, accountList: String? = nil, completionHandler: @escaping (T) -> ()) {
         
         var parameters = [
             "api_key": Constants.apiKey
@@ -47,8 +47,8 @@ class APIService {
             parameters["language"] = language
         }
         
-        if sessionID != nil {
-            parameters["session_id"] = sessionID
+        if sessionId != nil {
+            parameters["session_id"] = sessionId
         }
         
         let requestURL = Constants.baseURL + typeOfRequest
@@ -58,6 +58,8 @@ class APIService {
                 print("Failed to contact \(requestURL)", err)
                 return
             }
+            
+            print(dataResponse.request)
             
             guard let data = dataResponse.data else { return }
             do {
