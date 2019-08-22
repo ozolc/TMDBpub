@@ -42,6 +42,13 @@ class LoginController: UIViewController {
         return button
     }()
     
+    fileprivate func setBackgroundImage() {
+        let backgroundImage = UIImageView(frame: UIScreen.main.bounds)
+        backgroundImage.image = UIImage(named: "pattern")
+        backgroundImage.contentMode = .scaleAspectFill
+        self.view.insertSubview(backgroundImage, at: 0)
+    }
+    
     fileprivate let backToRegisterButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Go back", for: .normal)
@@ -81,16 +88,11 @@ class LoginController: UIViewController {
         return sv
     }()
     
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupGradientLayer()
+//        setBackgroundImage()
         setupLayout()
         
     }

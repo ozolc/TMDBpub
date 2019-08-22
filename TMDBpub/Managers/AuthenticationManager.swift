@@ -117,8 +117,8 @@ class AuthenticationManager {
     
     func isUserSignedIn() -> Bool {
 //        return currentUser() != nil
-        print("accessToken?.accountId:", accessToken?.accountId)
-        print("accessToken?.sessionId:", accessToken?.sessionId)
+        print("accessToken?.accountId:", String(accessToken?.accountId ?? ""))
+        print("accessToken?.sessionId:", String(accessToken?.sessionId ?? ""))
         return (accessToken?.accountId != nil && accessToken?.sessionId != nil)
     }
     

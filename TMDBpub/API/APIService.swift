@@ -21,7 +21,7 @@ class APIService {
     var sessionID: String? = nil
     var userID: Int? = nil
     
-    func fetchMoviesStat<T: Decodable>(typeOfRequest: String, query: String? = nil, page: Int? = nil, include_adult: Bool? = nil, with_genres: String? = nil, language: String? = nil, completionHandler: @escaping (T) -> ()) {
+    func fetchMoviesStat<T: Decodable>(typeOfRequest: String, query: String? = nil, page: Int? = nil, include_adult: Bool? = nil, with_genres: String? = nil, language: String? = nil, sessionID: String? = nil, completionHandler: @escaping (T) -> ()) {
         
         var parameters = [
             "api_key": Constants.apiKey
@@ -45,6 +45,10 @@ class APIService {
         
         if language != nil {
             parameters["language"] = language
+        }
+        
+        if sessionID != nil {
+            parameters["session_id"] = sessionID
         }
         
         let requestURL = Constants.baseURL + typeOfRequest
@@ -76,6 +80,7 @@ class APIService {
             
             switch(response.result) {
             case .success:
+                print(response)
                 print("Yeah! Hand response")
                 do {
                     guard let data = response.data else { return }
@@ -165,8 +170,6 @@ class APIService {
                                             guard let sessionID = sessionID else { return }
                                             self?.authManager.saveCurrentUser(sessionID, accountId: userID)
                                            Constants.sessionId = sessionID
-                                            print("self?.authManager.userCredentials:", self?.authManager.userCredentials)
-                                            print("isUserSignedIn?", self?.authManager.isUserSignedIn())
                                         }
                                     }
                                     

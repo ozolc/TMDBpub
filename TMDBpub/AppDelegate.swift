@@ -18,6 +18,7 @@ extension AppDelegate {
 }
 
 var genresArray = [GenreStruct]()
+var globalUser: User!
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

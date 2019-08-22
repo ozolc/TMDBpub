@@ -158,6 +158,18 @@ extension UIView {
         translatesAutoresizingMaskIntoConstraints = false
         heightAnchor.constraint(equalToConstant: constant).isActive = true
     }
+    
+    open func setupShadow(opacity: Float = 0, radius: CGFloat = 0, offset: CGSize = .zero, color: UIColor = .black) {
+        layer.shadowOpacity = opacity
+        layer.shadowRadius = radius
+        layer.shadowOffset = offset
+        layer.shadowColor = color.cgColor
+    }
+    
+    convenience public init(backgroundColor: UIColor = .clear) {
+        self.init(frame: .zero)
+        self.backgroundColor = backgroundColor
+    }
 }
 
 struct AnchoredConstraints {

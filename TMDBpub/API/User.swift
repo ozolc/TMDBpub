@@ -8,21 +8,20 @@
 
 import Foundation
 
-struct User: Decodable {
-    
+struct User: Codable {
+    let avatar: Avatar
     let id: Int
     let iso_639_1: String
     let iso_3166_1: String
     let name: String
     let include_adult: Bool
-    let username: String
-    
-//    let token: String
-//    let accountId: String
-//
-//    private enum CodingKeys: String, CodingKey {
-//        case token = "access_token"
-//        case accountId = "account_id"
-//    }
-    
+    let username: String?
+}
+
+struct Avatar: Codable {
+    let gravatar: Gravatar
+}
+
+struct Gravatar: Codable {
+    let hash: String
 }

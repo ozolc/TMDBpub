@@ -10,6 +10,8 @@ import UIKit
 
 class MainTabBarController: UITabBarController {
     
+    let user = APIService.shared
+    
     override func viewDidLoad() {
         super .viewDidLoad()
         setupViewControllers()
@@ -18,6 +20,7 @@ class MainTabBarController: UITabBarController {
     
     func setupViewControllers() {
         viewControllers = [
+            generateNavigationController(for: AccountTableViewController(), title: "Профиль", image: #imageLiteral(resourceName: "Profile").withRenderingMode(.alwaysTemplate)),
             generateNavigationController(for: GenericMoviesControllers(typeOfRequest: Constants.popularMovies), title: "Популярные", image: #imageLiteral(resourceName: "popular").withRenderingMode(.alwaysTemplate)),
             generateNavigationController(for: SearchMovieController(), title: "Поиск", image: #imageLiteral(resourceName: "search").withRenderingMode(.alwaysTemplate))
         ]
@@ -31,11 +34,6 @@ class MainTabBarController: UITabBarController {
         navigationController?.navigationBar.backIndicatorImage = imgBack
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = imgBack
         navigationItem.leftItemsSupplementBackButton = true
-//        navigationController?.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        
-//        let logoutButton = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogout))
-//        navigationItem.setLeftBarButton(logoutButton, animated: true)
-        
     }
 
         
@@ -47,7 +45,7 @@ class MainTabBarController: UITabBarController {
         navController.tabBarItem.title = title
         navController.tabBarItem.image = image
         navController.navigationItem.hidesBackButton = true
-//        navController.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
+        navController.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         return navController
     }
     

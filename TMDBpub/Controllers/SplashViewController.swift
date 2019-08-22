@@ -8,21 +8,14 @@
 
 import UIKit
 
-//protocol SplashViewControllerDelegate: class {
-//    func deleteKeychainData()
-//}
-
 class SplashViewController: UIViewController {
     
     private var authManager = AuthenticationManager()
-    
-//    weak var delegate: SplashViewControllerDelegate!
     
     private let activityIndicator = UIActivityIndicatorView(style: .gray)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         view.backgroundColor = UIColor.white
         view.addSubview(activityIndicator)
@@ -46,18 +39,18 @@ class SplashViewController: UIViewController {
         
         Constants.apiKey = authManager.apiKey
         Constants.sessionId = authManager.userCredentials?.sessionId ?? "nil"
+        print(Constants.sessionId)
+        
         print(Constants.apiKey)
-        print("Constants.sessionId equal", Constants.sessionId)
         
         loadingGenresFromNet {
-//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .seconds(3)) {
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
                 
                 if self.isUserSignedIn() {
                     AppDelegate.shared.rootViewController.switchToMainScreen()
+                    
                 } else {
-//                    self.signOutCurrentUser()
                     AppDelegate.shared.rootViewController.switchToLogout()
                     print("No user in Keychain")
                 }
@@ -68,11 +61,24 @@ class SplashViewController: UIViewController {
     
     func loadingGenresFromNet(completion: @escaping () -> ()) {
         let infoAboutGenre = Constants.infoAboutGenre
+        
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        
         APIService.shared.fetchMoviesStat(typeOfRequest: infoAboutGenre, language: Constants.language, completionHandler: { (genre: Genre) in
+            
             genresArray += genre.genres
             
-            completion()
+            APIService.shared.fetchMoviesStat(typeOfRequest: Constants.Account, sessionID:  Constants.sessionId, completionHandler: { (user: User) in
+                dispatchGroup.leave()
+                
+                globalUser = user
+            })
         })
+        
+        dispatchGroup.notify(queue: .main) {
+            completion()
+        }
     }
     
     func isUserSignedIn() -> Bool {

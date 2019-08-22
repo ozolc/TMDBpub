@@ -41,20 +41,20 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
         setupSearchBar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Grid").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(handleClearSearchResult))
 
-        loadingGenresFromNet()
+//        loadingGenresFromNet()
 
     }
 
-    func loadingGenresFromNet() {
-        let infoAboutGenre = Constants.infoAboutGenre
-        APIService.shared.fetchMoviesStat(typeOfRequest: infoAboutGenre, language: Constants.language, completionHandler: { [weak self] (genre: Genre) in
-            genresArray += genre.genres
-            
-            DispatchQueue.main.async {
-                self?.tableView.reloadData()
-            }
-        })
-    }
+//    func loadingGenresFromNet() {
+//        let infoAboutGenre = Constants.infoAboutGenre
+//        APIService.shared.fetchMoviesStat(typeOfRequest: infoAboutGenre, language: Constants.language, completionHandler: { [weak self] (genre: Genre) in
+//            genresArray += genre.genres
+//            
+//            DispatchQueue.main.async {
+//                self?.tableView.reloadData()
+//            }
+//        })
+//    }
     
     @objc fileprivate func handleClearSearchResult() {
         movies.removeAll()
