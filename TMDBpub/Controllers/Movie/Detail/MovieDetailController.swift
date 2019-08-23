@@ -44,9 +44,10 @@ class MovieDetailController: UITableViewController {
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
-//        tableView.alwaysBounceVertical = false
+        tableView.alwaysBounceVertical = false
+        tableView.bounces = false
         tableView.showsVerticalScrollIndicator = false
-//        tableView.bounces = false
+        
         tableView.tableFooterView = UIView()
     }
     
@@ -96,6 +97,9 @@ class MovieDetailController: UITableViewController {
             return cell
         }
         let cell = tableView.dequeueReusableCell(withIdentifier: middleId) as! MovieDetailMiddleCell
+        
+        cell.delegate = self
+        
         if let movie = self.movie {
             cell.movie = movie
         }
@@ -106,7 +110,7 @@ class MovieDetailController: UITableViewController {
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
             return 440
-//            390
+            //            390
         } else {
             return UITableView.automaticDimension
         }
@@ -145,5 +149,25 @@ extension MovieDetailController: MovieDetailToolCellDelegate {
         controller.navigationItem.title = "Похожие фильмы"
         navigationController?.pushViewController(controller, animated: true)
     }
+    
+}
+
+extension MovieDetailController: MovieDetailMiddleCellDelegate {
+    func favoriteButtonPressed(sender: MovieDetailMiddleCell) {
+        print("button pressed")
+        APIService.shared.postToFavorites(mediaType: .Movie, mediaId: movieId, isFavorite: !sender.isFavorite) { (response, error) in
+            if let error = error {
+                print(error)
+            } else {
+                DispatchQueue.main.async {
+                    sender.isFavorite = !sender.isFavorite
+                    sender.favoriteButton.setTitleColor((sender.isFavorite) ? UIColor.red :  UIColor.black, for: .normal) 
+                    print(sender.isFavorite)
+                }
+                
+            }
+        }
+    }
+    
     
 }

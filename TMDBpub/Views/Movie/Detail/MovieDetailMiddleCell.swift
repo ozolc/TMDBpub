@@ -8,7 +8,15 @@
 
 import UIKit
 
+protocol MovieDetailMiddleCellDelegate: class {
+    func favoriteButtonPressed(sender: MovieDetailMiddleCell)
+}
+
 class MovieDetailMiddleCell: UITableViewCell {
+    
+    weak var delegate: MovieDetailMiddleCellDelegate?
+    
+    var isFavorite = false
     
     var movie: Movie! {
         didSet {
@@ -27,6 +35,13 @@ class MovieDetailMiddleCell: UITableViewCell {
         return tv
     }()
     
+    let favoriteButton = UIButton(title: "Favorite", titleColor: .red)
+    
+    @objc fileprivate func handleFavorite() {
+        delegate?.favoriteButtonPressed(sender: self)
+        print(isFavorite)
+    }
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -38,8 +53,12 @@ class MovieDetailMiddleCell: UITableViewCell {
                      color: UIColor.init(white: 0.75, alpha: 1),
                      weight: 1,
                      insets: .init(top: 5, left: 15, bottom: 0, right: 15))
-        addSubview(overviewTextView)
-        overviewTextView.fillSuperview(padding: .init(top: 4, left: 12, bottom: 4, right: 12))
+//        addSubview(overviewTextView)
+//        overviewTextView.fillSuperview(padding: .init(top: 4, left: 12, bottom: 4, right: 12))
+        
+        favoriteButton.addTarget(self, action: #selector(handleFavorite), for: .touchUpInside)
+        addSubview(favoriteButton)
+        favoriteButton.centerInSuperview()
         
     }
     

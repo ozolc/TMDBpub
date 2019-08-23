@@ -30,7 +30,6 @@ class AccountTopCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        backgroundColor = .white
         
         setupUI()
     }
@@ -45,6 +44,7 @@ class AccountTopCell: UITableViewCell {
             usernameLabel,
             nameLabel
             ], spacing: 2)
+        
         middleStack.alignment = .center
         hstack(middleStack).alignment = .center
         

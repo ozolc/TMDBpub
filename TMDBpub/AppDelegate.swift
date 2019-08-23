@@ -38,14 +38,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigationBarAppearnce = UINavigationBar.appearance()
 //        navigationBarAppearnce.backgroundColor = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 1)
         
-        navigationBarAppearnce.tintColor = #colorLiteral(red: 0.2304878831, green: 0.3483577371, blue: 0.5966511965, alpha: 1)
-        navigationBarAppearnce.titleTextAttributes = [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2304878831, green: 0.3483577371, blue: 0.5966511965, alpha: 1)]
+        navigationBarAppearnce.tintColor = Constants.tintColor
+        navigationBarAppearnce.titleTextAttributes = [NSAttributedString.Key.foregroundColor : Constants.tintColor]
         
         let tabBarAppearnce = UITabBar.appearance()
         tabBarAppearnce.backgroundColor = #colorLiteral(red: 0.9764705882, green: 0.9764705882, blue: 0.9764705882, alpha: 1)
-        tabBarAppearnce.tintColor = #colorLiteral(red: 0.2304878831, green: 0.3483577371, blue: 0.5966511965, alpha: 1) // Change selected icon color
+        tabBarAppearnce.tintColor = Constants.tintColor // Change selected icon color
         UITabBar.appearance().unselectedItemTintColor =  .gray
-        navigationBarAppearnce.titleTextAttributes = [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.2304878831, green: 0.3483577371, blue: 0.5966511965, alpha: 1)]
+        navigationBarAppearnce.titleTextAttributes = [NSAttributedString.Key.foregroundColor : Constants.tintColor]
         
         return true
     }

@@ -37,16 +37,7 @@ class SplashViewController: UIViewController {
     private func makeServiceCall() { 
         activityIndicator.startAnimating()
         
-        APIService.shared.setFromAuthManagedData()
-        
-//        Constants.apiKey = authManager.apiKey
-//        Constants.sessionId = authManager.userCredentials?.sessionId ?? "nil"
-//        Constants.accountId = authManager.userCredentials?.accountId ?? "nil"
-//
-//        print("Session ID =", Constants.sessionId)
-//        print("API Key =", Constants.apiKey)
-//        print("Account ID =", Constants.accountId)
-//        print("User is signed - ", self.isUserSignedIn())
+        APIService.shared.setGlobalUserFromKeychain()
         
         APIService.shared.loadingGenresFromNet {
             DispatchQueue.main.async {
@@ -55,7 +46,7 @@ class SplashViewController: UIViewController {
                 if self.isUserSignedIn() {
                     
                     APIService.shared.loadingUserDataFromNet(completion: {
-                        APIService.shared.setFromAuthManagedData()
+                        APIService.shared.setGlobalUserFromKeychain()
                         AppDelegate.shared.rootViewController.switchToMainScreen()
                     })
                     
@@ -67,32 +58,6 @@ class SplashViewController: UIViewController {
         }
         
     }
-    
-//    func loadingUserDataFromNet(completion: @escaping () -> ()) {
-//
-//        let dispatchGroup = DispatchGroup()
-//        dispatchGroup.enter()
-//
-//        APIService.shared.fetchMoviesStat(typeOfRequest: Constants.Account, sessionId:  Constants.sessionId, completionHandler: { (user: User) in
-//            dispatchGroup.leave()
-//            globalUser = user
-//        })
-//
-//        dispatchGroup.notify(queue: .main) {
-//            completion()
-//        }
-//    }
-    
-//    func loadingGenresFromNet(completion: @escaping () -> ()) {
-//        let infoAboutGenre = Constants.infoAboutGenre
-//
-//        APIService.shared.fetchMoviesStat(typeOfRequest: infoAboutGenre, language: Constants.language, completionHandler: { (genre: Genre) in
-//            genresArray += genre.genres
-//
-//        })
-//        print("Genres successfully downloaded genres from net")
-//        completion()
-//    }
     
     func isUserSignedIn() -> Bool {
         return authManager.isUserSignedIn()

@@ -72,7 +72,7 @@ class LoginController: UIViewController {
                         LoaderController.shared.showLoader()
                         
                         APIService.shared.loadingUserDataFromNet(completion: {
-                            APIService.shared.setFromAuthManagedData()
+                            APIService.shared.setGlobalUserFromKeychain()
                             LoaderController.shared.removeLoader()
                             AppDelegate.shared.rootViewController.switchToMainScreen()
                         })

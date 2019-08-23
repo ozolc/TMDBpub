@@ -82,7 +82,6 @@ class APIService {
             
             switch(response.result) {
             case .success:
-                print(response)
                 print("Yeah! Hand response")
                 do {
                     guard let data = response.data else { return }
@@ -112,6 +111,76 @@ class APIService {
                 print("error with response status: \(message)")
                 completionHandler(nil, error)
                 return
+            }
+        }
+    }
+    
+    func taskForPOSTMethod<T: Decodable>(requestURL: String, parameters: [String: Any],  httpMethod: HTTPMethod, jsonBody: [String: Any], completionHandler: @escaping (_ result: T?, _ error: Error?) -> Void) {
+        
+        let headers = ["content-type": "application/json;charset=utf-8"]
+        let postData = try? JSONSerialization.data(withJSONObject: parameters)
+        
+        var request = URLRequest(url: URL(string: requestURL)!,
+                                 cachePolicy: .useProtocolCachePolicy,
+                                 timeoutInterval: 10.0)
+        
+        request.httpMethod = "POST"
+        request.allHTTPHeaderFields = headers
+        request.httpBody = postData
+        
+        let session = URLSession.shared
+        let dataTask = session.dataTask(with: request, completionHandler: { (data, response, error) -> Void in
+            
+            if (error != nil) {
+                print("error with response status: \(error)")
+                completionHandler(nil, error)
+                return
+            } else {
+                let httpResponse = response as? HTTPURLResponse
+//                print(httpResponse)
+                
+                print("Yeah! Hand response")
+                do {
+                    guard let data = data else { return }
+                    let objects = try JSONDecoder().decode(T.self, from: data)
+                    completionHandler(objects, nil)
+                } catch let err {
+                    print("Failed to decode from JSON:", err)
+                    completionHandler(nil, err)
+                    return
+                }
+            }
+        })
+        dataTask.resume()   
+    }
+    
+
+    func postToFavorites(mediaType: Constants.MediaType, mediaId: Int, isFavorite: Bool, completionHandlerForFavorite: @escaping (_ result: ResponseResult?, _ error: Error?) -> Void)  {
+        
+        let parameters = [
+            "media_type": "movie",
+            "media_id": mediaId,
+            "favorite": isFavorite
+            ] as [String : Any]
+        
+        /* 2. Make the request */
+        let typeOfRequest = Constants.baseURL +
+            Constants.Account + "/" +
+            Constants.accountId + "/" +
+            Constants.ParameterKeys.Favorite
+            + "?api_key=" +
+            Constants.apiKey + "&session_id=" + Constants.sessionId
+        
+        print(typeOfRequest)
+        taskForPOSTMethod(requestURL: typeOfRequest, parameters: parameters, httpMethod: .post, jsonBody: parameters) { (results: ResponseResult?, error) in
+            
+            /* 3. Send the desired value(s) to completion handler */
+            if let error = error {
+                completionHandlerForFavorite(nil, error)
+            } else {
+                print(results)
+                completionHandlerForFavorite(results, nil)
+//
             }
         }
     }
@@ -278,8 +347,6 @@ class APIService {
     }
     
     
-    
-    
     func deleteSessionId(sessionId: String?, completionHandlerForDeletingSessionID: @escaping (_ success: Bool, _ errorString: String?) -> Void) {
         
         /* 1. Set the parameters */
@@ -336,7 +403,7 @@ class APIService {
         completion()
     }
     
-    func setFromAuthManagedData() {
+    func setGlobalUserFromKeychain() {
         Constants.apiKey = authManager.apiKey
         Constants.sessionId = authManager.userCredentials?.sessionId ?? "nil"
         Constants.accountId = authManager.userCredentials?.accountId ?? "nil"

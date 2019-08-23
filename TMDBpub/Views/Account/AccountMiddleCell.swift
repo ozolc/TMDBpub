@@ -18,7 +18,7 @@ class AccountMiddleCell: UITableViewCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         label.textColor = .black
         label.numberOfLines = 2
         label.textAlignment = .center
@@ -26,7 +26,8 @@ class AccountMiddleCell: UITableViewCell {
     }()
     
     let arrowImageView: UIImageView = {
-        let iv = UIImageView(image: #imageLiteral(resourceName: "RightArrow").withRenderingMode(.alwaysOriginal))
+        let iv = UIImageView(image: #imageLiteral(resourceName: "RightArrow").withRenderingMode(.alwaysTemplate))
+        iv.tintColor = Constants.tintColor
         iv.constrainWidth(constant: 20)
         iv.constrainHeight(constant: 20)
         return iv
@@ -41,7 +42,7 @@ class AccountMiddleCell: UITableViewCell {
         addSeparator(at: [.bottom],
                      color: UIColor.init(white: 0.75, alpha: 1),
                      weight: 1,
-                     insets: .init(top: 5, left: 15, bottom: 0, right: 20))
+                     insets: .init(top: 0, left: 15, bottom: 2, right: 20))
     }
     
     required init?(coder aDecoder: NSCoder) {

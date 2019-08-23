@@ -70,6 +70,8 @@
 		B0C6791D23006F0200EC3C7A /* HorizontalSnappingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6791C23006F0200EC3C7A /* HorizontalSnappingController.swift */; };
 		B0C6791F23006F5C00EC3C7A /* BetterSnappingLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6791E23006F5C00EC3C7A /* BetterSnappingLayout.swift */; };
 		B0C67922230071D700EC3C7A /* SearchMovieController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C67921230071D700EC3C7A /* SearchMovieController.swift */; };
+		B0CB8C17230FC2A1005B66E7 /* AccountFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CB8C16230FC2A1005B66E7 /* AccountFooterView.swift */; };
+		B0CB8C192310047B005B66E7 /* ResponseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CB8C182310047B005B66E7 /* ResponseResult.swift */; };
 		B0DB171F22FE94D700323CEC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DB171E22FE94D700323CEC /* Constants.swift */; };
 		B0DB172222FE9CBC00323CEC /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DB172122FE9CBC00323CEC /* APIService.swift */; };
 		B0DB172522FE9DC300323CEC /* ResultsMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DB172422FE9DC300323CEC /* ResultsMovie.swift */; };
@@ -151,6 +153,8 @@
 		B0C6791C23006F0200EC3C7A /* HorizontalSnappingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizontalSnappingController.swift; sourceTree = "<group>"; };
 		B0C6791E23006F5C00EC3C7A /* BetterSnappingLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BetterSnappingLayout.swift; sourceTree = "<group>"; };
 		B0C67921230071D700EC3C7A /* SearchMovieController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchMovieController.swift; sourceTree = "<group>"; };
+		B0CB8C16230FC2A1005B66E7 /* AccountFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountFooterView.swift; sourceTree = "<group>"; };
+		B0CB8C182310047B005B66E7 /* ResponseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseResult.swift; sourceTree = "<group>"; };
 		B0DB171E22FE94D700323CEC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B0DB172122FE9CBC00323CEC /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		B0DB172422FE9DC300323CEC /* ResultsMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsMovie.swift; sourceTree = "<group>"; };
@@ -413,6 +417,7 @@
 			children = (
 				B0A7087F230E636D0020C6B0 /* AccountTopCell.swift */,
 				B0A70885230EFC990020C6B0 /* AccountMiddleCell.swift */,
+				B0CB8C16230FC2A1005B66E7 /* AccountFooterView.swift */,
 			);
 			path = Account;
 			sourceTree = "<group>";
@@ -437,6 +442,7 @@
 				B0793F65230BC77B006C490A /* AccessToken.swift */,
 				B0793F6B230C2402006C490A /* Keys.swift */,
 				B0C4FA7F230C4DB0000870EE /* SessionDelete.swift */,
+				B0CB8C182310047B005B66E7 /* ResponseResult.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -670,6 +676,7 @@
 				B0715AEB23092A7700389D19 /* LoginController.swift in Sources */,
 				B0DB171F22FE94D700323CEC /* Constants.swift in Sources */,
 				B020418A2303FCA50081D726 /* ReviewsMovieController.swift in Sources */,
+				B0CB8C17230FC2A1005B66E7 /* AccountFooterView.swift in Sources */,
 				B0C6791322FFE7AD00EC3C7A /* LoaderController.swift in Sources */,
 				B0715AED23092E9F00389D19 /* Bindable.swift in Sources */,
 				B0A7088A230EFD9C0020C6B0 /* AccountListMovie.swift in Sources */,
@@ -683,6 +690,7 @@
 				B0793F61230AC951006C490A /* GCDBlackBox.swift in Sources */,
 				B0DB173222FEDE5900323CEC /* GenericMovieFooter.swift in Sources */,
 				B0E401D223058CD800374BBF /* ViewController+Ext.swift in Sources */,
+				B0CB8C192310047B005B66E7 /* ResponseResult.swift in Sources */,
 				B0C6791122FFCFF200EC3C7A /* MovieDetailMiddleCell.swift in Sources */,
 				B020417E2302C1570081D726 /* GenresMovieCell.swift in Sources */,
 				B067029422FDE4F00020F393 /* AppDelegate.swift in Sources */,

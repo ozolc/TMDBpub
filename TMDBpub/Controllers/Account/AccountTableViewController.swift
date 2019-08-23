@@ -22,6 +22,8 @@ class AccountTableViewController: UITableViewController {
     
     let topCellId = "topCellId"
     let middleCellId = "middleCellId"
+    let headerId = "headerId"
+    let footerId = "footerId"
     
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -30,7 +32,7 @@ class AccountTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setUpTableView()
+        setupTableView()
         
         let logoutButton = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogout))
         navigationItem.setRightBarButton(logoutButton, animated: true)
@@ -45,11 +47,19 @@ class AccountTableViewController: UITableViewController {
         return 2
     }
     
-    fileprivate func setUpTableView() {
+    fileprivate func setupTableView() {
         tableView.backgroundColor = .white
         tableView.register(AccountTopCell.self,forCellReuseIdentifier: topCellId)
         tableView.register(AccountMiddleCell.self,forCellReuseIdentifier: middleCellId)
+//        tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: headerId)
+        tableView.register(AccountFooterView.self, forHeaderFooterViewReuseIdentifier: footerId)
+        
+        tableView.alwaysBounceVertical = false
+        tableView.bounces = false
+        
         tableView.separatorStyle = .none
+        
+        tableView.tableFooterView = UIView()
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -79,9 +89,28 @@ class AccountTableViewController: UITableViewController {
         return section == 0 ? 1 : accountLists.count
     }
     
+    
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return indexPath.section == 0 ? 100 : 40
     }
+    
+    override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
+        let footerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: footerId)
+        return section == 1 ? footerView : nil
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return section == 1 ? 50 : 0
+    }
+    
+//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+//        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerId)
+//        return section == 1 ? headerView : nil
+//    }
+//
+//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+//        return section == 1 ? 50 : 0
+//    }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {

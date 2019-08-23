@@ -25,7 +25,8 @@ class GenresMovieCell: UITableViewCell {
     }()
     
     let arrowImageView: UIImageView = {
-        let iv = UIImageView(image: #imageLiteral(resourceName: "RightArrow").withRenderingMode(.alwaysOriginal))
+        let iv = UIImageView(image: #imageLiteral(resourceName: "RightArrow").withRenderingMode(.alwaysTemplate))
+        iv.tintColor = Constants.tintColor
         iv.constrainWidth(constant: 20)
         iv.constrainHeight(constant: 20)
         return iv

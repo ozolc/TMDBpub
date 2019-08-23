@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct Constants {
     
@@ -25,6 +26,9 @@ struct Constants {
     static let gravatarImageURL = "https://www.gravatar.com/avatar/"
     static let moviePosterPlaceholderImageName = "placeholder.png"
     static let language = "ru-RU"
+    
+    // Application constants
+    static let tintColor = #colorLiteral(red: 0.2304878831, green: 0.3483577371, blue: 0.5966511965, alpha: 1)
     
     // MARK: Authentication
     static let AuthenticationTokenNew = "authentication/token/new"
@@ -48,11 +52,35 @@ struct Constants {
         }
     }
     
+    
     struct ParameterKeys {
         static let ApiKey = "api_key"
         static let SessionID = "session_id"
         static let RequestToken = "request_token"
         static let Query = "query"
+        static let MediaID = "media_id"
+        static let MediaType = "media_type"
+        static let Favorite = "favorite"
+    }
+    
+    enum MediaType: String {
+        case Movie = "movie"
+        case TV = "tv"
+        
+        var description : String {
+            switch self {
+            case .Movie: return String(describing: "movie")
+            case .TV: return String(describing: "tv")
+            }
+        }
+    }
+    
+    // MARK: JSON Response Keys
+    struct JSONResponseKeys {
+        
+        // MARK: General
+        static let StatusMessage = "status_message"
+        static let StatusCode = "status_code"
     }
     
     struct ResponseKey {
