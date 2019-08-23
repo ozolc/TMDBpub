@@ -12,9 +12,17 @@ class MovieDetailController: UITableViewController {
     
     weak var movieDetailToolCellView: MovieDetailToolCell?
     
+    var isFavourited = false
+    
     fileprivate var movieId: Int!
     fileprivate var movie: Movie!
     fileprivate var reviews: Review!
+    fileprivate var movieState: MovieState! {
+        didSet {
+            let isFavourited = movieState.favorite
+            updateRighBarButton(isFavourite: isFavourited)
+        }
+    }
     
     // dependency injection constructor
     init(movieId: Int) {
@@ -51,6 +59,44 @@ class MovieDetailController: UITableViewController {
         tableView.tableFooterView = UIView()
     }
     
+    fileprivate func fetchFavoriteState() {
+        let typeOfRequestStates = "movie/\(movieId ?? 0)/account_states"
+        APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequestStates, sessionId: Constants.sessionId, completionHandler: { [weak self] (state: MovieState) in
+            
+            self?.movieState = state
+            print(state)
+        })
+    }
+    
+    func updateRighBarButton(isFavourite: Bool) {
+        let favoriteButton = UIButton()
+        favoriteButton.addTarget(self, action: #selector(handleFavorite), for: .touchUpInside)
+        if isFavourite {
+            favoriteButton.setImage(UIImage(named: "FavoriteOn"), for: .normal)
+        } else {
+            favoriteButton.setImage(UIImage(named: "FavoriteOff"), for: .normal)
+        }
+        self.isFavourited = !self.isFavourited
+        
+        let rightButton = UIBarButtonItem(customView: favoriteButton)
+        self.navigationItem.setRightBarButtonItems([rightButton], animated: true)
+    }
+    
+    
+    @objc fileprivate func handleFavorite() {
+        APIService.shared.postToFavorites(mediaType: .Movie, mediaId: movieId, isFavorite: self.isFavourited) { [weak self] (response, error) in
+            if let error = error {
+                print(error)
+            } else {
+//                guard let isFavourited = self?.isFavourited else { return }
+//                self?.updateRighBarButton(isFavourite: isFavourited)
+                print(self?.isFavourited)
+            }
+        }
+        
+        self.updateRighBarButton(isFavourite: isFavourited);
+    }
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
     }
@@ -67,12 +113,12 @@ class MovieDetailController: UITableViewController {
         
         let dispatchGroup = DispatchGroup()
         
-        dispatchGroup.enter()
         let typeOfRequest = "movie/\(movieId ?? 0)"
         APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, completionHandler:  {[weak self] (movie: Movie) in
+            dispatchGroup.enter()
             
             self?.movie = movie
-            dispatchGroup.leave()
+            self?.fetchFavoriteState()
         })
         
         dispatchGroup.notify(queue: .main) {
