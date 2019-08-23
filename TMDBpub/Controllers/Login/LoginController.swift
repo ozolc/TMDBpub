@@ -69,7 +69,14 @@ class LoginController: UIViewController {
                 APIService.shared.authenticateWithViewController(hostViewController: self) { (success, errorString) in
                     if success {
                         print("Ok. About to show main tab bar")
-                        AppDelegate.shared.rootViewController.switchToMainScreen()
+                        LoaderController.shared.showLoader()
+                        
+                        APIService.shared.loadingUserDataFromNet(completion: {
+                            APIService.shared.setFromAuthManagedData()
+                            LoaderController.shared.removeLoader()
+                            AppDelegate.shared.rootViewController.switchToMainScreen()
+                        })
+                        
                     } else {
                         print("Error during authorization in handle login")
                     }

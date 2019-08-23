@@ -310,4 +310,41 @@ class APIService {
         }
     }
     
+    func loadingUserDataFromNet(completion: @escaping () -> ()) {
+        
+        let dispatchGroup = DispatchGroup()
+        dispatchGroup.enter()
+        
+        APIService.shared.fetchMoviesStat(typeOfRequest: Constants.Account, sessionId:  Constants.sessionId, completionHandler: { (user: User) in
+            dispatchGroup.leave()
+            globalUser = user
+        })
+        
+        dispatchGroup.notify(queue: .main) {
+            completion()
+        }
+    }
+    
+    func loadingGenresFromNet(completion: @escaping () -> ()) {
+        let infoAboutGenre = Constants.infoAboutGenre
+        
+        APIService.shared.fetchMoviesStat(typeOfRequest: infoAboutGenre, language: Constants.language, completionHandler: { (genre: Genre) in
+            genresArray += genre.genres
+            
+        })
+        print("Genres successfully downloaded genres from net")
+        completion()
+    }
+    
+    func setFromAuthManagedData() {
+        Constants.apiKey = authManager.apiKey
+        Constants.sessionId = authManager.userCredentials?.sessionId ?? "nil"
+        Constants.accountId = authManager.userCredentials?.accountId ?? "nil"
+        
+        print("Session ID =", Constants.sessionId)
+        print("API Key =", Constants.apiKey)
+        print("Account ID =", Constants.accountId)
+        print("User is signed - ", self.authManager.isUserSignedIn())
+    }
+    
 }

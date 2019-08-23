@@ -16,7 +16,9 @@ class AccountTopCell: UITableViewCell {
     
     var user: User! {
         didSet {
-            usernameLabel.text = user.username
+            if let userName = user.username {
+                usernameLabel.text = userName
+            } else { print("username is nil") }
             
             let attributedUsernameLabelText = NSMutableAttributedString(string: user.name, attributes: [.foregroundColor: UIColor.darkGray])
             nameLabel.attributedText = attributedUsernameLabelText

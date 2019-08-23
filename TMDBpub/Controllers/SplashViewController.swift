@@ -37,20 +37,27 @@ class SplashViewController: UIViewController {
     private func makeServiceCall() { 
         activityIndicator.startAnimating()
         
-        Constants.apiKey = authManager.apiKey
-        Constants.sessionId = authManager.userCredentials?.sessionId ?? "nil"
-        Constants.accountId = authManager.userCredentials?.accountId ?? "nil"
+        APIService.shared.setFromAuthManagedData()
         
-        print(Constants.sessionId)
-        print(Constants.apiKey)
-        print(Constants.accountId)
+//        Constants.apiKey = authManager.apiKey
+//        Constants.sessionId = authManager.userCredentials?.sessionId ?? "nil"
+//        Constants.accountId = authManager.userCredentials?.accountId ?? "nil"
+//
+//        print("Session ID =", Constants.sessionId)
+//        print("API Key =", Constants.apiKey)
+//        print("Account ID =", Constants.accountId)
+//        print("User is signed - ", self.isUserSignedIn())
         
-        loadingGenresFromNet {
+        APIService.shared.loadingGenresFromNet {
             DispatchQueue.main.async {
                 self.activityIndicator.stopAnimating()
                 
                 if self.isUserSignedIn() {
-                    AppDelegate.shared.rootViewController.switchToMainScreen()
+                    
+                    APIService.shared.loadingUserDataFromNet(completion: {
+                        APIService.shared.setFromAuthManagedData()
+                        AppDelegate.shared.rootViewController.switchToMainScreen()
+                    })
                     
                 } else {
                     AppDelegate.shared.rootViewController.switchToLogout()
@@ -61,27 +68,31 @@ class SplashViewController: UIViewController {
         
     }
     
-    func loadingGenresFromNet(completion: @escaping () -> ()) {
-        let infoAboutGenre = Constants.infoAboutGenre
-        
-        let dispatchGroup = DispatchGroup()
-        dispatchGroup.enter()
-        
-        APIService.shared.fetchMoviesStat(typeOfRequest: infoAboutGenre, language: Constants.language, completionHandler: { (genre: Genre) in
-            
-            genresArray += genre.genres
-            
-            APIService.shared.fetchMoviesStat(typeOfRequest: Constants.Account, sessionId:  Constants.sessionId, completionHandler: { (user: User) in
-                dispatchGroup.leave()
-                
-                globalUser = user
-            })
-        })
-        
-        dispatchGroup.notify(queue: .main) {
-            completion()
-        }
-    }
+//    func loadingUserDataFromNet(completion: @escaping () -> ()) {
+//
+//        let dispatchGroup = DispatchGroup()
+//        dispatchGroup.enter()
+//
+//        APIService.shared.fetchMoviesStat(typeOfRequest: Constants.Account, sessionId:  Constants.sessionId, completionHandler: { (user: User) in
+//            dispatchGroup.leave()
+//            globalUser = user
+//        })
+//
+//        dispatchGroup.notify(queue: .main) {
+//            completion()
+//        }
+//    }
+    
+//    func loadingGenresFromNet(completion: @escaping () -> ()) {
+//        let infoAboutGenre = Constants.infoAboutGenre
+//
+//        APIService.shared.fetchMoviesStat(typeOfRequest: infoAboutGenre, language: Constants.language, completionHandler: { (genre: Genre) in
+//            genresArray += genre.genres
+//
+//        })
+//        print("Genres successfully downloaded genres from net")
+//        completion()
+//    }
     
     func isUserSignedIn() -> Bool {
         return authManager.isUserSignedIn()

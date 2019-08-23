@@ -154,7 +154,6 @@ extension AuthenticationManager {
         static let accountIdKey = "TMDBpubAccessAccountId"
         static let sessionIdKey = "TMDBpubSessionId"
         static let currentUserIdKey = "TMDBpubUserId"
-//        accessTokenKey
     }
     
 }
