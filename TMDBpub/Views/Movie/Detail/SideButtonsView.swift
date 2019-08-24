@@ -23,8 +23,16 @@ class SideButtonsView: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+//    override func layoutSubviews() {
+//        super.layoutSubviews()
+//
+//        // Layout Buttons
+//        sideButtonsView?.setTriggerButtonPosition(CGPoint(x: bounds.width - triggerButtonMargin, y: bounds.height - triggerButtonMargin))
+//    }
+    
     fileprivate func setup() {
-        backgroundColor = UIColor.lightGray
+        backgroundColor = .lightGray
     }
     
     func set(sideButtonsView view: RHSideButtons) {
