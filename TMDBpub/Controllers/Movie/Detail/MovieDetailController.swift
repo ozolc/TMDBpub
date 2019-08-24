@@ -24,6 +24,10 @@ class MovieDetailController: UITableViewController {
         }
     }
     
+    var sideBV = SideButtonsView()
+    var buttonsArr = [RHButtonView]()
+    fileprivate let triggerButtonMargin = CGFloat(85)
+    
     // dependency injection constructor
     init(movieId: Int) {
         self.movieId = movieId
@@ -42,6 +46,48 @@ class MovieDetailController: UITableViewController {
         
         LoaderController.shared.showLoader()
         fetchData()
+        setupSideButtons()
+    }
+    
+    fileprivate func addSideButtons() {
+        
+        let triggerButton = RHTriggerButtonView(pressedImage: UIImage(named: "exit_icon")!) {
+            $0.image = UIImage(named: "trigger_img")
+            $0.hasShadow = true
+        }
+        
+        let sideButtonsView = RHSideButtons(parentView: tableView, triggerButton: triggerButton)
+        sideButtonsView.delegate = self
+        sideButtonsView.dataSource = self
+        
+        for index in 1...3 {
+            buttonsArr.append(generateButton(withImgName: "icon_\(index)"))
+        }
+
+        let width = tableView.contentSize.width
+        guard let heightOrigin = tabBarController?.tabBar.frame.origin.y else { return }
+        guard let heightTabBar = tabBarController?.tabBar.frame.size.height else { return }
+        
+        let height = heightOrigin - heightTabBar
+        print(height)
+        print(width)
+        
+        sideButtonsView.setTriggerButtonPosition(CGPoint(x: width - triggerButtonMargin, y: height - triggerButtonMargin))
+        
+        sideBV.set(sideButtonsView: sideButtonsView)
+        sideBV.sideButtonsView?.reloadButtons()
+    }
+    
+    fileprivate func setupSideButtons() {
+        addSideButtons()
+    }
+    
+    fileprivate func generateButton(withImgName imgName: String) -> RHButtonView {
+        
+        return RHButtonView {
+            $0.image = UIImage(named: imgName)
+            $0.hasShadow = true
+        }
     }
     
     fileprivate func setupTableView() {
@@ -62,11 +108,8 @@ class MovieDetailController: UITableViewController {
     fileprivate func fetchFavoriteState() {
         let typeOfRequestStates = "movie/\(movieId ?? 0)/account_states"
         APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequestStates, sessionId: Constants.sessionId, completionHandler: { [weak self] (state: MovieState) in
-            
             self?.movieState = state
             self?.dispatchGroup.leave()
-            
-            print(state)
         })
     }
     
@@ -81,18 +124,13 @@ class MovieDetailController: UITableViewController {
         
         let rightButton = UIBarButtonItem(customView: favoriteButton)
         self.navigationItem.setRightBarButtonItems([rightButton], animated: true)
-//        self.isFavourited = !self.isFavourited
     }
     
     
     @objc fileprivate func handleFavorite() {
-        APIService.shared.postToFavorites(mediaType: .Movie, mediaId: movieId, isFavorite: !self.isFavourited) { [weak self] (response, error) in
-//            guard let self = self else { return }
+        APIService.shared.postToFavorites(mediaType: .Movie, mediaId: movieId, isFavorite: !self.isFavourited) { (response, error) in
             if let error = error {
                 print(error)
-//            } else {
-//
-//                print(self.isFavourited)
             }
         }
         
@@ -221,5 +259,26 @@ extension MovieDetailController: MovieDetailMiddleCellDelegate {
         }
     }
     
+}
+
+extension MovieDetailController: RHSideButtonsDataSource {
     
+    func sideButtonsNumberOfButtons(_ sideButtons: RHSideButtons) -> Int {
+        return buttonsArr.count
+    }
+    
+    func sideButtons(_ sideButtons: RHSideButtons, buttonAtIndex index: Int) -> RHButtonView {
+        return buttonsArr[index]
+    }
+}
+
+extension MovieDetailController: RHSideButtonsDelegate {
+    
+    func sideButtons(_ sideButtons: RHSideButtons, didSelectButtonAtIndex index: Int) {
+        print("🍭 button index tapped: \(index)")
+    }
+    
+    func sideButtons(_ sideButtons: RHSideButtons, didTriggerButtonChangeStateTo state: RHButtonState) {
+        print("🍭 Trigger button")
+    }
 }

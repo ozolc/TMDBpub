@@ -59,7 +59,7 @@ class APIService {
                 return
             }
             
-            print(dataResponse.request)
+//            print(dataResponse.request)
             
             guard let data = dataResponse.data else { return }
             do {
@@ -132,11 +132,11 @@ class APIService {
         let dataTask = session.dataTask(with: request, completionHandler: { (data, response, error) -> Void in
             
             if (error != nil) {
-                print("error with response status: \(error)")
+                print("error with response status: \(String(describing: error))")
                 completionHandler(nil, error)
                 return
             } else {
-                let httpResponse = response as? HTTPURLResponse
+//                let httpResponse = response as? HTTPURLResponse
 //                print(httpResponse)
                 
                 print("Yeah! Hand response")
@@ -158,7 +158,7 @@ class APIService {
     func postToFavorites(mediaType: Constants.MediaType, mediaId: Int, isFavorite: Bool, completionHandlerForFavorite: @escaping (_ result: ResponseResult?, _ error: Error?) -> Void)  {
         
         let parameters = [
-            "media_type": "movie",
+            "media_type": mediaType.description,
             "media_id": mediaId,
             "favorite": isFavorite
             ] as [String : Any]
@@ -178,7 +178,7 @@ class APIService {
             if let error = error {
                 completionHandlerForFavorite(nil, error)
             } else {
-                print(results)
+                print(results?.statusCode ?? 0, results?.statusMessage ?? "statusMessage")
                 completionHandlerForFavorite(results, nil)
 //
             }
@@ -408,10 +408,10 @@ class APIService {
         Constants.sessionId = authManager.userCredentials?.sessionId ?? "nil"
         Constants.accountId = authManager.userCredentials?.accountId ?? "nil"
         
-        print("Session ID =", Constants.sessionId)
-        print("API Key =", Constants.apiKey)
-        print("Account ID =", Constants.accountId)
-        print("User is signed - ", self.authManager.isUserSignedIn())
+//        print("Session ID =", Constants.sessionId)
+//        print("API Key =", Constants.apiKey)
+//        print("Account ID =", Constants.accountId)
+//        print("User is signed - ", self.authManager.isUserSignedIn())
     }
     
 }

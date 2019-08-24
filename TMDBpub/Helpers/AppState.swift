@@ -20,3 +20,4 @@ class AppState {
         totalPages = 0
     }
 }
+

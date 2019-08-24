@@ -73,6 +73,14 @@
 		B0CB8C17230FC2A1005B66E7 /* AccountFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CB8C16230FC2A1005B66E7 /* AccountFooterView.swift */; };
 		B0CB8C192310047B005B66E7 /* ResponseResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CB8C182310047B005B66E7 /* ResponseResult.swift */; };
 		B0CB8C1D2310373A005B66E7 /* MovieState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CB8C1C2310373A005B66E7 /* MovieState.swift */; };
+		B0CC7736231124930039DC78 /* RHTriggerButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CC772E231124930039DC78 /* RHTriggerButtonView.swift */; };
+		B0CC7737231124930039DC78 /* RHSideButtonAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CC772F231124930039DC78 /* RHSideButtonAnimator.swift */; };
+		B0CC7738231124930039DC78 /* RHButtonViewConfigProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CC7730231124930039DC78 /* RHButtonViewConfigProtocol.swift */; };
+		B0CC7739231124930039DC78 /* RHSideButtonAnimatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CC7731231124930039DC78 /* RHSideButtonAnimatorProtocol.swift */; };
+		B0CC773A231124930039DC78 /* RHSideButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CC7732231124930039DC78 /* RHSideButtons.swift */; };
+		B0CC773B231124930039DC78 /* RHButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CC7733231124930039DC78 /* RHButtonView.swift */; };
+		B0CC773E2311281A0039DC78 /* SideButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CC773D2311281A0039DC78 /* SideButtonsView.swift */; };
+		B0CC7740231142200039DC78 /* UITableView+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0CC773F231142200039DC78 /* UITableView+Ext.swift */; };
 		B0DB171F22FE94D700323CEC /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DB171E22FE94D700323CEC /* Constants.swift */; };
 		B0DB172222FE9CBC00323CEC /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DB172122FE9CBC00323CEC /* APIService.swift */; };
 		B0DB172522FE9DC300323CEC /* ResultsMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0DB172422FE9DC300323CEC /* ResultsMovie.swift */; };
@@ -157,6 +165,15 @@
 		B0CB8C16230FC2A1005B66E7 /* AccountFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountFooterView.swift; sourceTree = "<group>"; };
 		B0CB8C182310047B005B66E7 /* ResponseResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseResult.swift; sourceTree = "<group>"; };
 		B0CB8C1C2310373A005B66E7 /* MovieState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieState.swift; sourceTree = "<group>"; };
+		B0CC772E231124930039DC78 /* RHTriggerButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHTriggerButtonView.swift; sourceTree = "<group>"; };
+		B0CC772F231124930039DC78 /* RHSideButtonAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSideButtonAnimator.swift; sourceTree = "<group>"; };
+		B0CC7730231124930039DC78 /* RHButtonViewConfigProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHButtonViewConfigProtocol.swift; sourceTree = "<group>"; };
+		B0CC7731231124930039DC78 /* RHSideButtonAnimatorProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSideButtonAnimatorProtocol.swift; sourceTree = "<group>"; };
+		B0CC7732231124930039DC78 /* RHSideButtons.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHSideButtons.swift; sourceTree = "<group>"; };
+		B0CC7733231124930039DC78 /* RHButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RHButtonView.swift; sourceTree = "<group>"; };
+		B0CC7734231124930039DC78 /* RHSideButtons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RHSideButtons.h; sourceTree = "<group>"; };
+		B0CC773D2311281A0039DC78 /* SideButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideButtonsView.swift; sourceTree = "<group>"; };
+		B0CC773F231142200039DC78 /* UITableView+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Ext.swift"; sourceTree = "<group>"; };
 		B0DB171E22FE94D700323CEC /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		B0DB172122FE9CBC00323CEC /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		B0DB172422FE9DC300323CEC /* ResultsMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsMovie.swift; sourceTree = "<group>"; };
@@ -272,6 +289,7 @@
 		B05330AE22FDE84500ECA238 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				B0CC772C231124930039DC78 /* RHSideButtons */,
 				B0A70883230E6A990020C6B0 /* UIView+Stacking.swift */,
 				B05330AF22FDE86000ECA238 /* UIView+Layout.swift */,
 				B0DB172B22FEB8B900323CEC /* UILabel+Ext.swift */,
@@ -289,6 +307,7 @@
 				B0715B0E230986E400389D19 /* Dictionary+Ext.swift */,
 				B0715B102309870900389D19 /* CharacterSet+Ext.swift */,
 				B0A70881230E642C0020C6B0 /* CircularImageView.swift */,
+				B0CC773F231142200039DC78 /* UITableView+Ext.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -432,6 +451,28 @@
 			path = Search;
 			sourceTree = "<group>";
 		};
+		B0CC772C231124930039DC78 /* RHSideButtons */ = {
+			isa = PBXGroup;
+			children = (
+				B0CC772D231124930039DC78 /* RHSideButtons */,
+				B0CC7734231124930039DC78 /* RHSideButtons.h */,
+			);
+			path = RHSideButtons;
+			sourceTree = "<group>";
+		};
+		B0CC772D231124930039DC78 /* RHSideButtons */ = {
+			isa = PBXGroup;
+			children = (
+				B0CC772E231124930039DC78 /* RHTriggerButtonView.swift */,
+				B0CC772F231124930039DC78 /* RHSideButtonAnimator.swift */,
+				B0CC7730231124930039DC78 /* RHButtonViewConfigProtocol.swift */,
+				B0CC7731231124930039DC78 /* RHSideButtonAnimatorProtocol.swift */,
+				B0CC7732231124930039DC78 /* RHSideButtons.swift */,
+				B0CC7733231124930039DC78 /* RHButtonView.swift */,
+			);
+			path = RHSideButtons;
+			sourceTree = "<group>";
+		};
 		B0DB172022FE9C8F00323CEC /* API */ = {
 			isa = PBXGroup;
 			children = (
@@ -502,6 +543,7 @@
 				B0DB173322FF018000323CEC /* MovieDetailCell.swift */,
 				B0C6791022FFCFF200EC3C7A /* MovieDetailMiddleCell.swift */,
 				B02041842303DF3D0081D726 /* MovieDetailToolCell.swift */,
+				B0CC773D2311281A0039DC78 /* SideButtonsView.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -647,6 +689,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B043DDCE2301C35D0070A10F /* DispatchQueue.swift in Sources */,
+				B0CC773E2311281A0039DC78 /* SideButtonsView.swift in Sources */,
 				B0793F6C230C2402006C490A /* Keys.swift in Sources */,
 				B043DDD22301D6F00070A10F /* MovieUpcomingCell.swift in Sources */,
 				B05330B622FDEB2D00ECA238 /* BaseListController.swift in Sources */,
@@ -660,9 +703,11 @@
 				B05330BA22FDEC0400ECA238 /* GenericMovieCell.swift in Sources */,
 				B0A70884230E6A990020C6B0 /* UIView+Stacking.swift in Sources */,
 				B0C6791B230056E300EC3C7A /* ProductionCompany.swift in Sources */,
+				B0CC7739231124930039DC78 /* RHSideButtonAnimatorProtocol.swift in Sources */,
 				B0A70880230E636D0020C6B0 /* AccountTopCell.swift in Sources */,
 				B02041852303DF3D0081D726 /* MovieDetailToolCell.swift in Sources */,
 				B0715AFD2309839C00389D19 /* APIError.swift in Sources */,
+				B0CC773B231124930039DC78 /* RHButtonView.swift in Sources */,
 				B0C4FA80230C4DB0000870EE /* SessionDelete.swift in Sources */,
 				B0793F68230BD4A2006C490A /* RootViewController.swift in Sources */,
 				B0793F66230BC77B006C490A /* AccessToken.swift in Sources */,
@@ -675,6 +720,8 @@
 				B0793F6A230BD5B6006C490A /* SplashViewController.swift in Sources */,
 				B0C6791523004A7D00EC3C7A /* String+Ext.swift in Sources */,
 				B0A7087D230E62FF0020C6B0 /* AccountTableViewController.swift in Sources */,
+				B0CC7736231124930039DC78 /* RHTriggerButtonView.swift in Sources */,
+				B0CC7737231124930039DC78 /* RHSideButtonAnimator.swift in Sources */,
 				B0DB173022FEBDB400323CEC /* UIImageView+Ext.swift in Sources */,
 				B0715AEB23092A7700389D19 /* LoginController.swift in Sources */,
 				B0DB171F22FE94D700323CEC /* Constants.swift in Sources */,
@@ -687,11 +734,13 @@
 				B0204194230487300081D726 /* CastMovieController.swift in Sources */,
 				B0E401D423058D8700374BBF /* AppState.swift in Sources */,
 				B0C6791F23006F5C00EC3C7A /* BetterSnappingLayout.swift in Sources */,
+				B0CC773A231124930039DC78 /* RHSideButtons.swift in Sources */,
 				B0204197230488B30081D726 /* CastMovieCell.swift in Sources */,
 				B043DDCA230132EC0070A10F /* SearchMovieCell.swift in Sources */,
 				B043DDD42301E5810070A10F /* ListCell.swift in Sources */,
 				B0793F61230AC951006C490A /* GCDBlackBox.swift in Sources */,
 				B0DB173222FEDE5900323CEC /* GenericMovieFooter.swift in Sources */,
+				B0CC7738231124930039DC78 /* RHButtonViewConfigProtocol.swift in Sources */,
 				B0E401D223058CD800374BBF /* ViewController+Ext.swift in Sources */,
 				B0CB8C192310047B005B66E7 /* ResponseResult.swift in Sources */,
 				B0C6791122FFCFF200EC3C7A /* MovieDetailMiddleCell.swift in Sources */,
@@ -701,6 +750,7 @@
 				B0C6791723004D0E00EC3C7A /* Int+Ext.swift in Sources */,
 				B0DB172222FE9CBC00323CEC /* APIService.swift in Sources */,
 				B072280F230594A700DA248A /* Video.swift in Sources */,
+				B0CC7740231142200039DC78 /* UITableView+Ext.swift in Sources */,
 				B0DB172522FE9DC300323CEC /* ResultsMovie.swift in Sources */,
 				B020418F2304523E0081D726 /* ReviewMovieCell.swift in Sources */,
 				B0CB8C1D2310373A005B66E7 /* MovieState.swift in Sources */,
