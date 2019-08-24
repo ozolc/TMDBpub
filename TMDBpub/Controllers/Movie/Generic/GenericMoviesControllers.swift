@@ -105,13 +105,14 @@ class GenericMoviesControllers: BaseListController {
         
         let movie = self.movies[indexPath.item]
         cell.movie = movie
-        
-//        // initiate pagination
-        if indexPath.item == self.movies.count - 1 && !isPaginating {
+
+        // initiate pagination
+        if indexPath.item == self.movies.count - 1 && !isPaginating && self.currentPage < self.totalPages {
+            print(indexPath.item)
             
-            self.currentPage += 1
             print("fetch more data from page", self.currentPage)
 
+            self.currentPage += 1
             isPaginating = true
             
             APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, page: currentPage, with_genres: with_genres, completionHandler: { [weak self] (result: ResultsMovie) in

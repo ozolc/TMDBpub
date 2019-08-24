@@ -25,4 +25,7 @@ struct Movie: Codable {
     let genres: [GenreStruct]?
     let production_companies: [ProductionCompany]?
     let genre_ids: [Int]?
+    let adult: Bool?
+    let video: Bool?
+    
 }

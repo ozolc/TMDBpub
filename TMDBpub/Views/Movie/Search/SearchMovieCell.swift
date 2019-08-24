@@ -99,8 +99,8 @@ class SearchMovieCell: UITableViewCell {
         infoStackView.distribution = .fillEqually
         
         let tmdbStackView = UIStackView(arrangedSubviews: [tmdbImageView, voteAverageLabel])
-        tmdbStackView.constrainWidth(constant: 50)
-        tmdbStackView.spacing = 4
+        tmdbStackView.constrainWidth(constant: 70)
+        tmdbStackView.spacing = 2
         tmdbStackView.distribution = .fillEqually
 
         let overallStackView = UIStackView(arrangedSubviews: [posterImageView, infoStackView, tmdbStackView])

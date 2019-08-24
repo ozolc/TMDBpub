@@ -16,7 +16,7 @@ class MovieDetailMiddleCell: UITableViewCell {
     
     weak var delegate: MovieDetailMiddleCellDelegate?
     
-    var isFavorite = false
+    var isFavorite = true
     
     var movie: Movie! {
         didSet {

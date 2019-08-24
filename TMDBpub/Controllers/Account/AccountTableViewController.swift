@@ -103,15 +103,6 @@ class AccountTableViewController: UITableViewController {
         return section == 1 ? 50 : 0
     }
     
-//    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-//        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerId)
-//        return section == 1 ? headerView : nil
-//    }
-//
-//    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-//        return section == 1 ? 50 : 0
-//    }
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: topCellId, for: indexPath) as? AccountTopCell else {
