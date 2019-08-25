@@ -136,9 +136,6 @@ class APIService {
                 completionHandler(nil, error)
                 return
             } else {
-//                let httpResponse = response as? HTTPURLResponse
-//                print(httpResponse)
-                
                 print("Yeah! Hand response")
                 do {
                     guard let data = data else { return }
@@ -155,19 +152,20 @@ class APIService {
     }
     
 
-    func postToFavorites(mediaType: Constants.MediaType, mediaId: Int, isFavorite: Bool, completionHandlerForFavorite: @escaping (_ result: ResponseResult?, _ error: Error?) -> Void)  {
+    func postToFavorites(mediaType: Constants.MediaType, mediaId: Int, isFavorite: Bool, typeOfParameter: Constants.ParameterKeysAccount, completionHandlerForFavorite: @escaping (_ result: ResponseResult?, _ error: Error?) -> Void)  {
         
         let parameters = [
             "media_type": mediaType.description,
             "media_id": mediaId,
-            "favorite": isFavorite
+            typeOfParameter.description: isFavorite
             ] as [String : Any]
         
         /* 2. Make the request */
         let typeOfRequest = Constants.baseURL +
             Constants.Account + "/" +
             Constants.accountId + "/" +
-            Constants.ParameterKeys.Favorite
+//            Constants.ParameterKeys.Favorite
+            typeOfParameter.description
             + "?api_key=" +
             Constants.apiKey + "&session_id=" + Constants.sessionId
         
@@ -399,7 +397,7 @@ class APIService {
             genresArray += genre.genres
             
         })
-        print("Genres successfully downloaded genres from net")
+//        print("Genres successfully downloaded genres from net")
         completion()
     }
     

@@ -63,6 +63,18 @@ struct Constants {
         static let Favorite = "favorite"
     }
     
+    enum ParameterKeysAccount: String {
+        case Favorite = "favorite"
+        case Watchlist = "watchlist"
+        
+        var description : String {
+            switch self {
+            case .Favorite: return String(describing: "favorite")
+            case .Watchlist: return String(describing: "watchlist")
+            }
+        }
+    }
+    
     enum MediaType: String {
         case Movie = "movie"
         case TV = "tv"

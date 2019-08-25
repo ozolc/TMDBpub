@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class MovieDetailCell: UITableViewCell {
     
@@ -31,8 +32,16 @@ class MovieDetailCell: UITableViewCell {
             genreLabel.text = movie.genres?.first?.name
             
             if let backdropUrl = URL(string: Constants.fetchBackdropUrl(withBackdropPath: movie.backdrop_path ?? "", backdropSize: Constants.BackdropSize.w780.rawValue)) {
-                backdropImageView.sd_setImage(with: backdropUrl, placeholderImage: UIImage(named: Constants.moviePosterPlaceholderImageName), options: .continueInBackground) { (_, _, _, _) in
-                    self.backdropImageView.isHidden = false
+                
+                backdropImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                backdropImageView.sd_setImage(with: backdropUrl, placeholderImage: nil, options: [.highPriority]) {
+                (image, error, _, _) in
+                    if (error != nil) {
+                        self.backdropImageView.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
+                    } else {
+                        self.backdropImageView.image = image
+                        self.backdropImageView.layer.addSublayer(self.gradientLayer)
+                    }
                 }
             }
             
@@ -119,9 +128,11 @@ class MovieDetailCell: UITableViewCell {
     }()
     
     lazy var backdropImageView: UIImageView = {
-        let iv = UIImageView(image: UIImage(named: Constants.moviePosterPlaceholderImageName))
+        let iv = UIImageView()
+//        image: UIImage(named: Constants.moviePosterPlaceholderImageName))
         iv.contentMode = .scaleAspectFill
-        iv.isHidden = true
+        iv.backgroundColor = .white
+//        iv.isHidden = true
         return iv
     }()
     
@@ -194,7 +205,7 @@ class MovieDetailCell: UITableViewCell {
         gradientLayer.colors = [UIColor.clear.cgColor, UIColor.white.cgColor]
         gradientLayer.locations = [0.5, 0.68]
         // self.frame is actually zero frame
-        backdropImageView.layer.addSublayer(gradientLayer)
+//        backdropImageView.layer.addSublayer(gradientLayer)
     }
     
     override func layoutSubviews() {

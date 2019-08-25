@@ -34,8 +34,8 @@ class AccountTableViewController: UITableViewController {
         
         setupTableView()
         
-        let logoutButton = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogout))
-        navigationItem.setRightBarButton(logoutButton, animated: true)
+//        let logoutButton = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogout))
+//        navigationItem.setRightBarButton(logoutButton, animated: true)
     }
     
     @objc private func handleLogout() {

@@ -59,12 +59,18 @@ class GenericMoviesControllers: BaseListController {
         
         AppState.shared.resetPageDetails()
         
-        let logoutButton = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogout))
-        navigationItem.setRightBarButton(logoutButton, animated: true)
+//        let logoutButton = UIBarButtonItem(title: "Log Out", style: .plain, target: self, action: #selector(handleLogout))
+//        navigationItem.setRightBarButton(logoutButton, animated: true)
     
         setupCollectionView()
-        fetchData()
+        
         LoaderController.shared.showLoader()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        fetchData()
     }
     
     fileprivate func setupCollectionView() {

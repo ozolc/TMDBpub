@@ -20,11 +20,9 @@ class MainTabBarController: UITabBarController {
     
     func setupViewControllers() {
         viewControllers = [
-            
             generateNavigationController(for: GenericMoviesControllers(typeOfRequest: Constants.popularMovies), title: "Популярные", image: #imageLiteral(resourceName: "popular").withRenderingMode(.alwaysTemplate)),
             generateNavigationController(for: SearchMovieController(), title: "Поиск", image: #imageLiteral(resourceName: "search").withRenderingMode(.alwaysTemplate)),
             generateNavigationController(for: AccountTableViewController(), title: "Профиль", image: #imageLiteral(resourceName: "Profile").withRenderingMode(.alwaysTemplate)),
-            
         ]
         
         let statusBarCover = UIView()

@@ -37,6 +37,5 @@ class SideButtonsView: UIView {
     
     func set(sideButtonsView view: RHSideButtons) {
         sideButtonsView = view
-        print("Set to parent view")
     }
 }

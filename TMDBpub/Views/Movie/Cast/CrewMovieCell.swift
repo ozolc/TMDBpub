@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class CrewMovieCell: UICollectionViewCell {
     
@@ -17,7 +18,18 @@ class CrewMovieCell: UICollectionViewCell {
             departmentLabel.text = crewPeople.department
             
             if let posterUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: crewPeople.profile_path ?? "", posterSize: Constants.PosterSize.w154.rawValue)) {
-                crewImageView.sd_setImage(with: posterUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"), options: .continueInBackground, completed: nil)
+                
+                crewImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                crewImageView.sd_setImage(with: posterUrl, placeholderImage: nil, options: [.highPriority]) {
+                    (image, error, _, _) in
+                    if (error != nil) {
+                        self.crewImageView.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
+                    } else {
+                        self.crewImageView.image = image
+                    }
+                }
+                
+//                crewImageView.sd_setImage(with: posterUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"), options: .continueInBackground, completed: nil)
             }
         }
     }
@@ -50,7 +62,7 @@ class CrewMovieCell: UICollectionViewCell {
     }
     
     fileprivate func setupLayout() {
-        crewImageView.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
+//        crewImageView.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
         crewImageView.contentMode = .scaleAspectFill
         crewImageView.layer.cornerRadius = 8
         crewImageView.clipsToBounds = true

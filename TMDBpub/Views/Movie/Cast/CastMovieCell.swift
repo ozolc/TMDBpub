@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class CastMovieCell: UICollectionViewCell {
     
@@ -17,7 +18,18 @@ class CastMovieCell: UICollectionViewCell {
             characterLabel.text = cast.character
             
             if let posterUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: cast.profile_path ?? "", posterSize: Constants.PosterSize.w154.rawValue)) {
-                castImageView.sd_setImage(with: posterUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"), options: .continueInBackground, completed: nil)
+                
+                castImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                castImageView.sd_setImage(with: posterUrl, placeholderImage: nil, options: [.highPriority]) {
+                    (image, error, _, _) in
+                    if (error != nil) {
+                        self.castImageView.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
+                    } else {
+                        self.castImageView.image = image
+                    }
+                }
+                
+//                castImageView.sd_setImage(with: posterUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"), options: .continueInBackground, completed: nil)
             }
         }
     }
@@ -50,7 +62,7 @@ class CastMovieCell: UICollectionViewCell {
     }
     
     fileprivate func setupLayout() {
-        castImageView.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
+//        castImageView.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
         castImageView.contentMode = .scaleAspectFill
         castImageView.layer.cornerRadius = 8
         castImageView.clipsToBounds = true

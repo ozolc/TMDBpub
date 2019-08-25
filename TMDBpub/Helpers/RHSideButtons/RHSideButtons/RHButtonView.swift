@@ -103,7 +103,7 @@ public class RHButtonView: UIView, RHButtonViewConfigProtocol {
     
     fileprivate func updateImageView() {
         imgView?.image = image
-        imgView?.contentMode = .scaleAspectFit
+        imgView?.contentMode = .scaleToFill
         imgView?.clipsToBounds = true
     }
     

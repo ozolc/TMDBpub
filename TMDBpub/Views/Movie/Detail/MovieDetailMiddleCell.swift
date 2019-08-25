@@ -53,12 +53,12 @@ class MovieDetailMiddleCell: UITableViewCell {
                      color: UIColor.init(white: 0.75, alpha: 1),
                      weight: 1,
                      insets: .init(top: 5, left: 15, bottom: 0, right: 15))
-//        addSubview(overviewTextView)
-//        overviewTextView.fillSuperview(padding: .init(top: 4, left: 12, bottom: 4, right: 12))
+        addSubview(overviewTextView)
+        overviewTextView.fillSuperview(padding: .init(top: 4, left: 12, bottom: 4, right: 12))
         
-        favoriteButton.addTarget(self, action: #selector(handleFavorite), for: .touchUpInside)
-        addSubview(favoriteButton)
-        favoriteButton.centerInSuperview()
+//        favoriteButton.addTarget(self, action: #selector(handleFavorite), for: .touchUpInside)
+//        addSubview(favoriteButton)
+//        favoriteButton.centerInSuperview()
         
     }
     

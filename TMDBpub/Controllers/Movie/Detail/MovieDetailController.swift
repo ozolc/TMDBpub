@@ -8,24 +8,70 @@
 
 import UIKit
 
+class RHButtonStruct {
+    let text: [String]
+    let buttonView: RHButtonView
+    let typeOfParameter: Constants.ParameterKeysAccount
+    var isChecked: Bool
+    
+    init(text: [String],
+         buttonView: RHButtonView,
+         typeOfParameter: Constants.ParameterKeysAccount,
+         isChecked: Bool)
+    {
+        self.text = text
+        self.buttonView = buttonView
+        self.typeOfParameter = typeOfParameter
+        self.isChecked = isChecked
+    }
+}
+
 class MovieDetailController: UIViewController {
     
     var tableView = UITableView()
     
     var isFavourited = false
+    var isWatchlisted = false
+    var isFirstState = true
     
     fileprivate var movieId: Int!
     fileprivate var movie: Movie!
     fileprivate var reviews: Review!
     fileprivate var movieState: MovieState! {
         didSet {
-            isFavourited = movieState.favorite
-            updateRighBarButton(isFavourite: isFavourited)
+            
+            firstState(flag: isFirstState)
+            
+            for (index, value) in buttonsArr.enumerated() {
+                updateAccountListButton(isChecked: value.isChecked, index: index)
+            }
+            
         }
     }
     
+    fileprivate func firstState(flag: Bool) {
+//        print("FirstState -", isFirstState)
+        if isFirstState {
+            
+            buttonsArr.forEach { (button) in
+                switch button.typeOfParameter {
+                case .Favorite:
+                    button.isChecked = movieState.favorite
+//                    print("movieState.favorite button.isChecked -", button.isChecked)
+                case .Watchlist:
+                    button.isChecked = movieState.watchlist
+//                    print("movieState.watchlist movieState.watchlist -", button.isChecked)
+                }
+            }
+//            print(buttonsArr)
+        }
+        
+        isFirstState = false
+        self.sideBV.sideButtonsView?.reloadButtons()
+    }
+    
     var sideBV = SideButtonsView()
-    var buttonsArr = [RHButtonView]()
+    var buttonsArr = [RHButtonStruct]()
     fileprivate let triggerButtonMargin = CGFloat(85)
     
     // dependency injection constructor
@@ -39,32 +85,34 @@ class MovieDetailController: UIViewController {
     let toolId = "toolId"
     let middleId = "middleId"
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupTableView()
-        setupUI()
-        
-        LoaderController.shared.showLoader()
+//        LoaderController.shared.showLoader()
         fetchData()
-        setupSideButtons()
+//        fetchFavoriteState()
+
+        setupUI()
+        addSideButtons()
         
-//        sideBV.anchor(top: nil, leading: nil, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        self.sideBV.sideButtonsView?.reloadButtons()
     }
     
     fileprivate func setupUI() {
         view.addSubview(tableView)
         tableView.fillSuperview()
-//        tableView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: view.trailingAnchor)
-        
         view.addSubview(sideBV)
-//        sideBV.anchor(top: nil, leading: nil, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        sideBV.sideButtonsView?.reloadButtons()
     }
     
     fileprivate func addSideButtons() {
@@ -78,23 +126,50 @@ class MovieDetailController: UIViewController {
         sideButtonsView.delegate = self
         sideButtonsView.dataSource = self
         
-        for index in 1...3 {
-            buttonsArr.append(generateButton(withImgName: "icon_\(index)"))
-        }
+//        for index in 1...3 {
+//            buttonsArr.append(generateButton(withImgName: "icon_\(index)"))
+//        }
+        buttonsArr.append(RHButtonStruct(text: ["FavoriteOn", "FavoriteOff"],
+                                         buttonView: generateButton(withImgName: "exit_icon"),
+                                         typeOfParameter: Constants.ParameterKeysAccount.Favorite,
+                                         isChecked: isFavourited))
+        
+        buttonsArr.append(RHButtonStruct(text: ["WatchlistOn", "WatchlistOff"],
+                                         buttonView: generateButton(withImgName: "exit_icon"),
+                                         typeOfParameter: Constants.ParameterKeysAccount.Watchlist,
+                                         isChecked: isWatchlisted)
+        
+        )
         
         guard let height = tabBarController?.tabBar.frame.origin.y else { return }
         sideButtonsView.setTriggerButtonPosition(CGPoint(x: view.bounds.width - triggerButtonMargin, y: height - triggerButtonMargin))
-        
-        
-//        castView().set(sideButtonsView: sideButtonsView)
-//        castView().sideButtonsView?.reloadButtons()
         
         sideBV.set(sideButtonsView: sideButtonsView)
         sideBV.sideButtonsView?.reloadButtons()
     }
     
-    fileprivate func setupSideButtons() {
-        addSideButtons()
+    fileprivate func handleFavorite(mediaType: Constants.MediaType, index: Int, typeOfParameter: Constants.ParameterKeysAccount, isChecked: Bool) {
+        APIService.shared.postToFavorites(mediaType: mediaType, mediaId: movieId, isFavorite: !isChecked, typeOfParameter: typeOfParameter) { (response, error) in
+            if let error = error {
+                print(error)
+            }
+        }
+        
+        print(isChecked)
+        buttonsArr[index].isChecked = !buttonsArr[index].isChecked
+//        self.isFavourited = !self.isFavourited
+        self.updateAccountListButton(isChecked: buttonsArr[index].isChecked , index: index);
+    }
+    
+    func updateAccountListButton(isChecked: Bool, index: Int) {
+        if isChecked {
+            guard let imgOn = UIImage(named: buttonsArr[index].text.first ?? "exit_icon") else { return }
+            buttonsArr[index].buttonView.image = imgOn
+        } else {
+            guard let imgOff = UIImage(named: buttonsArr[index].text.last ?? "exit_icon") else { return }
+            buttonsArr[index].buttonView.image = imgOff
+        }
+        sideBV.sideButtonsView?.reloadButtons()
     }
     
     fileprivate func generateButton(withImgName imgName: String) -> RHButtonView {
@@ -105,16 +180,7 @@ class MovieDetailController: UIViewController {
         }
     }
     
-//    override func loadView() {
-//        view = SideButtonsView()
-//    }
-    
-//    func castView() -> SideButtonsView {
-//        return view as! SideButtonsView
-//    }
-    
     fileprivate func setupTableView() {
-        
         tableView.delegate = self
         tableView.dataSource = self
         
@@ -133,38 +199,59 @@ class MovieDetailController: UIViewController {
         
     }
     
+    let dispatchGroup = DispatchGroup()
+    
+    fileprivate func fetchData() {
+        self.dispatchGroup.enter()
+        
+        let typeOfRequest = "movie/\(movieId ?? 0)"
+        APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, completionHandler:  {[weak self] (movie: Movie) in
+            
+            guard let self = self else { return }
+            
+            print("Enter fetchData")
+            
+            self.movie = movie
+            
+//            DispatchQueue.main.async {
+//                self.tableView.reloadData()
+//                LoaderController.shared.removeLoader()
+//            }
+            
+//            self.dispatchGroup.leave()
+//            print("Leave fetchData")
+            
+            self.fetchFavoriteState()
+            
+            self.dispatchGroup.leave()
+            print("Leave fetchData")
+            
+           
+        })
+        
+        self.dispatchGroup.notify(queue: .main) {
+            print("Notify fetchData")
+//            LoaderController.shared.removeLoader()
+            self.tableView.reloadData()
+            
+        }
+    }
+    
     fileprivate func fetchFavoriteState() {
+        
+        dispatchGroup.enter()
+        print("Enter fetchFavoriteState")
+        
         let typeOfRequestStates = "movie/\(movieId ?? 0)/account_states"
         APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequestStates, sessionId: Constants.sessionId, completionHandler: { [weak self] (state: MovieState) in
-            self?.movieState = state
-            self?.dispatchGroup.leave()
+            guard let self = self else { return }
+            
+            self.movieState = state
+            print("Leave fetchFavoriteState")
+            self.dispatchGroup.leave()
         })
-    }
-    
-    func updateRighBarButton(isFavourite: Bool) {
-        let favoriteButton = UIButton()
-        favoriteButton.addTarget(self, action: #selector(handleFavorite), for: .touchUpInside)
-        if isFavourite {
-            favoriteButton.setImage(UIImage(named: "FavoriteOn"), for: .normal)
-        } else {
-            favoriteButton.setImage(UIImage(named: "FavoriteOff"), for: .normal)
-        }
         
-        let rightButton = UIBarButtonItem(customView: favoriteButton)
-        self.navigationItem.setRightBarButtonItems([rightButton], animated: true)
-    }
-    
-    
-    @objc fileprivate func handleFavorite() {
-        APIService.shared.postToFavorites(mediaType: .Movie, mediaId: movieId, isFavorite: !self.isFavourited) { (response, error) in
-            if let error = error {
-                print(error)
-            }
-        }
         
-        print(self.isFavourited)
-        self.isFavourited = !self.isFavourited
-        self.updateRighBarButton(isFavourite: isFavourited);
     }
     
     fileprivate func setupVisualBlurEffectView() {
@@ -175,25 +262,6 @@ class MovieDetailController: UIViewController {
         visualEffectView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor)
     }
     
-    let dispatchGroup = DispatchGroup()
-    
-    fileprivate func fetchData() {
-        
-        dispatchGroup.enter()
-        
-        let typeOfRequest = "movie/\(movieId ?? 0)"
-        APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, completionHandler:  {[weak self] (movie: Movie) in
-
-            self?.movie = movie
-            self?.fetchFavoriteState()
-            
-        })
-        
-        dispatchGroup.notify(queue: .main) {
-            LoaderController.shared.removeLoader()
-            self.tableView.reloadData()
-        }
-    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError()
@@ -234,31 +302,20 @@ extension MovieDetailController: MovieDetailToolCellDelegate {
 extension MovieDetailController: MovieDetailMiddleCellDelegate {
     func favoriteButtonPressed(sender: MovieDetailMiddleCell) {
         print("button pressed")
-        APIService.shared.postToFavorites(mediaType: .Movie, mediaId: movieId, isFavorite: !sender.isFavorite) { (response, error) in
-            if let error = error {
-                print(error)
-            } else {
-                DispatchQueue.main.async {
-                    sender.isFavorite = !sender.isFavorite
-                    sender.favoriteButton.setTitleColor((sender.isFavorite) ? UIColor.red :  UIColor.black, for: .normal) 
-                    print(sender.isFavorite)
-                }
-                
-            }
-        }
+//        APIService.shared.postToFavorites(mediaType: .Movie, mediaId: movieId, isFavorite: !sender.isFavorite) { (response, error) in
+//            if let error = error {
+//                print(error)
+//            } else {
+//                DispatchQueue.main.async {
+//                    sender.isFavorite = !sender.isFavorite
+//                    sender.favoriteButton.setTitleColor((sender.isFavorite) ? UIColor.red :  UIColor.black, for: .normal)
+//                    print(sender.isFavorite)
+//                }
+//
+//            }
+//        }
     }
     
-}
-
-extension MovieDetailController: RHSideButtonsDataSource {
-    
-    func sideButtonsNumberOfButtons(_ sideButtons: RHSideButtons) -> Int {
-        return buttonsArr.count
-    }
-    
-    func sideButtons(_ sideButtons: RHSideButtons, buttonAtIndex index: Int) -> RHButtonView {
-        return buttonsArr[index]
-    }
 }
 
 extension MovieDetailController: UITableViewDataSource {
@@ -303,10 +360,26 @@ extension MovieDetailController: UITableViewDelegate {
     }
 }
 
+extension MovieDetailController: RHSideButtonsDataSource {
+    
+    func sideButtonsNumberOfButtons(_ sideButtons: RHSideButtons) -> Int {
+        return buttonsArr.count
+    }
+    
+    func sideButtons(_ sideButtons: RHSideButtons, buttonAtIndex index: Int) -> RHButtonView {
+        return buttonsArr[index].buttonView
+    }
+}
+
 extension MovieDetailController: RHSideButtonsDelegate {
     
     func sideButtons(_ sideButtons: RHSideButtons, didSelectButtonAtIndex index: Int) {
-        print("🍭 button index tapped: \(index)")
+        print("🍭 button index tapped: \(index) and text: \(buttonsArr[index].text)")
+//        let type = buttonsArr[index].
+        handleFavorite(mediaType: .Movie,
+                       index: index,
+                       typeOfParameter: buttonsArr[index].typeOfParameter,
+                       isChecked: buttonsArr[index].isChecked)
     }
     
     func sideButtons(_ sideButtons: RHSideButtons, didTriggerButtonChangeStateTo state: RHButtonState) {
