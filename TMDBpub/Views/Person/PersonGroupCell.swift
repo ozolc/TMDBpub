@@ -10,6 +10,8 @@ import UIKit
 
 class PersonGroupCell: UICollectionViewCell {
     
+    var person: Person!
+    
     let personImageView: UIImageView = {
         let iv = UIImageView(image: UIImage(named: "person"))
         iv.backgroundColor = .white
@@ -49,6 +51,11 @@ class PersonGroupCell: UICollectionViewCell {
         backgroundColor = UIColor.yellow
         
         setupUI()
+    }
+    
+    func configureCell(person: Person) {
+        nameLabel.text = person.name
+//        genderLabel.text += person.gender
     }
     
     fileprivate func setupUI() {

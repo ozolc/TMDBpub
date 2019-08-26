@@ -54,6 +54,7 @@
 		B0793F6C230C2402006C490A /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0793F6B230C2402006C490A /* Keys.swift */; };
 		B08029532313A62A00BC4FEC /* PersonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08029522313A62A00BC4FEC /* PersonController.swift */; };
 		B08029582313A83900BC4FEC /* PersonGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08029572313A83900BC4FEC /* PersonGroupCell.swift */; };
+		B080295A2313B83100BC4FEC /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08029592313B83100BC4FEC /* Person.swift */; };
 		B0A7087D230E62FF0020C6B0 /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7087C230E62FF0020C6B0 /* AccountTableViewController.swift */; };
 		B0A70880230E636D0020C6B0 /* AccountTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7087F230E636D0020C6B0 /* AccountTopCell.swift */; };
 		B0A70882230E642C0020C6B0 /* CircularImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A70881230E642C0020C6B0 /* CircularImageView.swift */; };
@@ -148,6 +149,7 @@
 		B0793F6B230C2402006C490A /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		B08029522313A62A00BC4FEC /* PersonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonController.swift; sourceTree = "<group>"; };
 		B08029572313A83900BC4FEC /* PersonGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonGroupCell.swift; sourceTree = "<group>"; };
+		B08029592313B83100BC4FEC /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		B0A7087C230E62FF0020C6B0 /* AccountTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 		B0A7087F230E636D0020C6B0 /* AccountTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTopCell.swift; sourceTree = "<group>"; };
 		B0A70881230E642C0020C6B0 /* CircularImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularImageView.swift; sourceTree = "<group>"; };
@@ -517,6 +519,7 @@
 			isa = PBXGroup;
 			children = (
 				B0DB172622FE9E9F00323CEC /* Movie */,
+				B08029592313B83100BC4FEC /* Person.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -766,6 +769,7 @@
 				B0DB173222FEDE5900323CEC /* GenericMovieFooter.swift in Sources */,
 				B0CC7738231124930039DC78 /* RHButtonViewConfigProtocol.swift in Sources */,
 				B0E401D223058CD800374BBF /* ViewController+Ext.swift in Sources */,
+				B080295A2313B83100BC4FEC /* Person.swift in Sources */,
 				B0CB8C192310047B005B66E7 /* ResponseResult.swift in Sources */,
 				B0C6791122FFCFF200EC3C7A /* MovieDetailMiddleCell.swift in Sources */,
 				B020417E2302C1570081D726 /* GenresMovieCell.swift in Sources */,

@@ -40,6 +40,9 @@ struct Constants {
     static let Account = "account"
     static let UserID = "id"
     
+    //MARK: Account
+    static let Person = "person"
+    
     enum AccountLists: String {
         case AccountFavorites = "favorite/movies"
         case AccountWatchlist = "watchlist/movies"
