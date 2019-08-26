@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class SearchMovieCell: UITableViewCell {
     
@@ -24,7 +25,18 @@ class SearchMovieCell: UITableViewCell {
             voteAverageLabel.text = String(movie.vote_average)
             
             if let posterUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: movie.poster_path ?? "", posterSize: Constants.PosterSize.w154.rawValue)) {
-                posterImageView.sd_setImage(with: posterUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"), options: .continueInBackground, completed: nil)
+                
+                posterImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+                posterImageView.sd_setImage(with: posterUrl, placeholderImage: nil, options: [.highPriority]) {
+                    (image, error, _, _) in
+                    if (error != nil) {
+                        self.posterImageView.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
+                    } else {
+                        self.posterImageView.image = image
+                    }
+                }
+                
+//                posterImageView.sd_setImage(with: posterUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"), options: .continueInBackground, completed: nil)
             }
             
             let attributedReleaseDateText = NSMutableAttributedString(string: "Дата: ", attributes: [.foregroundColor: UIColor.black, .font: UIFont.systemFont(ofSize: 12, weight: .bold)])

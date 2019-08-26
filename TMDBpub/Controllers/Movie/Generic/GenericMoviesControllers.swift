@@ -63,14 +63,14 @@ class GenericMoviesControllers: BaseListController {
 //        navigationItem.setRightBarButton(logoutButton, animated: true)
     
         setupCollectionView()
-        
+        fetchData()
         LoaderController.shared.showLoader()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        fetchData()
+//        fetchData()
     }
     
     fileprivate func setupCollectionView() {
