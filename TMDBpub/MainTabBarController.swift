@@ -20,7 +20,7 @@ class MainTabBarController: UITabBarController {
     
     func setupViewControllers() {
         viewControllers = [
-            generateNavigationController(for: PersonController(personId: 1088620), title: "Person", image:  #imageLiteral(resourceName: "Profile").withRenderingMode(.alwaysTemplate)),
+            generateNavigationController(for: PersonController(personId: 220448), title: "Person", image:  #imageLiteral(resourceName: "Profile").withRenderingMode(.alwaysTemplate)),
             generateNavigationController(for: GenericMoviesControllers(typeOfRequest: Constants.popularMovies), title: "Популярные", image: #imageLiteral(resourceName: "popular").withRenderingMode(.alwaysTemplate)),
             generateNavigationController(for: SearchMovieController(), title: "Поиск", image: #imageLiteral(resourceName: "search").withRenderingMode(.alwaysTemplate)),
             generateNavigationController(for: AccountTableViewController(), title: "Профиль", image: #imageLiteral(resourceName: "Profile").withRenderingMode(.alwaysTemplate)),

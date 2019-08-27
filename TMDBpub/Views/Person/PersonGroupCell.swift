@@ -7,13 +7,14 @@
 //
 
 import UIKit
+import SDWebImage
 
 class PersonGroupCell: UICollectionViewCell {
     
     var person: Person!
     
     let personImageView: UIImageView = {
-        let iv = UIImageView(image: UIImage(named: "person"))
+        let iv = UIImageView()
         iv.backgroundColor = .white
         iv.constrainWidth(constant: 150)
         iv.contentMode = .scaleAspectFit
@@ -25,13 +26,11 @@ class PersonGroupCell: UICollectionViewCell {
     
     let biographyLabel = UILabel(text: "Биография:",
                             font: .systemFont(ofSize: 16))
-    let genderLabel = UILabel(text: "Пол: ",
-                            font: .systemFont(ofSize: 16))
     let knowForDepartmentLabel = UILabel(text: "Известен за: ", font: .systemFont(ofSize: 16))
     let birthdayLabel = UILabel(text: "Дата рождения: ", font: .systemFont(ofSize: 16))
     let popularityLabel = UILabel(text: "Популярность: ", font: .systemFont(ofSize: 16))
-    let placeOfBirthLabel = UILabel(text: "Место рождения: ", font: .systemFont(ofSize: 16))
-    let knownAsLabel = UILabel(text: "Также известен как: ", font: .systemFont(ofSize: 16))
+    let placeOfBirthLabel = UILabel(text: "Место рождения: ", font: .systemFont(ofSize: 16), numberOfLines: 2)
+    let knownAsLabel = UILabel(text: "Также известен как: ", font: .systemFont(ofSize: 16), numberOfLines: 2)
     
     let biographyTextView: UITextView = {
         let tv = UITextView()
@@ -48,28 +47,61 @@ class PersonGroupCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = UIColor.yellow
+        backgroundColor = UIColor.white
         
         setupUI()
     }
     
     func configureCell(person: Person) {
+        if let knownForDepartment = person.knownForDepartment {
+            let oldText = knowForDepartmentLabel.text ?? ""
+            knowForDepartmentLabel.text = oldText + knownForDepartment
+        }
+        
+        if let birthday = person.birthday {
+            let oldText = birthdayLabel.text ?? ""
+            birthdayLabel.text = oldText + birthday
+        }
+        
+        let popularity = String(person.popularity.truncate(to: 1))
+        let oldText = popularityLabel.text ?? ""
+        popularityLabel.text = oldText + popularity
+        
+        if let place_of_birth = person.place_of_birth {
+            let oldText = placeOfBirthLabel.text ?? ""
+            placeOfBirthLabel.text = oldText + place_of_birth
+        }
+        
+        if let personImageViewUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: person.profile_path ?? "", posterSize: Constants.PersonImageSize.w185_and_h278_bestv2.rawValue)) {
+            
+            personImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+            personImageView.sd_setImage(with: personImageViewUrl)
+            
+//            {
+//                (image, error, _, _) in
+//                if (error != nil) {
+//                    self.personImageView.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
+//                } else {
+//                    self.personImageView.image = image
+//                }
+            }
+        
         nameLabel.text = person.name
-//        genderLabel.text += person.gender
+        biographyTextView.text = person.biography
     }
     
     fileprivate func setupUI() {
         
-        personImageView.backgroundColor = .blue
+        personImageView.backgroundColor = .white
         
         let labelRightStackView = VerticalStackView(arrangedSubviews: [
-            genderLabel,
             knowForDepartmentLabel,
             birthdayLabel,
             popularityLabel,
             placeOfBirthLabel,
             knownAsLabel
             ], spacing: 2)
+        labelRightStackView.distribution = .equalSpacing
         
         let topstackView = UIStackView(arrangedSubviews: [
             personImageView,

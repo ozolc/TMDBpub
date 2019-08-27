@@ -55,6 +55,7 @@
 		B08029532313A62A00BC4FEC /* PersonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08029522313A62A00BC4FEC /* PersonController.swift */; };
 		B08029582313A83900BC4FEC /* PersonGroupCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08029572313A83900BC4FEC /* PersonGroupCell.swift */; };
 		B080295A2313B83100BC4FEC /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08029592313B83100BC4FEC /* Person.swift */; };
+		B080295C2315093100BC4FEC /* Doube+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = B080295B2315093100BC4FEC /* Doube+Ext.swift */; };
 		B0A7087D230E62FF0020C6B0 /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7087C230E62FF0020C6B0 /* AccountTableViewController.swift */; };
 		B0A70880230E636D0020C6B0 /* AccountTopCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7087F230E636D0020C6B0 /* AccountTopCell.swift */; };
 		B0A70882230E642C0020C6B0 /* CircularImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A70881230E642C0020C6B0 /* CircularImageView.swift */; };
@@ -150,6 +151,7 @@
 		B08029522313A62A00BC4FEC /* PersonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonController.swift; sourceTree = "<group>"; };
 		B08029572313A83900BC4FEC /* PersonGroupCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonGroupCell.swift; sourceTree = "<group>"; };
 		B08029592313B83100BC4FEC /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
+		B080295B2315093100BC4FEC /* Doube+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Doube+Ext.swift"; sourceTree = "<group>"; };
 		B0A7087C230E62FF0020C6B0 /* AccountTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
 		B0A7087F230E636D0020C6B0 /* AccountTopCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTopCell.swift; sourceTree = "<group>"; };
 		B0A70881230E642C0020C6B0 /* CircularImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CircularImageView.swift; sourceTree = "<group>"; };
@@ -314,6 +316,7 @@
 				B0715B102309870900389D19 /* CharacterSet+Ext.swift */,
 				B0A70881230E642C0020C6B0 /* CircularImageView.swift */,
 				B0CC773F231142200039DC78 /* UITableView+Ext.swift */,
+				B080295B2315093100BC4FEC /* Doube+Ext.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -742,6 +745,7 @@
 				B02041812302C6810081D726 /* UIApplication+Ext.swift in Sources */,
 				B020419B23057B4A0081D726 /* CastMovieHeader.swift in Sources */,
 				B0DB172822FE9ECA00323CEC /* Movie.swift in Sources */,
+				B080295C2315093100BC4FEC /* Doube+Ext.swift in Sources */,
 				B0793F6A230BD5B6006C490A /* SplashViewController.swift in Sources */,
 				B0C6791523004A7D00EC3C7A /* String+Ext.swift in Sources */,
 				B0A7087D230E62FF0020C6B0 /* AccountTableViewController.swift in Sources */,

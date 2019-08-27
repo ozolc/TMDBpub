@@ -139,4 +139,9 @@ struct Constants {
         case w780
         case w1280
     }
+    
+    enum PersonImageSize: String {
+        case w185_and_h278_bestv2
+        case w300_and_h450_bestv2
+    }
 }

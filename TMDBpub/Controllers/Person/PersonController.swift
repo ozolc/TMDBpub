@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Foundation
 
 class PersonController: BaseListController {
     
@@ -53,7 +54,7 @@ class PersonController: BaseListController {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: view.frame.width, height: 300)
+        return .init(width: view.frame.width, height: 400)
     }
     
 }
