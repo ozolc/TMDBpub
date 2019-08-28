@@ -50,7 +50,6 @@ class GenericMovieCell: BaseImageCell {
     }()
     
     lazy var posterImageView = UIImageView()
-//        cornerRadius: 4)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,27 +60,30 @@ class GenericMovieCell: BaseImageCell {
     }
     
     fileprivate func setupLayout() {
-//        posterImageView.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
-//        posterImageView.contentMode = .scaleAspectFill
-//        posterImageView.layer.cornerRadius = 8
-//        posterImageView.clipsToBounds = true
         posterImageView.layer.borderWidth = 0.1
         posterImageView.layer.borderColor = UIColor.darkGray.cgColor
+        
+//        posterImageView.contentMode = .scaleAspectFill
+//        posterImageView.layer.cornerRadius = 16
+//        posterImageView.clipsToBounds = true
         
         let titleStackView = VerticalStackView(arrangedSubviews: [
             titleLabel,
             originalTitleLabel,
             UIView()
-            ], spacing: 2)
+            ], spacing: 4)
         titleStackView.constrainHeight(constant: 66)
         titleStackView.alignment = .center
-        titleStackView.distribution = .fillProportionally
+        titleStackView.distribution = .equalSpacing
+        titleStackView.isLayoutMarginsRelativeArrangement = true
+        titleStackView.layoutMargins = .init(top: 2, left: 2, bottom: 2, right: 2)
         
         let overallStackView = VerticalStackView(arrangedSubviews: [posterImageView, titleStackView], spacing: 2)
         overallStackView.alignment = .center
         
         addSubview(overallStackView)
-        overallStackView.fillSuperview(padding: .init(top: 1, left: 1, bottom: 4, right: 1))
+        overallStackView.fillSuperview()
+//            padding: .init(top: 1, left: 1, bottom: 4, right: 1))
     }
     
     required init?(coder aDecoder: NSCoder) {

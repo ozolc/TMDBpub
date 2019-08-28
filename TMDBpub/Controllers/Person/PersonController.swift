@@ -14,9 +14,12 @@ class PersonController: BaseListController {
     fileprivate var person: Person!
     fileprivate var typeOfRequest = ""
     fileprivate var typeOfRequestImages = ""
+    fileprivate var personName = ""
     
     let detailCellId = "detailCellId"
     let imageCellId = "imageCellId"
+    
+    var personImages: [ImageStruct]!
     
     // dependency injection constructor
     
@@ -48,22 +51,28 @@ class PersonController: BaseListController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: detailCellId, for: indexPath) as! PersonDetailCell
             
             APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest) { (person: Person) in
-                print(person)
                 cell.configureCell(person: person)
+                self.personName = person.name
             }
             return cell
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCellId, for: indexPath) as! PersonImageCell
+            cell.delegate = self
             
             APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequestImages) { (images: PersonImage) in
+                self.personImages = images.profiles
                 cell.horizontalController.personImages = images.profiles
+                
+                if self.personImages.count > 4 {
+                    cell.isMoreImages = true
+                }
             }
             return cell
         }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height: CGFloat = 220
+        let height: CGFloat = 250
         
         if indexPath.item == 0 {
             return .init(width: view.frame.width, height: 400)
@@ -75,5 +84,17 @@ class PersonController: BaseListController {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 8, left: 0, bottom: 8, right: 0)
     }
+    
+}
+
+extension PersonController: PersonImageCellDelegate {
+    func didTappedShowAllImages() {
+        if let personImages = personImages {
+            let controller = PersonImagesListController(personImages: personImages)
+            controller.navigationItem.title = personName
+            navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+    
     
 }

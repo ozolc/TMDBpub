@@ -1,5 +1,5 @@
 //
-//  BaseImageCell.swift
+//  SingleImageCell.swift
 //  TMDBpub
 //
 //  Created by Maksim Nosov on 28/08/2019.
@@ -7,9 +7,19 @@
 //
 
 import UIKit
+import SDWebImage
 
-class BaseImageCell: UICollectionViewCell {
-
+class SingleImageCell: BaseImageCell {
+    
+    let imageView = UIImageView(cornerRadius: 12)
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        imageView.backgroundColor = .white
+        addSubview(imageView)
+        imageView.fillSuperview()
+    }
+    
     override var isHighlighted: Bool {
         didSet {
             var transform: CGAffineTransform = .identity
@@ -24,24 +34,14 @@ class BaseImageCell: UICollectionViewCell {
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        self.backgroundView = UIView()
-        
-        addSubview(self.backgroundView!)
-        self.backgroundView?.fillSuperview()
-        self.backgroundView?.backgroundColor = .white
-        self.backgroundView?.layer.cornerRadius = 16
-        
-        self.backgroundView?.layer.shadowOpacity = 0.4
-        self.backgroundView?.layer.shadowRadius = 10
-        self.backgroundView?.layer.shadowOffset = .init(width: 0, height: 10)
-        self.backgroundView?.layer.shouldRasterize = true
+    func configureCell(profile: ImageStruct) {
+        guard let filePath = profile.file_path else { return }
+        let imageUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: filePath, posterSize: Constants.PersonImageSize.w220_and_h330_face.rawValue))
+        imageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
+        imageView.sd_setImage(with: imageUrl)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }

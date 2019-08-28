@@ -8,18 +8,36 @@
 
 import UIKit
 
+protocol PersonImageCellDelegate: class {
+    func didTappedShowAllImages()
+}
+
 class PersonImageCell: UICollectionViewCell {
+    
+    var isMoreImages = false {
+        didSet {
+            if isMoreImages == true {
+                showMoreButton.isHidden = false
+            }
+        }
+    }
     
     let imagePersonLabel = UILabel(text: "Изображения", font: .boldSystemFont(ofSize: 20))
     let showMoreButton = UIButton(title: "Смотреть все", titleColor: .black, font: .boldSystemFont(ofSize: 12), backgroundColor: .white, target: self, action: #selector(handleShowMoreImages))
     let horizontalController = PersonImagesDetailController()
     
+    weak var delegate: PersonImageCellDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        showMoreButton.isHidden = true
         
         addSubview(imagePersonLabel)
         addSubview(showMoreButton)
         addSubview(horizontalController.view)
+        
+        showMoreButton.addTarget(self, action: #selector(handleShowMoreImages), for: .touchUpInside)
         
         imagePersonLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: showMoreButton.leadingAnchor, padding: .init(top: 0, left: 20, bottom: 0, right: 4))
         showMoreButton.anchor(top: imagePersonLabel.topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 20))
@@ -34,6 +52,8 @@ class PersonImageCell: UICollectionViewCell {
     
     @objc fileprivate func handleShowMoreImages() {
         print("Show more images")
+        delegate?.didTappedShowAllImages()
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

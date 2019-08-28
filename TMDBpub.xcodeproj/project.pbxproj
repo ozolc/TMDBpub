@@ -20,6 +20,7 @@
 		B0204197230488B30081D726 /* CastMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0204196230488B30081D726 /* CastMovieCell.swift */; };
 		B02041992304904A0081D726 /* CrewMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02041982304904A0081D726 /* CrewMovieCell.swift */; };
 		B020419B23057B4A0081D726 /* CastMovieHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = B020419A23057B4A0081D726 /* CastMovieHeader.swift */; };
+		B02916322317099B00EDCB11 /* SingleImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B02916312317099B00EDCB11 /* SingleImageCell.swift */; };
 		B0353F562316888F00A8244A /* PersonImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0353F552316888F00A8244A /* PersonImageCell.swift */; };
 		B0353F5823168D0A00A8244A /* PersonImagesDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0353F5723168D0A00A8244A /* PersonImagesDetailController.swift */; };
 		B0353F5A2316B7A200A8244A /* BackEnabledNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0353F592316B7A200A8244A /* BackEnabledNavigationController.swift */; };
@@ -121,6 +122,7 @@
 		B0204196230488B30081D726 /* CastMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastMovieCell.swift; sourceTree = "<group>"; };
 		B02041982304904A0081D726 /* CrewMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrewMovieCell.swift; sourceTree = "<group>"; };
 		B020419A23057B4A0081D726 /* CastMovieHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CastMovieHeader.swift; sourceTree = "<group>"; };
+		B02916312317099B00EDCB11 /* SingleImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleImageCell.swift; sourceTree = "<group>"; };
 		B0353F552316888F00A8244A /* PersonImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonImageCell.swift; sourceTree = "<group>"; };
 		B0353F5723168D0A00A8244A /* PersonImagesDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonImagesDetailController.swift; sourceTree = "<group>"; };
 		B0353F592316B7A200A8244A /* BackEnabledNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackEnabledNavigationController.swift; sourceTree = "<group>"; };
@@ -477,6 +479,7 @@
 				B0353F552316888F00A8244A /* PersonImageCell.swift */,
 				B0353F592316B7A200A8244A /* BackEnabledNavigationController.swift */,
 				B0353F5D2316BD8700A8244A /* PersonImagesList.swift */,
+				B02916312317099B00EDCB11 /* SingleImageCell.swift */,
 			);
 			path = Person;
 			sourceTree = "<group>";
@@ -766,6 +769,7 @@
 				B0A70880230E636D0020C6B0 /* AccountTopCell.swift in Sources */,
 				B02041852303DF3D0081D726 /* MovieDetailToolCell.swift in Sources */,
 				B0715AFD2309839C00389D19 /* APIError.swift in Sources */,
+				B02916322317099B00EDCB11 /* SingleImageCell.swift in Sources */,
 				B0CC773B231124930039DC78 /* RHButtonView.swift in Sources */,
 				B0C4FA80230C4DB0000870EE /* SessionDelete.swift in Sources */,
 				B0793F68230BD4A2006C490A /* RootViewController.swift in Sources */,
