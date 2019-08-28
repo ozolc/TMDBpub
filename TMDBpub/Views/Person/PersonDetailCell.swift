@@ -13,8 +13,6 @@ class PersonDetailCell: UICollectionViewCell {
     
     let personImageView: UIImageView = {
         let iv = UIImageView()
-        iv.constrainWidth(constant: 150)
-        iv.constrainHeight(constant: 200)
         iv.layer.cornerRadius = 12
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
@@ -46,12 +44,30 @@ class PersonDetailCell: UICollectionViewCell {
         return tv
     }()
     
+    let backgroundImageView = UIView()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
         backgroundColor = UIColor.white
         
         setupUI()
+        
+        setupBackgroundImageView()
+    }
+    
+    fileprivate func setupBackgroundImageView() {
+        
+        self.backgroundImageView.addSubview(personImageView)
+        personImageView.fillSuperview()
+        
+        self.backgroundImageView.backgroundColor = .white
+        self.backgroundImageView.layer.cornerRadius = 16
+        
+        self.backgroundImageView.layer.shadowOpacity = 0.4
+        self.backgroundImageView.layer.shadowRadius = 10
+        self.backgroundImageView.layer.shadowOffset = .init(width: 0, height: 10)
+        self.backgroundImageView.layer.shouldRasterize = true
     }
     
     fileprivate let dictionaryGender: [Int: String] = [
@@ -102,8 +118,10 @@ class PersonDetailCell: UICollectionViewCell {
     }
     
     fileprivate func setupUI() {
+        backgroundImageView.constrainWidth(constant: 150)
+        backgroundImageView.constrainHeight(constant: 200)
         
-        personImageView.backgroundColor = .white
+//        personImageView.backgroundColor = .white
         
         let labelRightStackView = VerticalStackView(arrangedSubviews: [
                 genderLabel,
@@ -117,10 +135,10 @@ class PersonDetailCell: UICollectionViewCell {
         labelRightStackView.alignment = .leading
         
         let topstackView = UIStackView(arrangedSubviews: [
-            personImageView,
+            backgroundImageView,
             labelRightStackView,
             ])
-        topstackView.spacing = 8
+        topstackView.spacing = 16
         topstackView.alignment = .top
         
         let bottomstackView = VerticalStackView(arrangedSubviews: [
@@ -132,7 +150,7 @@ class PersonDetailCell: UICollectionViewCell {
         let overallStackView = VerticalStackView(arrangedSubviews: [
             topstackView,
             bottomstackView
-            ], spacing: 8)
+            ], spacing: 16)
         
         addSubview(overallStackView)
         overallStackView.fillSuperview(padding: .init(top: 4, left: 16, bottom: 4, right: 15))
