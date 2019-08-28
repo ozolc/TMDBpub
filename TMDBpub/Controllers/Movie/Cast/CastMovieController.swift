@@ -57,6 +57,20 @@ class CastMovieController: BaseListController {
         }
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if indexPath.section == 0 {
+        let person = casts[indexPath.item]
+            let controller = PersonController(nil, personId: person.id)
+            controller.navigationItem.title = person.name
+            navigationController?.pushViewController(controller, animated: true)
+        } else {
+            let person = crewPeople[indexPath.item]
+            let controller = PersonController(nil, personId: person.id)
+            controller.navigationItem.title = person.name
+            navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
          return (section == 0) ? casts.count : crewPeople.count
     }

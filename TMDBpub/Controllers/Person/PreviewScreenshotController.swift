@@ -46,7 +46,7 @@ class PreviewScreenshotController: HorizontalSnappingController, UICollectionVie
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         collectionView.register(ScreenshotCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.contentInset = .init(top: 0, left: 16, bottom: 0, right: 16)
+        collectionView.contentInset = .init(top: 0, left: 0, bottom: 8, right: 0)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -64,6 +64,6 @@ class PreviewScreenshotController: HorizontalSnappingController, UICollectionVie
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: 250, height: view.frame.height)
+        return .init(width: 150, height: view.frame.height - 16)
     }
 }

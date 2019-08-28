@@ -13,9 +13,12 @@ class PersonDetailCell: UICollectionViewCell {
     
     let personImageView: UIImageView = {
         let iv = UIImageView()
-        iv.backgroundColor = .white
+//        iv.backgroundColor = .white
         iv.constrainWidth(constant: 150)
-        iv.contentMode = .scaleAspectFit
+        iv.constrainHeight(constant: 200)
+        iv.layer.cornerRadius = 12
+        iv.clipsToBounds = true
+        iv.contentMode = .scaleAspectFill
         return iv
     }()
     
@@ -36,7 +39,8 @@ class PersonDetailCell: UICollectionViewCell {
         tv.textColor = UIColor.black
         tv.backgroundColor = .clear
         tv.font = .systemFont(ofSize: 16)
-        tv.text = "Рыбным текстом называется текст, служащий для временного наполнения макета в публикациях или производстве веб-сайтов, пока финальный текст еще не создан. Рыбный текст также известен как текст-заполнитель или же текст-наполнитель. Иногда текст-«рыба» также используется композиторами при написании музыки."
+        tv.textContainerInset = UIEdgeInsets.zero
+        tv.textContainer.lineFragmentPadding = 0
         tv.sizeToFit()
         tv.isScrollEnabled = false
         tv.isEditable = false
@@ -82,7 +86,7 @@ class PersonDetailCell: UICollectionViewCell {
             placeOfBirthLabel.text = oldText + place_of_birth
         }
         
-        if let personImageViewUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: person.profile_path ?? "", posterSize: Constants.PersonImageSize.w185_and_h278_bestv2.rawValue)) {
+        if let personImageViewUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: person.profile_path ?? "", posterSize: Constants.PersonImageSize.w220_and_h330_face.rawValue)) {
             
             personImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
             personImageView.sd_setImage(with: personImageViewUrl)
@@ -97,29 +101,28 @@ class PersonDetailCell: UICollectionViewCell {
         personImageView.backgroundColor = .white
         
         let labelRightStackView = VerticalStackView(arrangedSubviews: [
-            genderLabel,
-            knowForDepartmentLabel,
-            birthdayLabel,
-            popularityLabel,
-            placeOfBirthLabel,
-            knownAsLabel
+                genderLabel,
+                knowForDepartmentLabel,
+                birthdayLabel,
+                popularityLabel,
+                placeOfBirthLabel,
+                knownAsLabel
             ], spacing: 2)
         labelRightStackView.distribution = .equalSpacing
+        labelRightStackView.alignment = .leading
         
         let topstackView = UIStackView(arrangedSubviews: [
             personImageView,
-            labelRightStackView
+            labelRightStackView,
             ])
-        topstackView.spacing = 4
-        topstackView.backgroundColor = .purple
-        topstackView.alignment = .center
+        topstackView.spacing = 8
+        topstackView.alignment = .top
         
         let bottomstackView = VerticalStackView(arrangedSubviews: [
             nameLabel,
             biographyLabel,
             biographyTextView
             ], spacing: 2)
-        bottomstackView.backgroundColor = .gray
         
         let overallStackView = VerticalStackView(arrangedSubviews: [
             topstackView,
@@ -127,12 +130,12 @@ class PersonDetailCell: UICollectionViewCell {
             ], spacing: 8)
         
         addSubview(overallStackView)
-        overallStackView.fillSuperview(padding: .init(top: 4, left: 15, bottom: 4, right: 15))
+        overallStackView.fillSuperview(padding: .init(top: 4, left: 16, bottom: 4, right: 15))
         
         addSeparator(at: [.bottom],
                      color: UIColor.init(white: 0.75, alpha: 1),
                      weight: 1,
-                     insets: .init(top: 0, left: 15, bottom: 2, right: 20))
+                     insets: .init(top: 0, left: 15, bottom: -4, right: 20))
         
     }
     

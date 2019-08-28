@@ -37,7 +37,6 @@ class PersonController: BaseListController {
         collectionView.register(PersonImageCell.self, forCellWithReuseIdentifier: imageCellId)
         
         collectionView.backgroundColor = .white
-//        collectionView.contentInset = .init(top: 16, left: 16, bottom: 0, right: 16)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -52,7 +51,6 @@ class PersonController: BaseListController {
                 cell.configureCell(person: person)
             }
             return cell
-//            indexPath.item == 1
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCellId, for: indexPath) as! PersonImageCell
             
@@ -65,7 +63,7 @@ class PersonController: BaseListController {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height: CGFloat = 350
+        let height: CGFloat = 220
         
         if indexPath.item == 0 {
             return .init(width: view.frame.width, height: 400)
@@ -73,27 +71,6 @@ class PersonController: BaseListController {
             return .init(width: view.frame.width, height: height)
         }
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        var height: CGFloat = 400
-//
-//        if indexPath.item == 0 {
-//            let dummyCell = PersonDetailCell(frame: .init(x: 0, y: 0, width: view.frame.width, height: 1000))
-//
-////            dummyCell.app = app
-//            dummyCell.layoutIfNeeded()
-//
-//            let estimatedSize = dummyCell.systemLayoutSizeFitting(.init(width: view.frame.width, height: 1000))
-//            height = estimatedSize.height
-//        } else if indexPath.item == 1 {
-//            height = 500
-//        } else {
-//            height = 400
-//        }
-//
-//        return .init(width: view.frame.width, height: height)
-//    }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 8, left: 0, bottom: 8, right: 0)

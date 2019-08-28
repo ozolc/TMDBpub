@@ -21,7 +21,12 @@ class PersonImageCell: UICollectionViewCell {
     
     imagePersonLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 20, bottom: 0, right: 20))
         
-    horizontalController.view.anchor(top: imagePersonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 8, left: 0, bottom: 0, right: 0))
+    horizontalController.view.anchor(top: imagePersonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 4, left: 20, bottom: 0, right: 20))
+        
+        addSeparator(at: [.bottom],
+                     color: UIColor.init(white: 0.75, alpha: 1),
+                     weight: 1,
+                     insets: .init(top: 0, left: 15, bottom: -4, right: 20))
     }
     
     required init?(coder aDecoder: NSCoder) {
