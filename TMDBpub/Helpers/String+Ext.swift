@@ -14,6 +14,14 @@ extension Substring {
     }
 }
 
+extension String {
+    func replaceHyphenToDot() -> String {
+        let aString = self
+        let newString = aString.replacingOccurrences(of: "-", with: ".")
+        return newString
+    }
+}
+
 extension StringProtocol {
     var firstUppercased: String {
         return prefix(1).uppercased() + dropFirst()

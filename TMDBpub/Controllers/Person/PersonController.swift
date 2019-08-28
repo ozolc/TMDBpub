@@ -48,6 +48,7 @@ class PersonController: BaseListController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: detailCellId, for: indexPath) as! PersonDetailCell
             
             APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest) { (person: Person) in
+                print(person)
                 cell.configureCell(person: person)
             }
             return cell
@@ -55,7 +56,6 @@ class PersonController: BaseListController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCellId, for: indexPath) as! PersonImageCell
             
             APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequestImages) { (images: PersonImage) in
-                print(images)
                 cell.horizontalController.personImages = images.profiles
             }
             return cell

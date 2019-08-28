@@ -13,7 +13,6 @@ class PersonDetailCell: UICollectionViewCell {
     
     let personImageView: UIImageView = {
         let iv = UIImageView()
-//        iv.backgroundColor = .white
         iv.constrainWidth(constant: 150)
         iv.constrainHeight(constant: 200)
         iv.layer.cornerRadius = 12
@@ -32,7 +31,7 @@ class PersonDetailCell: UICollectionViewCell {
     let birthdayLabel = UILabel(text: "Дата рождения: ", font: .systemFont(ofSize: 16))
     let popularityLabel = UILabel(text: "Популярность: ", font: .systemFont(ofSize: 16))
     let placeOfBirthLabel = UILabel(text: "Место рождения: ", font: .systemFont(ofSize: 16), numberOfLines: 2)
-    let knownAsLabel = UILabel(text: "Также известен как: ", font: .systemFont(ofSize: 16), numberOfLines: 2)
+    let knownAsLabel = UILabel(text: "Также известен как: ", font: .systemFont(ofSize: 16), numberOfLines: 4)
     
     let biographyTextView: UITextView = {
         let tv = UITextView()
@@ -74,7 +73,7 @@ class PersonDetailCell: UICollectionViewCell {
         
         if let birthday = person.birthday {
             let oldText = birthdayLabel.text ?? ""
-            birthdayLabel.text = oldText + birthday
+            birthdayLabel.text = oldText + birthday.replaceHyphenToDot()
         }
         
         let popularity = String(person.popularity.truncate(to: 1))
@@ -84,6 +83,12 @@ class PersonDetailCell: UICollectionViewCell {
         if let place_of_birth = person.place_of_birth {
             let oldText = placeOfBirthLabel.text ?? ""
             placeOfBirthLabel.text = oldText + place_of_birth
+        }
+        if let knownAsArray = person.also_known_as {
+            knownAsArray.forEach { (knownAs) in
+                let oldText = knownAsLabel.text ?? ""
+                knownAsLabel.text = oldText + knownAs + "\n"
+            }
         }
         
         if let personImageViewUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: person.profile_path ?? "", posterSize: Constants.PersonImageSize.w220_and_h330_face.rawValue)) {
@@ -102,7 +107,7 @@ class PersonDetailCell: UICollectionViewCell {
         
         let labelRightStackView = VerticalStackView(arrangedSubviews: [
                 genderLabel,
-                knowForDepartmentLabel,
+//                knowForDepartmentLabel,
                 birthdayLabel,
                 popularityLabel,
                 placeOfBirthLabel,

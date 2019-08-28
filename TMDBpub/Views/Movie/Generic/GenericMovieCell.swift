@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class GenericMovieCell: UICollectionViewCell {
+class GenericMovieCell: BaseImageCell {
     
     var movie: Movie! {
         didSet {
@@ -49,7 +49,8 @@ class GenericMovieCell: UICollectionViewCell {
         return label
     }()
     
-    lazy var posterImageView = UIImageView(cornerRadius: 4)
+    lazy var posterImageView = UIImageView()
+//        cornerRadius: 4)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -61,21 +62,26 @@ class GenericMovieCell: UICollectionViewCell {
     
     fileprivate func setupLayout() {
 //        posterImageView.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
-        posterImageView.contentMode = .scaleAspectFill
-        posterImageView.layer.cornerRadius = 8
-        posterImageView.clipsToBounds = true
+//        posterImageView.contentMode = .scaleAspectFill
+//        posterImageView.layer.cornerRadius = 8
+//        posterImageView.clipsToBounds = true
         posterImageView.layer.borderWidth = 0.1
         posterImageView.layer.borderColor = UIColor.darkGray.cgColor
         
-        let titleStackView = VerticalStackView(arrangedSubviews: [titleLabel, originalTitleLabel, UIView()], spacing: 2)
-        titleStackView.constrainHeight(constant: 56)
+        let titleStackView = VerticalStackView(arrangedSubviews: [
+            titleLabel,
+            originalTitleLabel,
+            UIView()
+            ], spacing: 2)
+        titleStackView.constrainHeight(constant: 66)
         titleStackView.alignment = .center
-        
+        titleStackView.distribution = .fillProportionally
         
         let overallStackView = VerticalStackView(arrangedSubviews: [posterImageView, titleStackView], spacing: 2)
+        overallStackView.alignment = .center
         
         addSubview(overallStackView)
-        overallStackView.fillSuperview()
+        overallStackView.fillSuperview(padding: .init(top: 1, left: 1, bottom: 4, right: 1))
     }
     
     required init?(coder aDecoder: NSCoder) {

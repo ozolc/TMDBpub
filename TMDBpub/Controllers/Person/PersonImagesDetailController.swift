@@ -1,5 +1,5 @@
 //
-//  PreviewScreenshotController.swift
+//  PersonImagesDetailController.swift
 //  TMDBpub
 //
 //  Created by Maksim Nosov on 28/08/2019.
@@ -9,7 +9,7 @@
 import UIKit
 import SDWebImage
 
-class PreviewScreenshotController: HorizontalSnappingController, UICollectionViewDelegateFlowLayout {
+class PersonImagesDetailController: HorizontalSnappingController, UICollectionViewDelegateFlowLayout {
     
     let cellId = "cellId"
 
@@ -28,6 +28,20 @@ class PreviewScreenshotController: HorizontalSnappingController, UICollectionVie
             imageView.backgroundColor = .white
             addSubview(imageView)
             imageView.fillSuperview()
+        }
+        
+        override var isHighlighted: Bool {
+            didSet {
+                var transform: CGAffineTransform = .identity
+                if isHighlighted {
+                    transform = .init(scaleX: 0.9, y: 0.9)
+                }
+                UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
+                    
+                    self.transform = transform
+                    
+                })
+            }
         }
         
         func configureCell(profile: ImageStruct) {
@@ -50,7 +64,7 @@ class PreviewScreenshotController: HorizontalSnappingController, UICollectionVie
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return personImages?.count ?? 0
+        return min(4, personImages?.count ?? 0)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
