@@ -14,7 +14,8 @@ struct Person: Codable {
     let deathday: String?
     let id: Int
     let name: String
-    let alsoKnownAs: [String]?
+    let also_known_as: [String]?
+    let gender: Int
     let biography: String
     let popularity: Double
     let place_of_birth: String?

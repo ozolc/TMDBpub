@@ -1,5 +1,5 @@
 //
-//  PersonGroupCell.swift
+//  PersonDetailCell.swift
 //  TMDBpub
 //
 //  Created by Maksim Nosov on 26/08/2019.
@@ -9,9 +9,7 @@
 import UIKit
 import SDWebImage
 
-class PersonGroupCell: UICollectionViewCell {
-    
-    var person: Person!
+class PersonDetailCell: UICollectionViewCell {
     
     let personImageView: UIImageView = {
         let iv = UIImageView()
@@ -26,6 +24,7 @@ class PersonGroupCell: UICollectionViewCell {
     
     let biographyLabel = UILabel(text: "Биография:",
                             font: .systemFont(ofSize: 16))
+    let genderLabel = UILabel(text: "Пол: ", font: .systemFont(ofSize: 16))
     let knowForDepartmentLabel = UILabel(text: "Известен за: ", font: .systemFont(ofSize: 16))
     let birthdayLabel = UILabel(text: "Дата рождения: ", font: .systemFont(ofSize: 16))
     let popularityLabel = UILabel(text: "Популярность: ", font: .systemFont(ofSize: 16))
@@ -52,7 +51,18 @@ class PersonGroupCell: UICollectionViewCell {
         setupUI()
     }
     
+    fileprivate let dictionaryGender: [Int: String] = [
+        0: "",
+        1: "жен.",
+        2: "муж."
+    ]
+    
     func configureCell(person: Person) {
+        
+        let oldGenderText = genderLabel.text ?? ""
+        guard let genderString = dictionaryGender[person.gender] else { return }
+        genderLabel.text = oldGenderText + genderString
+        
         if let knownForDepartment = person.knownForDepartment {
             let oldText = knowForDepartmentLabel.text ?? ""
             knowForDepartmentLabel.text = oldText + knownForDepartment
@@ -64,8 +74,8 @@ class PersonGroupCell: UICollectionViewCell {
         }
         
         let popularity = String(person.popularity.truncate(to: 1))
-        let oldText = popularityLabel.text ?? ""
-        popularityLabel.text = oldText + popularity
+        let oldPopularityText = popularityLabel.text ?? ""
+        popularityLabel.text = oldPopularityText + popularity
         
         if let place_of_birth = person.place_of_birth {
             let oldText = placeOfBirthLabel.text ?? ""
@@ -76,14 +86,6 @@ class PersonGroupCell: UICollectionViewCell {
             
             personImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
             personImageView.sd_setImage(with: personImageViewUrl)
-            
-//            {
-//                (image, error, _, _) in
-//                if (error != nil) {
-//                    self.personImageView.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
-//                } else {
-//                    self.personImageView.image = image
-//                }
             }
         
         nameLabel.text = person.name
@@ -95,6 +97,7 @@ class PersonGroupCell: UICollectionViewCell {
         personImageView.backgroundColor = .white
         
         let labelRightStackView = VerticalStackView(arrangedSubviews: [
+            genderLabel,
             knowForDepartmentLabel,
             birthdayLabel,
             popularityLabel,

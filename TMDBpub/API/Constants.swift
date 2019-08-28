@@ -42,6 +42,7 @@ struct Constants {
     
     //MARK: Account
     static let Person = "person"
+    static let Images = "images"
     
     enum AccountLists: String {
         case AccountFavorites = "favorite/movies"
@@ -143,5 +144,6 @@ struct Constants {
     enum PersonImageSize: String {
         case w185_and_h278_bestv2
         case w300_and_h450_bestv2
+        case w220_and_h330_face
     }
 }
