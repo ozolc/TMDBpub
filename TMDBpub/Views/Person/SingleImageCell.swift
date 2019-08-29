@@ -15,7 +15,6 @@ class SingleImageCell: BaseImageCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        imageView.backgroundColor = .purple
         addSubview(imageView)
         imageView.fillSuperview()
     }

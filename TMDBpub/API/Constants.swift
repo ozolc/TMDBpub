@@ -24,6 +24,7 @@ struct Constants {
     static let discoverMovie = "discover/movie"
     static let imageYoutubeBaseURL = "https://i1.ytimg.com/vi/"
     static let gravatarImageURL = "https://www.gravatar.com/avatar/"
+    static let movie = "movie"
     static let moviePosterPlaceholderImageName = "placeholder.png"
     static let language = "ru-RU"
     
@@ -39,8 +40,6 @@ struct Constants {
     // MARK: Account
     static let Account = "account"
     static let UserID = "id"
-    
-    //MARK: Account
     static let Person = "person"
     static let Images = "images"
     

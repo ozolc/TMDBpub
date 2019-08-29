@@ -26,7 +26,6 @@ class PhotoController: BaseListController {
     }()
     
     @objc func handleDismiss() {
-        print("Dismiss")
         dismiss(animated: true)
         closeButton.isHidden = true
         dismissHandler?()
@@ -51,7 +50,7 @@ class PhotoController: BaseListController {
         collectionView.contentInset = .init(top: 0, left: 0, bottom: height, right: 0)
     }
     
-    override var prefersStatusBarHidden: Bool { return true }
+//    override var prefersStatusBarHidden: Bool { return true }
     
     func setupCloseButton() {
         view.addSubview(closeButton)

@@ -73,7 +73,7 @@ class PersonImagesListController: BaseListController {
             self.tabBarController?.tabBar.transform = .identity
             self.navigationController?.navigationBar.transform = .identity
             
-            guard let cell = self.appFullscreenController.collectionView.cellForItem(at: [0, 0]) as? PhotoCell else { return }
+            guard let cell = self.appFullscreenController.collectionView.cellForItem(at: [0, 0]) as? SingleImageCell else { return }
 //                        cell.closeButton.alpha = 0
             self.appFullscreenController.closeButton.alpha = 0
 //            self.appFullscreenController.closeButtonTop?.constant = 84

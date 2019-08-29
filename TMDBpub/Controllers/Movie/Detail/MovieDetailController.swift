@@ -29,10 +29,14 @@ class RHButtonStruct {
 class MovieDetailController: UIViewController {
     
     var tableView = UITableView()
+    var personImagesDetailController: PersonImagesDetailController!
     
     var isFavourited = false
     var isWatchlisted = false
     var isFirstState = true
+    
+    var movieImages: MovieImage!
+    var typeOfRequestImages = ""
     
     fileprivate var movieId: Int!
     fileprivate var movie: Movie!
@@ -50,20 +54,16 @@ class MovieDetailController: UIViewController {
     }
     
     fileprivate func firstState(flag: Bool) {
-//        print("FirstState -", isFirstState)
         if isFirstState {
             
             buttonsArr.forEach { (button) in
                 switch button.typeOfParameter {
                 case .Favorite:
                     button.isChecked = movieState.favorite
-//                    print("movieState.favorite button.isChecked -", button.isChecked)
                 case .Watchlist:
                     button.isChecked = movieState.watchlist
-//                    print("movieState.watchlist movieState.watchlist -", button.isChecked)
                 }
             }
-//            print(buttonsArr)
         }
         
         isFirstState = false
@@ -77,23 +77,20 @@ class MovieDetailController: UIViewController {
     // dependency injection constructor
     init(coder: NSCoder? = nil, movieId: Int) {
         super.init(nibName: nil, bundle: nil)
-        
         self.movieId = movieId
+        self.typeOfRequestImages = Constants.movie + "/" + String(movieId) + "/" + Constants.Images
     }
     
     let cellId = "cellId"
     let toolId = "toolId"
     let middleId = "middleId"
-    
-    
+    let movieImageCellId = "movieImageCellId"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupTableView()
-//        LoaderController.shared.showLoader()
         fetchData()
-//        fetchFavoriteState()
 
         setupUI()
         addSideButtons()
@@ -126,9 +123,6 @@ class MovieDetailController: UIViewController {
         sideButtonsView.delegate = self
         sideButtonsView.dataSource = self
         
-//        for index in 1...3 {
-//            buttonsArr.append(generateButton(withImgName: "icon_\(index)"))
-//        }
         buttonsArr.append(RHButtonStruct(text: ["FavoriteOn", "FavoriteOff"],
                                          buttonView: generateButton(withImgName: "FavoriteOff"),
                                          typeOfParameter: Constants.ParameterKeysAccount.Favorite,
@@ -157,7 +151,6 @@ class MovieDetailController: UIViewController {
         
         print(isChecked)
         buttonsArr[index].isChecked = !buttonsArr[index].isChecked
-//        self.isFavourited = !self.isFavourited
         self.updateAccountListButton(isChecked: buttonsArr[index].isChecked , index: index);
     }
     
@@ -187,12 +180,13 @@ class MovieDetailController: UIViewController {
         tableView.register(MovieDetailCell.self, forCellReuseIdentifier: cellId)
         tableView.register(MovieDetailToolCell.self, forCellReuseIdentifier: toolId)
         tableView.register(MovieDetailMiddleCell.self, forCellReuseIdentifier: middleId)
+        tableView.register(MovieDetailPhotoTableViewCell.self, forCellReuseIdentifier: movieImageCellId)
         
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
-        tableView.alwaysBounceVertical = false
-        tableView.bounces = false
+//        tableView.alwaysBounceVertical = false
+//        tableView.bounces = false
         tableView.showsVerticalScrollIndicator = false
         
         tableView.tableFooterView = UIView()
@@ -213,14 +207,6 @@ class MovieDetailController: UIViewController {
             
             self.movie = movie
             
-//            DispatchQueue.main.async {
-//                self.tableView.reloadData()
-//                LoaderController.shared.removeLoader()
-//            }
-            
-//            self.dispatchGroup.leave()
-//            print("Leave fetchData")
-            
             self.fetchFavoriteState()
             
             self.dispatchGroup.leave()
@@ -231,7 +217,6 @@ class MovieDetailController: UIViewController {
         
         self.dispatchGroup.notify(queue: .main) {
             print("Notify fetchData")
-//            LoaderController.shared.removeLoader()
             self.tableView.reloadData()
             
         }
@@ -261,7 +246,6 @@ class MovieDetailController: UIViewController {
         view.addSubview(visualEffectView)
         visualEffectView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.safeAreaLayoutGuide.topAnchor, trailing: view.trailingAnchor)
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         fatalError()
@@ -302,25 +286,13 @@ extension MovieDetailController: MovieDetailToolCellDelegate {
 extension MovieDetailController: MovieDetailMiddleCellDelegate {
     func favoriteButtonPressed(sender: MovieDetailMiddleCell) {
         print("button pressed")
-//        APIService.shared.postToFavorites(mediaType: .Movie, mediaId: movieId, isFavorite: !sender.isFavorite) { (response, error) in
-//            if let error = error {
-//                print(error)
-//            } else {
-//                DispatchQueue.main.async {
-//                    sender.isFavorite = !sender.isFavorite
-//                    sender.favoriteButton.setTitleColor((sender.isFavorite) ? UIColor.red :  UIColor.black, for: .normal)
-//                    print(sender.isFavorite)
-//                }
-//
-//            }
-//        }
     }
     
 }
 
 extension MovieDetailController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 4
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -338,22 +310,33 @@ extension MovieDetailController: UITableViewDataSource {
             
             return cell
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: middleId) as! MovieDetailMiddleCell
         
-        cell.delegate = self
+        if indexPath.row == 2 {
+            let cell = tableView.dequeueReusableCell(withIdentifier: middleId) as! MovieDetailMiddleCell
+            
+            cell.delegate = self
+            
+            if let movie = self.movie {
+                cell.movie = movie
+            }
+            return cell
+        } else {
         
-        if let movie = self.movie {
-            cell.movie = movie
+        let cell = tableView.dequeueReusableCell(withIdentifier: movieImageCellId, for: indexPath) as! MovieDetailPhotoTableViewCell
+            cell.typeOfRequestImages = self.typeOfRequestImages
+            cell.delegate = self
+            return cell
         }
-        return cell
     }
+    
 }
 
 extension MovieDetailController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if indexPath.row == 0 {
             return 440
-            //            390
+        } else if indexPath.row == 3 {
+            return 250
         } else {
             return UITableView.automaticDimension
         }
@@ -384,5 +367,17 @@ extension MovieDetailController: RHSideButtonsDelegate {
     
     func sideButtons(_ sideButtons: RHSideButtons, didTriggerButtonChangeStateTo state: RHButtonState) {
         print("🍭 Trigger button")
+    }
+}
+
+extension MovieDetailController: MovieDetailPhotoTableViewCellDelegate {
+    func didTappedFromDelegate(movieImagesFromDelegate: MovieImage) {
+//                if let personImages = movieImages.backdrops {
+                let controller = PersonImagesListController(personImages: movieImagesFromDelegate.backdrops)
+                    controller.navigationItem.title = movie.title
+        print("Tapped")
+        navigationController?.pushViewController(controller, animated: true)
+//                self.view.window?.rootViewController?            navigationController?.pushViewController(controller, animated: true)
+//                }
     }
 }

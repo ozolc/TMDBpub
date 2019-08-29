@@ -59,6 +59,8 @@ class APIService {
                 return
             }
             
+//            print(dataResponse.request)
+            
             guard let data = dataResponse.data else { return }
             do {
                 let objects = try JSONDecoder().decode(T.self, from: data)

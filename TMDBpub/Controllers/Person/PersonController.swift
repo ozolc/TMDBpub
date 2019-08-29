@@ -22,7 +22,6 @@ class PersonController: BaseListController {
     var personImages: [ImageStruct]!
     
     // dependency injection constructor
-    
     init(_ coder: NSCoder? = nil, personId: Int) {
         super.init()
         self.typeOfRequest = Constants.Person + "/" + String(personId)
@@ -93,7 +92,7 @@ extension PersonController: PersonImageCellDelegate {
         if let personImages = personImages {
             let controller = PersonImagesListController(personImages: personImages)
             controller.navigationItem.title = personName
-            navigationController?.pushViewController(controller, animated: true)
+            self.view.window?.rootViewController?.navigationController?.pushViewController(controller, animated: true)
         }
     }
     
