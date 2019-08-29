@@ -130,12 +130,12 @@ class MovieDetailController: UIViewController {
 //            buttonsArr.append(generateButton(withImgName: "icon_\(index)"))
 //        }
         buttonsArr.append(RHButtonStruct(text: ["FavoriteOn", "FavoriteOff"],
-                                         buttonView: generateButton(withImgName: "exit_icon"),
+                                         buttonView: generateButton(withImgName: "FavoriteOff"),
                                          typeOfParameter: Constants.ParameterKeysAccount.Favorite,
                                          isChecked: isFavourited))
         
         buttonsArr.append(RHButtonStruct(text: ["WatchlistOn", "WatchlistOff"],
-                                         buttonView: generateButton(withImgName: "exit_icon"),
+                                         buttonView: generateButton(withImgName: "WatchlistOff"),
                                          typeOfParameter: Constants.ParameterKeysAccount.Watchlist,
                                          isChecked: isWatchlisted)
         

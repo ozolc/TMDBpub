@@ -25,6 +25,17 @@ class PersonImagesDetailController: HorizontalSnappingController, UICollectionVi
         collectionView.contentInset = .init(top: 0, left: 0, bottom: 8, right: 0)
     }
     
+    fileprivate func showDailyListFullScreen(_ indexPath: IndexPath) {
+        print("Realizatio later")
+//        guard let personImages = personImages else { return }
+//        let fullController = PhotoController(personImages: personImages, index: indexPath.item)
+//        present(BackEnabledNavigationController(rootViewController: fullController), animated: true)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        self.showDailyListFullScreen(indexPath)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return min(4, personImages?.count ?? 0)
     }

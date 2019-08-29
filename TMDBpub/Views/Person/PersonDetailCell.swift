@@ -20,16 +20,16 @@ class PersonDetailCell: UICollectionViewCell {
     }()
     
     let nameLabel = UILabel(text: "Sophie Rundle",
-                            font: .systemFont(ofSize: 20, weight: .bold))
+                            font: .systemFont(ofSize: 20, weight: .bold), numberOfLines: 2)
     
     let biographyLabel = UILabel(text: "Биография:",
-                            font: .systemFont(ofSize: 16))
-    let genderLabel = UILabel(text: "Пол: ", font: .systemFont(ofSize: 16))
+                            font: .systemFont(ofSize: 18))
+    let genderLabel = UILabel(text: "Пол: ", font: .systemFont(ofSize: 14))
     let knowForDepartmentLabel = UILabel(text: "Известен за: ", font: .systemFont(ofSize: 16))
-    let birthdayLabel = UILabel(text: "Дата рождения: ", font: .systemFont(ofSize: 16))
-    let popularityLabel = UILabel(text: "Популярность: ", font: .systemFont(ofSize: 16))
-    let placeOfBirthLabel = UILabel(text: "Место рождения: ", font: .systemFont(ofSize: 16), numberOfLines: 2)
-    let knownAsLabel = UILabel(text: "Также известен как: ", font: .systemFont(ofSize: 16), numberOfLines: 4)
+    let birthdayLabel = UILabel(text: "Дата: ", font: .systemFont(ofSize: 14), numberOfLines: 0)
+    let popularityLabel = UILabel(text: "Популярность: ", font: .systemFont(ofSize: 14), numberOfLines: 2)
+    let placeOfBirthLabel = UILabel(text: "Место рождения: ", font: .systemFont(ofSize: 14), numberOfLines: 3)
+    let knownAsLabel = UILabel(text: "Известен как: ", font: .systemFont(ofSize: 14), numberOfLines: 4)
     
     let biographyTextView: UITextView = {
         let tv = UITextView()
@@ -107,7 +107,7 @@ class PersonDetailCell: UICollectionViewCell {
             }
         }
         
-        if let personImageViewUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: person.profile_path ?? "", posterSize: Constants.PersonImageSize.w220_and_h330_face.rawValue)) {
+        if let personImageViewUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: person.profile_path ?? "", posterSize: Constants.PersonImageSize.w300_and_h450_bestv2.rawValue)) {
             
             personImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
             personImageView.sd_setImage(with: personImageViewUrl)

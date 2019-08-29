@@ -36,7 +36,7 @@ class SingleImageCell: BaseImageCell {
     
     func configureCell(profile: ImageStruct) {
         guard let filePath = profile.file_path else { return }
-        let imageUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: filePath, posterSize: Constants.PersonImageSize.w220_and_h330_face.rawValue))
+        let imageUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: filePath, posterSize: Constants.PersonImageSize.w300_and_h450_bestv2.rawValue))
         imageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
         imageView.sd_setImage(with: imageUrl)
     }
