@@ -65,9 +65,9 @@ class PersonImagesListController: BaseListController {
             self.anchoredConstraints?.top?.constant = startingFrame.origin.y
             self.anchoredConstraints?.leading?.constant = startingFrame.origin.x
             self.anchoredConstraints?.width?.constant = startingFrame.width
-            print("startingFrame.width", startingFrame.width)
             self.anchoredConstraints?.height?.constant = startingFrame.height
             
+            self.appFullscreenController.closeButton.alpha = 0
             self.view.layoutIfNeeded()
             
             self.tabBarController?.tabBar.transform = .identity
@@ -75,8 +75,8 @@ class PersonImagesListController: BaseListController {
             
             guard let cell = self.appFullscreenController.collectionView.cellForItem(at: [0, 0]) as? SingleImageCell else { return }
 //                        cell.closeButton.alpha = 0
-            self.appFullscreenController.closeButton.alpha = 0
-//            self.appFullscreenController.closeButtonTop?.constant = 84
+//            self.appFullscreenController.closeButton.alpha = 0
+//            self.appFullscreenController.closeButtonTop?.constant = 100
 //            cell.todayCell.topConstraint.constant = 24
             cell.layoutIfNeeded()
             
@@ -210,7 +210,7 @@ class PersonImagesListController: BaseListController {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (view.frame.width - 4 * spacing) / 3
-        return CGSize(width: width, height: width + 33)
+        return CGSize(width: width, height: width + 59)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

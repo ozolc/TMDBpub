@@ -372,12 +372,8 @@ extension MovieDetailController: RHSideButtonsDelegate {
 
 extension MovieDetailController: MovieDetailPhotoTableViewCellDelegate {
     func didTappedFromDelegate(movieImagesFromDelegate: MovieImage) {
-//                if let personImages = movieImages.backdrops {
-                let controller = PersonImagesListController(personImages: movieImagesFromDelegate.backdrops)
-                    controller.navigationItem.title = movie.title
-        print("Tapped")
+        let controller = PersonImagesListController(personImages: movieImagesFromDelegate.backdrops)
+        controller.navigationItem.title = movie.title
         navigationController?.pushViewController(controller, animated: true)
-//                self.view.window?.rootViewController?            navigationController?.pushViewController(controller, animated: true)
-//                }
     }
 }

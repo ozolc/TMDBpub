@@ -20,14 +20,15 @@ class PhotoController: BaseListController {
     let closeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(#imageLiteral(resourceName: "close_button"), for: .normal)
-        button.tintColor = .darkGray
+        button.tintColor = .gray
         button.addTarget(self, action: #selector(handleDismiss), for: .touchUpInside)
         return button
     }()
     
     @objc func handleDismiss() {
-        dismiss(animated: true)
         closeButton.isHidden = true
+        dismiss(animated: true)
+        
         dismissHandler?()
     }
     

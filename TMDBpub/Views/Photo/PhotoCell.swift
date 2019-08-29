@@ -31,6 +31,10 @@ class PhotoCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
+        imageView.contentMode = .scaleAspectFit
+        imageView.clipsToBounds = true
+        imageView.backgroundColor = .white
+        
         addSubview(imageView)
         imageView.fillSuperview()
     }

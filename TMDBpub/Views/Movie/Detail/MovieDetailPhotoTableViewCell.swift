@@ -82,7 +82,6 @@ class MovieDetailPhotoTableViewCell: UITableViewCell, UICollectionViewDataSource
 extension MovieDetailPhotoTableViewCell: PersonImageCellDelegate {
     func didTappedShowAllImages() {
         delegate.didTappedFromDelegate(movieImagesFromDelegate: movieImages)
-        
     }
     
 }

@@ -11,11 +11,14 @@ import SDWebImage
 
 class SingleImageCell: BaseImageCell {
     
-    let imageView = UIImageView(cornerRadius: 12)
+    let imageView = UIImageView(cornerRadius: 16)
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         addSubview(imageView)
+//        imageView.contentMode = .scaleAspectFit
+//        imageView.clipsToBounds = true
+//        imageView.backgroundColor = .clear
         imageView.fillSuperview()
     }
     
