@@ -59,9 +59,10 @@ class PersonController: BaseListController {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: imageCellId, for: indexPath) as! PersonImageCell
             cell.delegate = self
             
-            APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequestImages) { (images: PersonImage) in
+            APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequestImages) { [weak self] (images: PersonImage) in
+                guard let self = self else { return }
                 self.personImages = images.profiles
-                cell.horizontalController.personImages = images.profiles
+                cell.horizontalController.personImages = self.personImages
                 
                 if self.personImages.count > 4 {
                     cell.isMoreImages = true

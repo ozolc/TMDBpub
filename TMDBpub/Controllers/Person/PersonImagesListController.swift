@@ -65,6 +65,7 @@ class PersonImagesListController: BaseListController {
             self.anchoredConstraints?.top?.constant = startingFrame.origin.y
             self.anchoredConstraints?.leading?.constant = startingFrame.origin.x
             self.anchoredConstraints?.width?.constant = startingFrame.width
+            print("startingFrame.width", startingFrame.width)
             self.anchoredConstraints?.height?.constant = startingFrame.height
             
             self.view.layoutIfNeeded()
@@ -143,11 +144,7 @@ class PersonImagesListController: BaseListController {
         
         if gesture.state == .changed {
             if translationY > 0 {
-                let trueOffset = translationY - appFullscreenBeginOffset
-                
                 var scale = 1 - translationY / 1000
-                
-                print(trueOffset, scale)
                 
                 scale = min(1, scale)
                 scale = max(0.5, scale)

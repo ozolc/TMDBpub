@@ -45,6 +45,10 @@ class PhotoController: BaseListController {
         
         collectionView.backgroundColor = .clear
         collectionView.register(PhotoCell.self, forCellWithReuseIdentifier: cellId)
+        
+        collectionView.contentInsetAdjustmentBehavior = .never
+        let height = UIApplication.shared.statusBarFrame.height
+        collectionView.contentInset = .init(top: 0, left: 0, bottom: height, right: 0)
     }
     
     override var prefersStatusBarHidden: Bool { return true }
@@ -52,9 +56,16 @@ class PhotoController: BaseListController {
     func setupCloseButton() {
         view.addSubview(closeButton)
         closeButton.anchor(top: view.topAnchor, leading: nil, bottom: nil, trailing: view.trailingAnchor, padding: .init(top: 44, left: 0, bottom: 0, right: 16), size: .init(width: 44, height: 44))
-        
-//        closeButtonTop = view.topAnchor.constraint(equalTo: view.topAnchor, constant: 20)
-//        closeButtonTop?.isActive = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

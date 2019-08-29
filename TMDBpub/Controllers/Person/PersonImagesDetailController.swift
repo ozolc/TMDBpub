@@ -26,10 +26,10 @@ class PersonImagesDetailController: HorizontalSnappingController, UICollectionVi
     }
     
     fileprivate func showDailyListFullScreen(_ indexPath: IndexPath) {
-        print("Realizatio later")
-//        guard let personImages = personImages else { return }
-//        let fullController = PhotoController(personImages: personImages, index: indexPath.item)
-//        present(BackEnabledNavigationController(rootViewController: fullController), animated: true)
+        guard let personImage = personImages?[indexPath.item] else { return }
+        
+        let fullController = PhotoController(personImages: personImage, index: indexPath.item)
+        self.view.window?.rootViewController?.present(fullController, animated: true)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
