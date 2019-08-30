@@ -51,7 +51,6 @@ class PersonImageCell: UICollectionViewCell {
     }
     
     @objc fileprivate func handleShowMoreImages() {
-        print("Show more images")
         delegate?.didTappedShowAllImages()
         
     }

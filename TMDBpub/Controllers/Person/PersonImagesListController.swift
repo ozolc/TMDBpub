@@ -72,6 +72,7 @@ class PersonImagesListController: BaseListController {
             
             self.tabBarController?.tabBar.transform = .identity
             self.navigationController?.navigationBar.transform = .identity
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
             
             guard let cell = self.appFullscreenController.collectionView.cellForItem(at: [0, 0]) as? SingleImageCell else { return }
 //                        cell.closeButton.alpha = 0
@@ -174,6 +175,7 @@ class PersonImagesListController: BaseListController {
             
             self.tabBarController?.tabBar.transform = CGAffineTransform(translationX: 0, y: 100)
             self.navigationController?.navigationBar.transform = CGAffineTransform(translationX: 0, y: -100)
+            self.navigationController?.interactivePopGestureRecognizer?.isEnabled = false
             
             guard let cell = self.collectionView.cellForItem(at: [0, 0]) as? PhotoCell else { return }
 //            cell.topAnchor.constraint(equalTo: self.navigationController., constant: 48)
@@ -210,7 +212,7 @@ class PersonImagesListController: BaseListController {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = (view.frame.width - 4 * spacing) / 3
-        return CGSize(width: width, height: width + 59)
+        return CGSize(width: width, height: width * 1.5)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

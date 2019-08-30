@@ -22,7 +22,7 @@ class PersonImagesDetailController: HorizontalSnappingController, UICollectionVi
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         collectionView.register(SingleImageCell.self, forCellWithReuseIdentifier: cellId)
-        collectionView.contentInset = .init(top: 0, left: 0, bottom: 8, right: 0)
+        collectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     fileprivate func showDailyListFullScreen(_ indexPath: IndexPath) {

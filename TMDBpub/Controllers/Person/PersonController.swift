@@ -89,12 +89,11 @@ class PersonController: BaseListController {
 
 extension PersonController: PersonImageCellDelegate {
     func didTappedShowAllImages() {
+        print(personImages.count)
         if let personImages = personImages {
             let controller = PersonImagesListController(personImages: personImages)
             controller.navigationItem.title = personName
-            self.view.window?.rootViewController?.navigationController?.pushViewController(controller, animated: true)
+            navigationController?.pushViewController(controller, animated: true)
         }
     }
-    
-    
 }
