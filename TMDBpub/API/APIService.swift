@@ -115,7 +115,7 @@ class APIService {
         }
     }
     
-    func taskForPOSTMethod<T: Decodable>(requestURL: String, parameters: [String: Any],  httpMethod: HTTPMethod, jsonBody: [String: Any], completionHandler: @escaping (_ result: T?, _ error: Error?) -> Void) {
+    func taskForPOSTMethod<T: Decodable>(requestURL: String, parameters: [String: Any],  httpMethod: HTTPMethod, /*jsonBody: [String: Any],*/ completionHandler: @escaping (_ result: T?, _ error: Error?) -> Void) {
         
         let headers = ["content-type": "application/json;charset=utf-8"]
         let postData = try? JSONSerialization.data(withJSONObject: parameters)
@@ -124,7 +124,7 @@ class APIService {
                                  cachePolicy: .useProtocolCachePolicy,
                                  timeoutInterval: 10.0)
         
-        request.httpMethod = "POST"
+        request.httpMethod = httpMethod.rawValue
         request.allHTTPHeaderFields = headers
         request.httpBody = postData
         
@@ -169,7 +169,7 @@ class APIService {
             Constants.apiKey + "&session_id=" + Constants.sessionId
         
         print(typeOfRequest)
-        taskForPOSTMethod(requestURL: typeOfRequest, parameters: parameters, httpMethod: .post, jsonBody: parameters) { (results: ResponseResult?, error) in
+        taskForPOSTMethod(requestURL: typeOfRequest, parameters: parameters, httpMethod: .post) /*jsonBody: parameters)*/ { (results: ResponseResult?, error) in
             
             /* 3. Send the desired value(s) to completion handler */
             if let error = error {
@@ -181,7 +181,7 @@ class APIService {
         }
     }
     
-    func postRateMovie(mediaId: Int, rateValue: Int, completionHandlerForFavorite: @escaping (_ result: ResponseResult?, _ error: Error?) -> Void)  {
+    func postRateMovie(mediaId: Int, rateValue: Int, completionHandlerForRating: @escaping (_ result: ResponseResult?, _ error: Error?) -> Void)  {
         
         let parameters = [
             "value": rateValue
@@ -196,17 +196,52 @@ class APIService {
             "&session_id=" + Constants.sessionId
         
         print(typeOfRequest)
-        taskForPOSTMethod(requestURL: typeOfRequest, parameters: parameters, httpMethod: .post, jsonBody: parameters) { (results: ResponseResult?, error) in
+        taskForPOSTMethod(requestURL: typeOfRequest, parameters: parameters, httpMethod: .post /*jsonBody: parameters*/) { (results: ResponseResult?, error) in
             
             /* 3. Send the desired value(s) to completion handler */
             if let error = error {
-                completionHandlerForFavorite(nil, error)
+                completionHandlerForRating(nil, error)
             } else {
                 print(results?.statusCode ?? 0, results?.statusMessage ?? "statusMessage")
-                completionHandlerForFavorite(results, nil)
+                completionHandlerForRating(results, nil)
                 //
             }
         }
+    }
+    
+    func deleteRateMovie(mediaId: Int, completionHandlerForDeletingRating: @escaping (_ result: ResponseResult?, _ error: Error?) -> Void)  {
+        
+        /* 1. Set the parameters */
+        let parameters = [
+            "api_key": Constants.apiKey,
+            "session_id": Constants.sessionId
+            ] as [String : Any]
+        
+        /* 2. Make the request */
+        let typeOfRequest = Constants.baseURL +
+            Constants.movie + "/" +
+            String(mediaId) + "/" +
+            Constants.rating
+            +
+            "?api_key=" + Constants.apiKey +
+            "&session_id=" + Constants.sessionId
+        
+//        print(typeOfRequest)
+        taskForPOSTMethod(requestURL: typeOfRequest, parameters: parameters, httpMethod: .delete /*jsonBody: parameters*/) { (results: ResponseResult?, error) in
+            
+            
+            /* 3. Send the desired value(s) to completion handler */
+            if let error = error {
+                completionHandlerForDeletingRating(nil, error)
+            } else {
+                print(results?.statusCode ?? 0, results?.statusMessage ?? "statusMessage")
+                completionHandlerForDeletingRating(results, nil)
+                //
+            }
+        }
+        
+        
+        
     }
     
     private func getRequestToken(completionHandlerForToken: @escaping (_ success: Bool, _ requestToken: String?, _ errorString: String?) -> Void) {

@@ -370,13 +370,21 @@ extension MovieDetailController: MovieDetailPhotoTableViewCellDelegate {
 }
 
 extension MovieDetailController: RatingControlDelegate {
-    func ratingTapped(rating: Int) {
+    func setRating(with rating: Int) {
         APIService.shared.postRateMovie(mediaId: movieId, rateValue: rating) { (response, error) in
             if let error = error {
                 print(error)
             }
-            
-            print(response)
+//            print(response)
+        }
+    }
+    
+    func deleteRating() {
+        APIService.shared.deleteRateMovie(mediaId: movieId) { (response, error) in
+            if let error = error {
+                print(error)
+            }
+//            print(response)
         }
     }
     

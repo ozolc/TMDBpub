@@ -9,7 +9,8 @@
 import UIKit
 
 protocol RatingControlDelegate: class {
-    func ratingTapped(rating: Int)
+    func setRating(with rating: Int)
+    func deleteRating()
 }
 
 class RatingControl: UIStackView {
@@ -59,10 +60,11 @@ class RatingControl: UIStackView {
         if selectedRating == rating {
             // If the selected star represents the current rating, reset the rating to 0.
             rating = 0
+            delegate.deleteRating()
         } else {
             // Otherwise set the rating to the selected star
             rating = selectedRating
-            delegate.ratingTapped(rating: rating)
+            delegate.setRating(with: rating)
         }
     }
     
