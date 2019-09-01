@@ -14,6 +14,7 @@ class PhotoController: BaseListController {
 //    let blurVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
     
     let cellId = "cellId"
+    var isSingle = false
     
     var personImages: ImageStruct!
     var closeButtonTop : NSLayoutConstraint?
@@ -33,9 +34,13 @@ class PhotoController: BaseListController {
         dismissHandler?()
     }
     
-    init(personImages: ImageStruct, index: Int) {
+    init(personImages: ImageStruct, index: Int, isSingle: Bool = false) {
         self.personImages = personImages
         super.init()
+        
+        if isSingle {
+            self.addGesture()
+        }
     }
     
     override func viewDidLoad() {
@@ -55,11 +60,15 @@ class PhotoController: BaseListController {
         let height = UIApplication.shared.statusBarFrame.height
         collectionView.contentInset = .init(top: 0, left: 0, bottom: height, right: 0)
         
+        
+        
+//        view.sendSubviewToBack(blurVisualEffectView)
+    }
+    
+    fileprivate func addGesture() {
         let gesture = UIPanGestureRecognizer(target: self, action: #selector(handleDrag))
         gesture.delegate = self
         collectionView.addGestureRecognizer(gesture)
-        
-//        view.sendSubviewToBack(blurVisualEffectView)
     }
     
     var collectionViewBeginOffset: CGFloat = 0

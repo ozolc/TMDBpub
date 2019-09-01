@@ -11,6 +11,7 @@ import UIKit
 class PersonImagesListController: BaseListController {
     
     let singleImageCellId = "singleImageCellId"
+    var isSingle = false
     
     var personImages: [ImageStruct]?
 //    {
@@ -19,9 +20,10 @@ class PersonImagesListController: BaseListController {
 //        }
 //    }
     
-    init(personImages: [ImageStruct]) {
+    init(personImages: [ImageStruct], isSingle: Bool = false) {
         self.personImages = personImages
         super.init()
+        self.isSingle = isSingle
     }
     
     let blurVisualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
@@ -186,7 +188,7 @@ class PersonImagesListController: BaseListController {
     
     fileprivate func showDailyListFullScreen(_ indexPath: IndexPath) {
         guard let personImages = personImages else { return }
-        let fullController = PhotoController(personImages: personImages[indexPath.item], index: indexPath.item)
+        let fullController = PhotoController(personImages: personImages[indexPath.item], index: indexPath.item, isSingle: isSingle)
         present(BackEnabledNavigationController(rootViewController: fullController), animated: true)
     }
     

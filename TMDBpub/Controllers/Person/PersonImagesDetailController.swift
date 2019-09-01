@@ -28,7 +28,7 @@ class PersonImagesDetailController: HorizontalSnappingController, UICollectionVi
     fileprivate func showDailyListFullScreen(_ indexPath: IndexPath) {
         guard let personImage = personImages?[indexPath.item] else { return }
         
-        let fullController = PhotoController(personImages: personImage, index: indexPath.item)
+        let fullController = PhotoController(personImages: personImage, index: indexPath.item, isSingle: true)
         self.view.window?.rootViewController?.present(fullController, animated: true)
     }
     

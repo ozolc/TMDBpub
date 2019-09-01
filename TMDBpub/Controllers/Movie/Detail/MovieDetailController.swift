@@ -43,13 +43,11 @@ class MovieDetailController: UIViewController {
     fileprivate var reviews: Review!
     fileprivate var movieState: MovieState! {
         didSet {
-            
             firstState(flag: isFirstState)
             
             for (index, value) in buttonsArr.enumerated() {
                 updateAccountListButton(isChecked: value.isChecked, index: index)
             }
-            
         }
     }
     
@@ -185,8 +183,8 @@ class MovieDetailController: UIViewController {
         tableView.backgroundColor = .white
         tableView.separatorStyle = .none
         tableView.allowsSelection = false
-//        tableView.alwaysBounceVertical = false
-//        tableView.bounces = false
+        tableView.alwaysBounceVertical = false
+        tableView.bounces = false
         tableView.showsVerticalScrollIndicator = false
         
         tableView.tableFooterView = UIView()
@@ -200,23 +198,14 @@ class MovieDetailController: UIViewController {
         
         let typeOfRequest = "movie/\(movieId ?? 0)"
         APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, completionHandler:  {[weak self] (movie: Movie) in
-            
             guard let self = self else { return }
             
-            print("Enter fetchData")
-            
             self.movie = movie
-            
-            self.fetchFavoriteState()
-            
             self.dispatchGroup.leave()
-            print("Leave fetchData")
-            
-           
+            self.fetchFavoriteState()
         })
         
         self.dispatchGroup.notify(queue: .main) {
-            print("Notify fetchData")
             self.tableView.reloadData()
             
         }
@@ -224,18 +213,14 @@ class MovieDetailController: UIViewController {
     
     fileprivate func fetchFavoriteState() {
         
-        dispatchGroup.enter()
-        print("Enter fetchFavoriteState")
-        
         let typeOfRequestStates = "movie/\(movieId ?? 0)/account_states"
         APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequestStates, sessionId: Constants.sessionId, completionHandler: { [weak self] (state: MovieState) in
             guard let self = self else { return }
+            self.dispatchGroup.enter()
             
             self.movieState = state
-            print("Leave fetchFavoriteState")
             self.dispatchGroup.leave()
         })
-        
         
     }
     
@@ -358,7 +343,6 @@ extension MovieDetailController: RHSideButtonsDelegate {
     
     func sideButtons(_ sideButtons: RHSideButtons, didSelectButtonAtIndex index: Int) {
         print("🍭 button index tapped: \(index) and text: \(buttonsArr[index].text)")
-//        let type = buttonsArr[index].
         handleFavorite(mediaType: .Movie,
                        index: index,
                        typeOfParameter: buttonsArr[index].typeOfParameter,
@@ -372,7 +356,7 @@ extension MovieDetailController: RHSideButtonsDelegate {
 
 extension MovieDetailController: MovieDetailPhotoTableViewCellDelegate {
     func didTappedFromDelegate(movieImagesFromDelegate: MovieImage) {
-        let controller = PersonImagesListController(personImages: movieImagesFromDelegate.backdrops)
+        let controller = PersonImagesListController(personImages: movieImagesFromDelegate.backdrops, isSingle: true)
         controller.navigationItem.title = movie.title
         navigationController?.pushViewController(controller, animated: true)
     }
