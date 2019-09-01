@@ -74,6 +74,12 @@ class TrailerMovieCell: UICollectionViewCell {
         return iv
     }()
     
+    let youtubeLogoImageView: UIImageView = {
+        let image = UIImage(named: "youtube")
+        let iv = UIImageView(image: image)
+        return iv
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         
@@ -99,6 +105,9 @@ class TrailerMovieCell: UICollectionViewCell {
         let titleStackView = VerticalStackView(arrangedSubviews: [nameLabel, typeLabel, UIView()], spacing: 4)
         titleStackView.constrainHeight(constant: 50)
         titleStackView.alignment = .center
+        
+        thumbnailImageView.addSubview(youtubeLogoImageView)
+        youtubeLogoImageView.centerInSuperview(size: .init(width: 60, height: 60))
         
         let overallStackView = VerticalStackView(arrangedSubviews: [thumbnailImageView, titleStackView])
         

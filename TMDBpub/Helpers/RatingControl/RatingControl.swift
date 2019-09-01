@@ -17,7 +17,7 @@ class RatingControl: UIStackView {
     
     //MARK: Properties
     private var ratingButtons = [UIButton]()
-    var starSize: CGSize = CGSize(width: 16, height: 16) {
+    var starSize: CGSize = CGSize(width: 18, height: 18) {
         didSet {
             setupButtons()
         }

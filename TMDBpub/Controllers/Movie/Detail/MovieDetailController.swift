@@ -43,6 +43,7 @@ class MovieDetailController: UIViewController {
     fileprivate var reviews: Review!
     fileprivate var movieState: MovieState! {
         didSet {
+            
             firstState(flag: isFirstState)
             
             for (index, value) in buttonsArr.enumerated() {
@@ -375,8 +376,14 @@ extension MovieDetailController: RatingControlDelegate {
             if let error = error {
                 print(error)
             }
-//            print(response)
+            self.rating = rating
+            
+            DispatchQueue.main.async {
+                guard let cell = self.tableView.cellForRow(at: [0, 0]) as? MovieDetailCell else { return }
+                cell.ratingLabel.text = "(" + String(rating) + "/10)"
+            }
         }
+        
     }
     
     func deleteRating() {
@@ -384,7 +391,11 @@ extension MovieDetailController: RatingControlDelegate {
             if let error = error {
                 print(error)
             }
-//            print(response)
+            
+            DispatchQueue.main.async {
+                guard let cell = self.tableView.cellForRow(at: [0, 0]) as? MovieDetailCell else { return }
+                cell.ratingLabel.text = "(0/10)"
+            }
         }
     }
     

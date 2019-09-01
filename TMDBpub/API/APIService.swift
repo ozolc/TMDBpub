@@ -458,7 +458,6 @@ class APIService {
             genresArray += genre.genres
             
         })
-//        print("Genres successfully downloaded genres from net")
         completion()
     }
     

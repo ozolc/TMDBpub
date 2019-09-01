@@ -17,6 +17,8 @@ class MovieDetailCell: UITableViewCell {
     var rating: Int! {
         didSet {
             ratingStackView.rating = rating
+            ratingLabel.text = "(" + String(rating) + "/10)"
+            ratingStackView.layoutSubviews()
         }
     }
     
@@ -68,7 +70,6 @@ class MovieDetailCell: UITableViewCell {
     let titleLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        label.numberOfLines = 2
         label.textColor = .black
         label.numberOfLines = 2
         return label
@@ -136,7 +137,6 @@ class MovieDetailCell: UITableViewCell {
     
     lazy var backdropImageView: UIImageView = {
         let iv = UIImageView()
-//        image: UIImage(named: Constants.moviePosterPlaceholderImageName))
         iv.contentMode = .scaleAspectFill
         iv.backgroundColor = .white
         return iv
@@ -150,6 +150,13 @@ class MovieDetailCell: UITableViewCell {
         iv.layer.borderWidth = 0.1
         iv.layer.borderColor = UIColor.white.cgColor
         return iv
+    }()
+    
+    let ratingLabel: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
+        label.textColor = .black
+        return label
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -205,12 +212,13 @@ class MovieDetailCell: UITableViewCell {
         backgrondView.addSubview(sideTopStackView)
         sideTopStackView.anchor(top: nil, leading: posterView.trailingAnchor, bottom: posterView.bottomAnchor, trailing: titleStackView.trailingAnchor, padding: .init(top: 0, left: 8, bottom: 0, right: 0))
         
-//        let ratingStackView = RatingControl()
-//        ratingStackView.spacing = 2
-        ratingStackView.distribution = .equalSpacing
-        backgrondView.addSubview(ratingStackView)
-        ratingStackView.anchor(top: nil, leading: posterView.trailingAnchor, bottom: sideTopStackView.topAnchor, trailing: nil, padding: .init(top: 0, left: 8, bottom: 12, right: 0))
-        backgrondView.bringSubviewToFront(ratingStackView)
+        let ratingOverallStackView = UIStackView(arrangedSubviews: [ratingStackView, ratingLabel])
+        ratingOverallStackView.spacing = 2
+        
+        ratingOverallStackView.distribution = .equalSpacing
+        backgrondView.addSubview(ratingOverallStackView)
+        ratingOverallStackView.anchor(top: nil, leading: posterView.trailingAnchor, bottom: sideTopStackView.topAnchor, trailing: nil, padding: .init(top: 0, left: 8, bottom: 12, right: 0))
+        backgrondView.bringSubviewToFront(ratingOverallStackView)
     }
     
     fileprivate func setupGradientLayer() {
