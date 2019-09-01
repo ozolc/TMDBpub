@@ -27,6 +27,7 @@ struct Constants {
     static let movie = "movie"
     static let moviePosterPlaceholderImageName = "placeholder.png"
     static let language = "ru-RU"
+    static let rating = "rating"
     
     // Application constants
     static let tintColor = #colorLiteral(red: 0.2304878831, green: 0.3483577371, blue: 0.5966511965, alpha: 1)

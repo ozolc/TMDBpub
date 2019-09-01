@@ -72,6 +72,8 @@ class MovieDetailController: UIViewController {
     var buttonsArr = [RHButtonStruct]()
     fileprivate let triggerButtonMargin = CGFloat(85)
     
+    fileprivate var rating: Int!
+    
     // dependency injection constructor
     init(coder: NSCoder? = nil, movieId: Int) {
         super.init(nibName: nil, bundle: nil)
@@ -201,7 +203,7 @@ class MovieDetailController: UIViewController {
             guard let self = self else { return }
             
             self.movie = movie
-            self.dispatchGroup.leave()
+//            self.dispatchGroup.leave()
             self.fetchFavoriteState()
         })
         
@@ -219,6 +221,8 @@ class MovieDetailController: UIViewController {
             self.dispatchGroup.enter()
             
             self.movieState = state
+            self.rating = state.rated
+            self.dispatchGroup.leave()
             self.dispatchGroup.leave()
         })
         
@@ -285,6 +289,8 @@ extension MovieDetailController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as! MovieDetailCell
             if let movie = self.movie {
                 cell.movie = movie
+                
+                cell.rating = rating
             }
             return cell
         }
@@ -350,7 +356,7 @@ extension MovieDetailController: RHSideButtonsDelegate {
     }
     
     func sideButtons(_ sideButtons: RHSideButtons, didTriggerButtonChangeStateTo state: RHButtonState) {
-        print("🍭 Trigger button")
+//        print("🍭 Trigger button")
     }
 }
 

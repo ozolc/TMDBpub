@@ -75,7 +75,6 @@
 		B0A70886230EFC990020C6B0 /* AccountMiddleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A70885230EFC990020C6B0 /* AccountMiddleCell.swift */; };
 		B0A7088A230EFD9C0020C6B0 /* AccountListMovie.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A70889230EFD9C0020C6B0 /* AccountListMovie.swift */; };
 		B0B16288231BA889007DDA89 /* RatingControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B16287231BA889007DDA89 /* RatingControl.swift */; };
-		B0B1628A231BAA6E007DDA89 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0B16289231BAA6E007DDA89 /* TestViewController.swift */; };
 		B0C4FA7E230C2E40000870EE /* TMDBdb.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0C4FA7C230C2496000870EE /* TMDBdb.plist */; };
 		B0C4FA80230C4DB0000870EE /* SessionDelete.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C4FA7F230C4DB0000870EE /* SessionDelete.swift */; };
 		B0C6791122FFCFF200EC3C7A /* MovieDetailMiddleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0C6791022FFCFF200EC3C7A /* MovieDetailMiddleCell.swift */; };
@@ -184,7 +183,6 @@
 		B0A70885230EFC990020C6B0 /* AccountMiddleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountMiddleCell.swift; sourceTree = "<group>"; };
 		B0A70889230EFD9C0020C6B0 /* AccountListMovie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountListMovie.swift; sourceTree = "<group>"; };
 		B0B16287231BA889007DDA89 /* RatingControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingControl.swift; sourceTree = "<group>"; };
-		B0B16289231BAA6E007DDA89 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		B0C4FA7C230C2496000870EE /* TMDBdb.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = TMDBdb.plist; sourceTree = "<group>"; };
 		B0C4FA7F230C4DB0000870EE /* SessionDelete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionDelete.swift; sourceTree = "<group>"; };
 		B0C6791022FFCFF200EC3C7A /* MovieDetailMiddleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailMiddleCell.swift; sourceTree = "<group>"; };
@@ -516,7 +514,6 @@
 			isa = PBXGroup;
 			children = (
 				B0B16287231BA889007DDA89 /* RatingControl.swift */,
-				B0B16289231BAA6E007DDA89 /* TestViewController.swift */,
 			);
 			path = RatingControl;
 			sourceTree = "<group>";
@@ -805,7 +802,6 @@
 				B0715B032309859800389D19 /* RequestTokenResult.swift in Sources */,
 				B0204191230485760081D726 /* Cast.swift in Sources */,
 				B092884E231825610075AE5A /* MovieImage.swift in Sources */,
-				B0B1628A231BAA6E007DDA89 /* TestViewController.swift in Sources */,
 				B05330B422FDEAB300ECA238 /* GenericMoviesControllers.swift in Sources */,
 				B0C67922230071D700EC3C7A /* SearchMovieController.swift in Sources */,
 				B0DB173422FF018000323CEC /* MovieDetailCell.swift in Sources */,

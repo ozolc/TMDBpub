@@ -12,6 +12,13 @@ import SDWebImage
 class MovieDetailCell: UITableViewCell {
     
     fileprivate let gradientLayer = CAGradientLayer()
+    let ratingStackView = RatingControl()
+    
+    var rating: Int! {
+        didSet {
+            ratingStackView.rating = rating
+        }
+    }
     
     var movie: Movie! {
         didSet {
@@ -132,7 +139,6 @@ class MovieDetailCell: UITableViewCell {
 //        image: UIImage(named: Constants.moviePosterPlaceholderImageName))
         iv.contentMode = .scaleAspectFill
         iv.backgroundColor = .white
-//        iv.isHidden = true
         return iv
     }()
     
@@ -197,7 +203,17 @@ class MovieDetailCell: UITableViewCell {
         sideTopStackView.distribution = .fill
         
         backgrondView.addSubview(sideTopStackView)
-        sideTopStackView.anchor(top: nil, leading: posterView.trailingAnchor, bottom: posterView.bottomAnchor, trailing: titleStackView.trailingAnchor, padding: .init(top: 0, left: 16, bottom: 0, right: 0))
+        sideTopStackView.anchor(top: nil, leading: posterView.trailingAnchor, bottom: posterView.bottomAnchor, trailing: titleStackView.trailingAnchor, padding: .init(top: 0, left: 8, bottom: 0, right: 0))
+        
+//        let ratingStackView = RatingControl()
+//        ratingStackView.spacing = 2
+        ratingStackView.distribution = .equalSpacing
+        backgrondView.addSubview(ratingStackView)
+        ratingStackView.anchor(top: nil, leading: posterView.trailingAnchor, bottom: sideTopStackView.topAnchor, trailing: nil, padding: .init(top: 0, left: 8, bottom: 12, right: 0))
+        backgrondView.bringSubviewToFront(ratingStackView)
+        
+        
+        
     }
     
     fileprivate func setupGradientLayer() {

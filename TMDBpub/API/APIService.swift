@@ -164,7 +164,6 @@ class APIService {
         let typeOfRequest = Constants.baseURL +
             Constants.Account + "/" +
             Constants.accountId + "/" +
-//            Constants.ParameterKeys.Favorite
             typeOfParameter.description
             + "?api_key=" +
             Constants.apiKey + "&session_id=" + Constants.sessionId
@@ -178,7 +177,33 @@ class APIService {
             } else {
                 print(results?.statusCode ?? 0, results?.statusMessage ?? "statusMessage")
                 completionHandlerForFavorite(results, nil)
-//
+            }
+        }
+    }
+    
+    func postRateMovie(mediaId: Int, rateValue: Int, completionHandlerForFavorite: @escaping (_ result: ResponseResult?, _ error: Error?) -> Void)  {
+        
+        let parameters = [
+            "value": rateValue
+            ] as [String : Any]
+        
+        /* 2. Make the request */
+        let typeOfRequest = Constants.baseURL +
+            Constants.movie + "/" +
+            Constants.rating + "/" +
+            "?api_key=" + Constants.apiKey +
+            "&session_id=" + Constants.sessionId
+        
+        print(typeOfRequest)
+        taskForPOSTMethod(requestURL: typeOfRequest, parameters: parameters, httpMethod: .post, jsonBody: parameters) { (results: ResponseResult?, error) in
+            
+            /* 3. Send the desired value(s) to completion handler */
+            if let error = error {
+                completionHandlerForFavorite(nil, error)
+            } else {
+                print(results?.statusCode ?? 0, results?.statusMessage ?? "statusMessage")
+                completionHandlerForFavorite(results, nil)
+                //
             }
         }
     }
@@ -406,7 +431,7 @@ class APIService {
         Constants.sessionId = authManager.userCredentials?.sessionId ?? "nil"
         Constants.accountId = authManager.userCredentials?.accountId ?? "nil"
         
-//        print("Session ID =", Constants.sessionId)
+        print("Session ID =", Constants.sessionId)
 //        print("API Key =", Constants.apiKey)
 //        print("Account ID =", Constants.accountId)
 //        print("User is signed - ", self.authManager.isUserSignedIn())
