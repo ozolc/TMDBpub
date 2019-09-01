@@ -39,10 +39,11 @@ class SearchMovieCell: UITableViewCell {
 //                posterImageView.sd_setImage(with: posterUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"), options: .continueInBackground, completed: nil)
             }
             
-            let attributedReleaseDateText = NSMutableAttributedString(string: "Дата: ", attributes: [.foregroundColor: UIColor.black, .font: UIFont.systemFont(ofSize: 12, weight: .bold)])
-            attributedReleaseDateText.append(NSAttributedString(string: movie.release_date, attributes: [.foregroundColor: UIColor.darkGray, .font: UIFont.systemFont(ofSize: 12, weight: .bold)]))
-            releaseDateLabel.attributedText = attributedReleaseDateText
-            
+            if let release_date = movie.release_date {
+                let attributedReleaseDateText = NSMutableAttributedString(string: "Дата: ", attributes: [.foregroundColor: UIColor.black, .font: UIFont.systemFont(ofSize: 12, weight: .bold)])
+                attributedReleaseDateText.append(NSAttributedString(string: release_date, attributes: [.foregroundColor: UIColor.darkGray, .font: UIFont.systemFont(ofSize: 12, weight: .bold)]))
+                releaseDateLabel.attributedText = attributedReleaseDateText
+            }
         }
     }
     

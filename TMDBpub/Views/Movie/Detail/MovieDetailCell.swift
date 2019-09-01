@@ -30,8 +30,9 @@ class MovieDetailCell: UITableViewCell {
             
             print(movie.id)
             
-            let releaseYearSubstring = movie.release_date.prefix(4)
-            releaseDateLabel.text = releaseYearSubstring.toYear()
+            if let releaseYearSubstring = movie.release_date?.prefix(4) {
+                releaseDateLabel.text = releaseYearSubstring.toYear()
+            }
             
             if let runtime = movie.runtime {
                 runtimeLabel.text = runtime.toTime()

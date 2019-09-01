@@ -18,8 +18,10 @@ class PersonController: BaseListController {
     
     let detailCellId = "detailCellId"
     let imageCellId = "imageCellId"
+    let footerId = "footerId"
     
     var personImages: [ImageStruct]!
+    var movies: [Movie]!
     
     // dependency injection constructor
     init(_ coder: NSCoder? = nil, personId: Int) {
@@ -37,8 +39,10 @@ class PersonController: BaseListController {
         
         collectionView.register(PersonDetailCell.self, forCellWithReuseIdentifier: detailCellId)
         collectionView.register(PersonImageCell.self, forCellWithReuseIdentifier: imageCellId)
+        collectionView.register(PersonFooterCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: footerId)
         
         collectionView.backgroundColor = .white
+        collectionView?.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -83,6 +87,27 @@ class PersonController: BaseListController {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .init(top: 8, left: 0, bottom: 8, right: 0)
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: footerId, for: indexPath) as! PersonFooterCell
+        
+        let typeOfRequestMovie = self.typeOfRequest + Constants.movie_credits
+        APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequestMovie) { [weak self] (movies: MovieByPerson) in
+            guard let self = self else { return }
+            self.movies = movies.cast
+            footer.horizontalController.movies = self.movies
+            
+            if self.personImages.count > 5 {
+                footer.isMoreMovies = true
+            }
+        }
+        return footer
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        let height: CGFloat = 190
+        return .init(width: view.frame.width, height: height)
     }
     
 }

@@ -19,7 +19,7 @@ struct Movie: Codable {
     let original_title: String
     let backdrop_path: String?
     let overview: String?
-    let release_date: String
+    let release_date: String?
     let runtime: Int?
     let production_countries: [Country]?
     let genres: [GenreStruct]?

@@ -39,6 +39,10 @@
 		B067029422FDE4F00020F393 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B067029322FDE4F00020F393 /* AppDelegate.swift */; };
 		B067029E22FDE4F20020F393 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B067029C22FDE4F20020F393 /* LaunchScreen.storyboard */; };
 		B06A782523167AD5003B14A4 /* PersonImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = B06A782423167AD5003B14A4 /* PersonImage.swift */; };
+		B070A7F3231C4B740023E25C /* PersonFooterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070A7F2231C4B740023E25C /* PersonFooterCell.swift */; };
+		B070A7F5231C4FF60023E25C /* PersonMoviesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070A7F4231C4FF60023E25C /* PersonMoviesController.swift */; };
+		B070A7F7231C50820023E25C /* SingleMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070A7F6231C50820023E25C /* SingleMovieCell.swift */; };
+		B070A7FB231C567A0023E25C /* MovieByPerson.swift in Sources */ = {isa = PBXBuildFile; fileRef = B070A7FA231C56790023E25C /* MovieByPerson.swift */; };
 		B0715AEB23092A7700389D19 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0715AEA23092A7700389D19 /* LoginController.swift */; };
 		B0715AED23092E9F00389D19 /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0715AEC23092E9F00389D19 /* Bindable.swift */; };
 		B0715AF123092FB200389D19 /* CustomTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0715AF023092FB200389D19 /* CustomTextField.swift */; };
@@ -147,6 +151,10 @@
 		B067029D22FDE4F20020F393 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B067029F22FDE4F20020F393 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B06A782423167AD5003B14A4 /* PersonImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonImage.swift; sourceTree = "<group>"; };
+		B070A7F2231C4B740023E25C /* PersonFooterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonFooterCell.swift; sourceTree = "<group>"; };
+		B070A7F4231C4FF60023E25C /* PersonMoviesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonMoviesController.swift; sourceTree = "<group>"; };
+		B070A7F6231C50820023E25C /* SingleMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SingleMovieCell.swift; sourceTree = "<group>"; };
+		B070A7FA231C56790023E25C /* MovieByPerson.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieByPerson.swift; sourceTree = "<group>"; };
 		B0715AEA23092A7700389D19 /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		B0715AEC23092E9F00389D19 /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		B0715AF023092FB200389D19 /* CustomTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextField.swift; sourceTree = "<group>"; };
@@ -459,6 +467,7 @@
 			isa = PBXGroup;
 			children = (
 				B08029522313A62A00BC4FEC /* PersonController.swift */,
+				B070A7F4231C4FF60023E25C /* PersonMoviesController.swift */,
 				B0353F5723168D0A00A8244A /* PersonImagesDetailController.swift */,
 				B0353F5B2316BCA700A8244A /* PersonImagesListController.swift */,
 			);
@@ -472,6 +481,8 @@
 				B0353F552316888F00A8244A /* PersonImageCell.swift */,
 				B0353F592316B7A200A8244A /* BackEnabledNavigationController.swift */,
 				B02916312317099B00EDCB11 /* SingleImageCell.swift */,
+				B070A7F2231C4B740023E25C /* PersonFooterCell.swift */,
+				B070A7F6231C50820023E25C /* SingleMovieCell.swift */,
 			);
 			path = Person;
 			sourceTree = "<group>";
@@ -615,6 +626,7 @@
 				B072280E230594A700DA248A /* Video.swift */,
 				B0A70889230EFD9C0020C6B0 /* AccountListMovie.swift */,
 				B092884D231825610075AE5A /* MovieImage.swift */,
+				B070A7FA231C56790023E25C /* MovieByPerson.swift */,
 			);
 			path = Movie;
 			sourceTree = "<group>";
@@ -801,6 +813,7 @@
 				B0722812230595C500DA248A /* TrailerMovieCell.swift in Sources */,
 				B0715B032309859800389D19 /* RequestTokenResult.swift in Sources */,
 				B0204191230485760081D726 /* Cast.swift in Sources */,
+				B070A7F5231C4FF60023E25C /* PersonMoviesController.swift in Sources */,
 				B092884E231825610075AE5A /* MovieImage.swift in Sources */,
 				B05330B422FDEAB300ECA238 /* GenericMoviesControllers.swift in Sources */,
 				B0C67922230071D700EC3C7A /* SearchMovieController.swift in Sources */,
@@ -815,12 +828,14 @@
 				B02041852303DF3D0081D726 /* MovieDetailToolCell.swift in Sources */,
 				B0715AFD2309839C00389D19 /* APIError.swift in Sources */,
 				B02916322317099B00EDCB11 /* SingleImageCell.swift in Sources */,
+				B070A7F3231C4B740023E25C /* PersonFooterCell.swift in Sources */,
 				B0CC773B231124930039DC78 /* RHButtonView.swift in Sources */,
 				B0C4FA80230C4DB0000870EE /* SessionDelete.swift in Sources */,
 				B0793F68230BD4A2006C490A /* RootViewController.swift in Sources */,
 				B0793F66230BC77B006C490A /* AccessToken.swift in Sources */,
 				B0DB172A22FEA11800323CEC /* Genre.swift in Sources */,
 				B072280D2305944900DA248A /* TrailerMovieController.swift in Sources */,
+				B070A7FB231C567A0023E25C /* MovieByPerson.swift in Sources */,
 				B0793F5D230A7D84006C490A /* TMDBAuthViewController.swift in Sources */,
 				B02041812302C6810081D726 /* UIApplication+Ext.swift in Sources */,
 				B020419B23057B4A0081D726 /* CastMovieHeader.swift in Sources */,
@@ -872,6 +887,7 @@
 				B0DB172522FE9DC300323CEC /* ResultsMovie.swift in Sources */,
 				B020418F2304523E0081D726 /* ReviewMovieCell.swift in Sources */,
 				B0CB8C1D2310373A005B66E7 /* MovieState.swift in Sources */,
+				B070A7F7231C50820023E25C /* SingleMovieCell.swift in Sources */,
 				B0793F64230AFFBC006C490A /* AuthenticationManager.swift in Sources */,
 				B0DB172E22FEBBD300323CEC /* VerticalStackView.swift in Sources */,
 				B0353F5A2316B7A200A8244A /* BackEnabledNavigationController.swift in Sources */,
