@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol RatingControlDelegate: class {
+    func ratingTapped(rating: Int)
+}
+
 class RatingControl: UIStackView {
     
     //MARK: Properties
@@ -29,6 +33,8 @@ class RatingControl: UIStackView {
             updateButtonSelectionStates()
         }
     }
+    
+    weak var delegate: RatingControlDelegate!
 
     //MARK: Initialization
     override init(frame: CGRect) {
@@ -56,6 +62,7 @@ class RatingControl: UIStackView {
         } else {
             // Otherwise set the rating to the selected star
             rating = selectedRating
+            delegate.ratingTapped(rating: rating)
         }
     }
     

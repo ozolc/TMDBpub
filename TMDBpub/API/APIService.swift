@@ -190,7 +190,8 @@ class APIService {
         /* 2. Make the request */
         let typeOfRequest = Constants.baseURL +
             Constants.movie + "/" +
-            Constants.rating + "/" +
+            String(mediaId) + "/" +
+            Constants.rating +
             "?api_key=" + Constants.apiKey +
             "&session_id=" + Constants.sessionId
         

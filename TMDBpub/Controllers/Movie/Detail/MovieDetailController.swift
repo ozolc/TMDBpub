@@ -151,7 +151,7 @@ class MovieDetailController: UIViewController {
         
         print(isChecked)
         buttonsArr[index].isChecked = !buttonsArr[index].isChecked
-        self.updateAccountListButton(isChecked: buttonsArr[index].isChecked , index: index);
+        self.updateAccountListButton(isChecked: buttonsArr[index].isChecked , index: index)
     }
     
     func updateAccountListButton(isChecked: Bool, index: Int) {
@@ -209,7 +209,6 @@ class MovieDetailController: UIViewController {
         
         self.dispatchGroup.notify(queue: .main) {
             self.tableView.reloadData()
-            
         }
     }
     
@@ -224,6 +223,7 @@ class MovieDetailController: UIViewController {
             self.rating = state.rated
             self.dispatchGroup.leave()
             self.dispatchGroup.leave()
+            
         })
         
     }
@@ -290,6 +290,7 @@ extension MovieDetailController: UITableViewDataSource {
             if let movie = self.movie {
                 cell.movie = movie
                 
+                cell.ratingStackView.delegate = self
                 cell.rating = rating
             }
             return cell
@@ -366,4 +367,17 @@ extension MovieDetailController: MovieDetailPhotoTableViewCellDelegate {
         controller.navigationItem.title = movie.title
         navigationController?.pushViewController(controller, animated: true)
     }
+}
+
+extension MovieDetailController: RatingControlDelegate {
+    func ratingTapped(rating: Int) {
+        APIService.shared.postRateMovie(mediaId: movieId, rateValue: rating) { (response, error) in
+            if let error = error {
+                print(error)
+            }
+            
+            print(response)
+        }
+    }
+    
 }

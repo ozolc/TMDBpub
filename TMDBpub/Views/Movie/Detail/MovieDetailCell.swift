@@ -211,9 +211,6 @@ class MovieDetailCell: UITableViewCell {
         backgrondView.addSubview(ratingStackView)
         ratingStackView.anchor(top: nil, leading: posterView.trailingAnchor, bottom: sideTopStackView.topAnchor, trailing: nil, padding: .init(top: 0, left: 8, bottom: 12, right: 0))
         backgrondView.bringSubviewToFront(ratingStackView)
-        
-        
-        
     }
     
     fileprivate func setupGradientLayer() {
