@@ -145,7 +145,6 @@ extension PersonController: PersonFooterCellDelegate {
 
 extension PersonController: PersonMoviesControllerDelegate {
     func didTappedMovie(movie: Movie) {
-        print("in realization delegate action", movie.id)
         let controller = MovieDetailController(movieId: movie.id)
         controller.navigationItem.title = movie.title
         navigationController?.pushViewController(controller, animated: true)

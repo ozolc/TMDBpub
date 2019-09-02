@@ -64,6 +64,7 @@
 		B0793F6A230BD5B6006C490A /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0793F69230BD5B6006C490A /* SplashViewController.swift */; };
 		B0793F6C230C2402006C490A /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0793F6B230C2402006C490A /* Keys.swift */; };
 		B07B3654231D5BA900C6B415 /* PersonMoviesListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07B3653231D5BA900C6B415 /* PersonMoviesListController.swift */; };
+		B07B3656231D9B3D00C6B415 /* SegementedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = B07B3655231D9B3D00C6B415 /* SegementedVC.swift */; };
 		B08029532313A62A00BC4FEC /* PersonController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08029522313A62A00BC4FEC /* PersonController.swift */; };
 		B08029582313A83900BC4FEC /* PersonDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08029572313A83900BC4FEC /* PersonDetailCell.swift */; };
 		B080295A2313B83100BC4FEC /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = B08029592313B83100BC4FEC /* Person.swift */; };
@@ -177,6 +178,7 @@
 		B0793F69230BD5B6006C490A /* SplashViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
 		B0793F6B230C2402006C490A /* Keys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		B07B3653231D5BA900C6B415 /* PersonMoviesListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonMoviesListController.swift; sourceTree = "<group>"; };
+		B07B3655231D9B3D00C6B415 /* SegementedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegementedVC.swift; sourceTree = "<group>"; };
 		B08029522313A62A00BC4FEC /* PersonController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonController.swift; sourceTree = "<group>"; };
 		B08029572313A83900BC4FEC /* PersonDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailCell.swift; sourceTree = "<group>"; };
 		B08029592313B83100BC4FEC /* Person.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 				B0793F60230AC951006C490A /* GCDBlackBox.swift */,
 				B0793F67230BD4A2006C490A /* RootViewController.swift */,
 				B0793F69230BD5B6006C490A /* SplashViewController.swift */,
+				B07B3655231D9B3D00C6B415 /* SegementedVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -820,6 +823,7 @@
 				B092884E231825610075AE5A /* MovieImage.swift in Sources */,
 				B05330B422FDEAB300ECA238 /* GenericMoviesControllers.swift in Sources */,
 				B0C67922230071D700EC3C7A /* SearchMovieController.swift in Sources */,
+				B07B3656231D9B3D00C6B415 /* SegementedVC.swift in Sources */,
 				B0DB173422FF018000323CEC /* MovieDetailCell.swift in Sources */,
 				B05330BA22FDEC0400ECA238 /* GenericMovieCell.swift in Sources */,
 				B0A70884230E6A990020C6B0 /* UIView+Stacking.swift in Sources */,

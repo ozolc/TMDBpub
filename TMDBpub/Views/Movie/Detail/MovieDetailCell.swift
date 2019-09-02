@@ -16,9 +16,9 @@ class MovieDetailCell: UITableViewCell {
     
     var rating: Int! {
         didSet {
-//            ratingStackView.rating = rating
-//            ratingLabel.text = "(" + String(rating) + "/10)"
-//            ratingStackView.layoutSubviews()
+            ratingStackView.rating = rating
+            ratingLabel.text = "(" + String(rating) + "/10)"
+            ratingStackView.layoutSubviews()
         }
     }
     
@@ -48,6 +48,7 @@ class MovieDetailCell: UITableViewCell {
                 (image, error, _, _) in
                     if (error != nil) {
                         self.backdropImageView.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
+                        self.backdropImageView.layer.addSublayer(self.gradientLayer)
                     } else {
                         self.backdropImageView.image = image
                         self.backdropImageView.layer.addSublayer(self.gradientLayer)

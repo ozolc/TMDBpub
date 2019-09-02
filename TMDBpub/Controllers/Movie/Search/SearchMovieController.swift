@@ -7,7 +7,9 @@
 //
 
 import UIKit
-class SearchMovieController: UITableViewController, UISearchBarDelegate {
+class SearchMovieController: UIViewController, UITableViewDataSource, UITableViewDelegate,  UISearchBarDelegate {
+    
+    let tableView = UITableView()
     
     fileprivate var currentPage = AppState.shared.currentPage
     fileprivate let typeOfRequest = Constants.searchMovies
@@ -16,6 +18,8 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
     fileprivate var query = ""
     
     fileprivate var movies = [Movie]()
+//    fileprivate var persons = [Person]()
+    
     fileprivate lazy var listCells = [
         ListCell(id: 1, title: "Предстоящие фильмы", description: "Получите список предстоящих фильмов в кинотеатрах."),
         ListCell(id: 2, title: "Топ рейтинг фильмов", description: "Получите список оценок фильмов на TMDb.")
@@ -34,12 +38,20 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        
+        view.backgroundColor = .white
+        
         AppState.shared.resetPageDetails()
         navigationController?.navigationItem.hidesBackButton = true
         
         setupTableView()
         setupSearchBar()
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: #imageLiteral(resourceName: "Grid").withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(handleClearSearchResult))
+        
+        view.addSubview(tableView)
+        tableView.fillSuperview()
 
 //        loadingGenresFromNet()
 
@@ -106,14 +118,14 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
     
     fileprivate func setupSearchBar() {
         definesPresentationContext = true
-        navigationItem.searchController = self.searchController
-        navigationItem.hidesSearchBarWhenScrolling = false
+        parent?.navigationItem.searchController = self.searchController
+        parent?.navigationItem.hidesSearchBarWhenScrolling = false
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self
         searchController.searchBar.becomeFirstResponder()
     }
     
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if isSearchMode {
             let movie = movies[indexPath.row]
             
@@ -148,11 +160,11 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    override func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return isSearchMode ? 1 : 2
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if isSearchMode {
             return movies.count
         } else {
@@ -170,7 +182,7 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
     var isDonePaginating = false
     
     // FIXME: - при results = nil перебирает пустые значения
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         switch isSearchMode {
         case true:
             guard let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? SearchMovieCell else {
@@ -254,7 +266,7 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
         
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch isSearchMode {
         case false:
             if section == 0 {
@@ -268,7 +280,7 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
         return nil
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if isSearchMode {
             return 160
         } else {
@@ -276,11 +288,11 @@ class SearchMovieController: UITableViewController, UISearchBarDelegate {
         }
     }
     
-    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 24
     }
     
-    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerFrame = tableView.frame
         
         let title = UILabel()
