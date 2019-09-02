@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol PersonMoviesControllerDelegate: class {
+    func didTappedMovie(movie: Movie)
+}
+
 class PersonMoviesController: HorizontalSnappingController, UICollectionViewDelegateFlowLayout {
+    
+    weak var delegate: PersonMoviesControllerDelegate?
     
     let cellId = "cellId"
     
@@ -25,15 +31,18 @@ class PersonMoviesController: HorizontalSnappingController, UICollectionViewDele
         collectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
     }
     
-    fileprivate func showDailyListFullScreen(_ indexPath: IndexPath) {
-//        guard let personImage = personImages?[indexPath.item] else { return }
-//
-//        let fullController = PhotoController(personImages: personImage, index: indexPath.item, isSingle: true)
-//        self.view.window?.rootViewController?.present(fullController, animated: true)
+    fileprivate func showMovieDetail(_ indexPath: IndexPath) {
+        
+        guard let movies = movies else { return }
+        let movie = movies[indexPath.item]
+        
+        delegate?.didTappedMovie(movie: movie)
+        
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.showDailyListFullScreen(indexPath)
+        self.showMovieDetail(indexPath)
+        print(indexPath)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

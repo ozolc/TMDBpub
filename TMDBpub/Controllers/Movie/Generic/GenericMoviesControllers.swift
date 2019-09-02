@@ -159,7 +159,7 @@ class GenericMoviesControllers: BaseListController {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let width = (view.frame.width - 3 * spacing) / 2
-        return CGSize(width: width, height: width * 2)
+        return CGSize(width: width, height: width * 1.85)
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {

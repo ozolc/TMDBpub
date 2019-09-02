@@ -99,13 +99,14 @@ class PersonController: BaseListController {
         let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: footerId, for: indexPath) as! PersonFooterCell
         
         footer.delegate = self
+        footer.horizontalController.delegate = self
         
         let typeOfRequestMovie = self.typeOfRequest + Constants.movie_credits
         APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequestMovie) { [weak self] (movies: MovieByPerson) in
             guard let self = self else { return }
             self.movies = movies.cast
-            footer.horizontalController.movies = self.movies
             
+            footer.horizontalController.movies = self.movies
             self.isLoadedDataForFooter = true
             
             if self.personImages?.count ?? 0 > 5 {
@@ -139,5 +140,14 @@ extension PersonController: PersonFooterCellDelegate {
         controllerMovie.navigationItem.title = personName
         navigationController?.pushViewController(controllerMovie, animated: true)
         }
+    }
+}
+
+extension PersonController: PersonMoviesControllerDelegate {
+    func didTappedMovie(movie: Movie) {
+        print("in realization delegate action", movie.id)
+        let controller = MovieDetailController(movieId: movie.id)
+        controller.navigationItem.title = movie.title
+        navigationController?.pushViewController(controller, animated: true)
     }
 }

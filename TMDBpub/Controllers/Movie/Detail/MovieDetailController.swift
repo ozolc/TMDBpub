@@ -400,3 +400,4 @@ extension MovieDetailController: RatingControlDelegate {
     }
     
 }
+

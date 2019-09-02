@@ -54,8 +54,8 @@ class PersonMoviesListController: BaseListController {
     fileprivate let spacing: CGFloat = 16
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (view.frame.width - 4 * spacing) / 3
-        return CGSize(width: width, height: width * 2)
+        let width = (view.frame.width - 3 * spacing) / 2
+        return CGSize(width: width, height: width * 1.85)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

@@ -25,7 +25,7 @@ class PersonImagesDetailController: HorizontalSnappingController, UICollectionVi
         collectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
     }
     
-    fileprivate func showDailyListFullScreen(_ indexPath: IndexPath) {
+    fileprivate func showPhoto(_ indexPath: IndexPath) {
         guard let personImage = personImages?[indexPath.item] else { return }
         
         let fullController = PhotoController(personImages: personImage, index: indexPath.item, isSingle: true)
@@ -33,7 +33,7 @@ class PersonImagesDetailController: HorizontalSnappingController, UICollectionVi
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.showDailyListFullScreen(indexPath)
+        self.showPhoto(indexPath)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {

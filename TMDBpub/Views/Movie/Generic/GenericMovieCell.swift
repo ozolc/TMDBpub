@@ -76,7 +76,7 @@ class GenericMovieCell: BaseImageCell {
         titleStackView.alignment = .center
         titleStackView.distribution = .equalSpacing
         titleStackView.isLayoutMarginsRelativeArrangement = true
-        titleStackView.layoutMargins = .init(top: 2, left: 2, bottom: 2, right: 2)
+        titleStackView.layoutMargins = .init(top: 2, left: 4, bottom: 2, right: 4)
         
         let overallStackView = VerticalStackView(arrangedSubviews: [posterImageView, titleStackView], spacing: 2)
         overallStackView.alignment = .center

@@ -16,9 +16,9 @@ class MovieDetailCell: UITableViewCell {
     
     var rating: Int! {
         didSet {
-            ratingStackView.rating = rating
-            ratingLabel.text = "(" + String(rating) + "/10)"
-            ratingStackView.layoutSubviews()
+//            ratingStackView.rating = rating
+//            ratingLabel.text = "(" + String(rating) + "/10)"
+//            ratingStackView.layoutSubviews()
         }
     }
     

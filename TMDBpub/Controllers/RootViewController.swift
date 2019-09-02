@@ -16,6 +16,8 @@ class RootViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
+    lazy var mainViewController = MainTabBarController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -43,7 +45,7 @@ class RootViewController: UIViewController {
     }
     
     func switchToMainScreen() {
-        let mainViewController = MainTabBarController()
+//        let mainViewController = MainTabBarController()
         
 //        let mainScreen = UINavigationController(rootViewController: mainViewController)
 //        animateFadeTransition(to: mainScreen)
