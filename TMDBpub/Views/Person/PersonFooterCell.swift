@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol PersonFooterCellDelegate: class {
+    func didTappedShowAllMovies()
+}
+
 class PersonFooterCell: UICollectionReusableView {
+    
+    weak var delegate: PersonFooterCellDelegate?
     
     var isMoreMovies = false {
         didSet {
@@ -19,7 +25,7 @@ class PersonFooterCell: UICollectionReusableView {
     }
     
     let moviePersonLabel = UILabel(text: "Movies", font: .boldSystemFont(ofSize: 20))
-    let showMoreButton = UIButton(title: "Show all", titleColor: .black, font: .boldSystemFont(ofSize: 12), backgroundColor: .white, target: self, action: #selector(handleShowMoreImages))
+    let showMoreButton = UIButton(title: "Show all", titleColor: .black, font: .boldSystemFont(ofSize: 12), backgroundColor: .white, target: self, action: #selector(handleShowMoreMovies))
     let horizontalController = PersonMoviesController()
     
     //    weak var delegate: PersonImageCellDelegate?
@@ -33,8 +39,6 @@ class PersonFooterCell: UICollectionReusableView {
         addSubview(showMoreButton)
         addSubview(horizontalController.view)
         
-        showMoreButton.addTarget(self, action: #selector(handleShowMoreImages), for: .touchUpInside)
-        
         moviePersonLabel.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: showMoreButton.leadingAnchor, padding: .init(top: 0, left: 20, bottom: 0, right: 4))
         showMoreButton.anchor(top: moviePersonLabel.topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: 20))
         
@@ -46,10 +50,9 @@ class PersonFooterCell: UICollectionReusableView {
                      insets: .init(top: 0, left: 15, bottom: -4, right: 20))
     }
     
-    @objc fileprivate func handleShowMoreImages() {
-        //        delegate?.didTappedShowAllImages()
+    @objc fileprivate func handleShowMoreMovies() {
+        delegate?.didTappedShowAllMovies()
         print("Show more movies")
-        
     }
     
     required init?(coder aDecoder: NSCoder) {

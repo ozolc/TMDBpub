@@ -19,10 +19,12 @@ class PersonDetailCell: UICollectionViewCell {
         return iv
     }()
     
-    let nameLabel = UILabel(text: "Sophie Rundle",
+    var isAddSeparator = false
+    
+    let nameLabel = UILabel(text: "",
                             font: .systemFont(ofSize: 20, weight: .bold), numberOfLines: 2)
     
-    let biographyLabel = UILabel(text: "Биография:",
+    let biographyLabel = UILabel(text: "",
                             font: .systemFont(ofSize: 18))
     let genderLabel = UILabel(text: "Пол: ", font: .systemFont(ofSize: 14))
     let knowForDepartmentLabel = UILabel(text: "Известен за: ", font: .systemFont(ofSize: 16))
@@ -34,7 +36,6 @@ class PersonDetailCell: UICollectionViewCell {
     let biographyTextView: UITextView = {
         let tv = UITextView()
         tv.textColor = UIColor.black
-        tv.backgroundColor = .clear
         tv.font = .systemFont(ofSize: 16)
         tv.textContainerInset = UIEdgeInsets.zero
         tv.textContainer.lineFragmentPadding = 0
@@ -77,6 +78,7 @@ class PersonDetailCell: UICollectionViewCell {
     ]
     
     func configureCell(person: Person) {
+        isAddSeparator = true
         
         let oldGenderText = genderLabel.text ?? ""
         guard let genderString = dictionaryGender[person.gender] else { return }
@@ -121,8 +123,6 @@ class PersonDetailCell: UICollectionViewCell {
         backgroundImageView.constrainWidth(constant: 150)
         backgroundImageView.constrainHeight(constant: 200)
         
-//        personImageView.backgroundColor = .white
-        
         let labelRightStackView = VerticalStackView(arrangedSubviews: [
                 genderLabel,
 //                knowForDepartmentLabel,
@@ -133,6 +133,7 @@ class PersonDetailCell: UICollectionViewCell {
             ], spacing: 2)
         labelRightStackView.distribution = .equalSpacing
         labelRightStackView.alignment = .leading
+        labelRightStackView.backgroundColor = .green
         
         let topstackView = UIStackView(arrangedSubviews: [
             backgroundImageView,
@@ -140,26 +141,38 @@ class PersonDetailCell: UICollectionViewCell {
             ])
         topstackView.spacing = 16
         topstackView.alignment = .top
+        topstackView.constrainHeight(constant: 210)
         
         let bottomstackView = VerticalStackView(arrangedSubviews: [
             nameLabel,
             biographyLabel,
             biographyTextView
             ], spacing: 2)
+        bottomstackView.distribution = .fill
+        bottomstackView.alignment = .top
         
         let overallStackView = VerticalStackView(arrangedSubviews: [
             topstackView,
             bottomstackView
             ], spacing: 16)
+        overallStackView.alignment = .top
+        overallStackView.distribution = .fill
         
         addSubview(overallStackView)
-        overallStackView.fillSuperview(padding: .init(top: 4, left: 16, bottom: 4, right: 15))
+        overallStackView.fillSuperview(padding: .init(top: 4, left: 15, bottom: 0, right: 15))
         
+//        addSubview(topstackView)
+//        topstackView.anchor(top: topAnchor, leading: leadingAnchor, bottom: nil, trailing: trailingAnchor, padding: .init(top: 4, left: 15, bottom: 0, right: 15))
+//
+//        addSubview(bottomstackView)
+//        bottomstackView.anchor(top: topstackView.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 4, left: 15, bottom: 4, right: 15))
+        
+//        if isAddSeparator {
         addSeparator(at: [.bottom],
                      color: UIColor.init(white: 0.75, alpha: 1),
                      weight: 1,
                      insets: .init(top: 0, left: 15, bottom: -4, right: 20))
-        
+//        }
     }
     
     required init?(coder aDecoder: NSCoder) {

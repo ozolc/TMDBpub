@@ -15,6 +15,19 @@ class SingleMovieCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        self.backgroundView = UIView()
+        
+        addSubview(self.backgroundView!)
+        self.backgroundView?.fillSuperview()
+        self.backgroundView?.backgroundColor = .white
+        self.backgroundView?.layer.cornerRadius = 70
+        
+        self.backgroundView?.layer.shadowOpacity = 0.4
+        self.backgroundView?.layer.shadowRadius = 10
+        self.backgroundView?.layer.shadowOffset = .init(width: 0, height: 10)
+        self.backgroundView?.layer.shouldRasterize = true
+        
         addSubview(imageView)
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
@@ -24,8 +37,6 @@ class SingleMovieCell: UICollectionViewCell {
         imageView.layer.borderColor = UIColor(white: 0, alpha: 0.4).cgColor
         imageView.layer.borderWidth = 0.2
         
-//        backgroundColor = .yellow
-//        imageView.fillSuperview()
     }
     
     func configureCell(movie: Movie) {

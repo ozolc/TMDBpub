@@ -116,7 +116,7 @@ class GenericMoviesControllers: BaseListController {
         if indexPath.item == self.movies.count - 1 && !isPaginating && self.currentPage < self.totalPages {
             print(indexPath.item)
             
-            print("fetch more data from page", self.currentPage)
+//            print("fetch more data from page", self.currentPage)
 
             self.currentPage += 1
             isPaginating = true

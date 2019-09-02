@@ -35,8 +35,6 @@ class SearchMovieCell: UITableViewCell {
                         self.posterImageView.image = image
                     }
                 }
-                
-//                posterImageView.sd_setImage(with: posterUrl, placeholderImage: #imageLiteral(resourceName: "placeholder"), options: .continueInBackground, completed: nil)
             }
             
             if let release_date = movie.release_date {

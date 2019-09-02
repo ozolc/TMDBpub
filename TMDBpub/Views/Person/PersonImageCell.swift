@@ -22,8 +22,8 @@ class PersonImageCell: UICollectionViewCell {
         }
     }
     
-    let imagePersonLabel = UILabel(text: "Изображения", font: .boldSystemFont(ofSize: 20))
-    let showMoreButton = UIButton(title: "Смотреть все", titleColor: .black, font: .boldSystemFont(ofSize: 12), backgroundColor: .white, target: self, action: #selector(handleShowMoreImages))
+    let imagePersonLabel = UILabel(text: "Images", font: .boldSystemFont(ofSize: 20))
+    let showMoreButton = UIButton(title: "Show all", titleColor: .black, font: .boldSystemFont(ofSize: 12), backgroundColor: .white, target: self, action: #selector(handleShowMoreImages))
     let horizontalController = PersonImagesDetailController()
     
     weak var delegate: PersonImageCellDelegate?
@@ -44,11 +44,14 @@ class PersonImageCell: UICollectionViewCell {
         
         horizontalController.view.anchor(top: imagePersonLabel.bottomAnchor, leading: leadingAnchor, bottom: bottomAnchor, trailing: trailingAnchor, padding: .init(top: 4, left: 20, bottom: 0, right: 20))
         
+//        if horizontalController.personImages != nil {
+        
         addSeparator(at: [.bottom],
                      color: UIColor.init(white: 0.75, alpha: 1),
                      weight: 1,
                      insets: .init(top: 0, left: 15, bottom: -4, right: 20))
-    }
+        }
+//    }
     
     @objc fileprivate func handleShowMoreImages() {
         delegate?.didTappedShowAllImages()

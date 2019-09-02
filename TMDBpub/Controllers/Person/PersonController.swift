@@ -20,8 +20,13 @@ class PersonController: BaseListController {
     let imageCellId = "imageCellId"
     let footerId = "footerId"
     
-    var personImages: [ImageStruct]!
-    var movies: [Movie]!
+    var personImages: [ImageStruct]?
+    var movies: [Movie]?
+    var isLoadedDataForFooter = false {
+        didSet {
+        collectionView.collectionViewLayout.invalidateLayout()
+        }
+    }
     
     // dependency injection constructor
     init(_ coder: NSCoder? = nil, personId: Int) {
@@ -67,7 +72,7 @@ class PersonController: BaseListController {
                 self.personImages = images.profiles
                 cell.horizontalController.personImages = self.personImages
                 
-                if self.personImages.count > 4 {
+                if self.personImages?.count ?? 0 > 4 {
                     cell.isMoreImages = true
                 }
             }
@@ -76,12 +81,13 @@ class PersonController: BaseListController {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let height: CGFloat = 250
+        let height250: CGFloat = personImages?.isEmpty ?? false ? 0 : 250
+        let height400: CGFloat = 400
         
         if indexPath.item == 0 {
-            return .init(width: view.frame.width, height: 400)
+            return .init(width: view.frame.width, height: height400)
         } else {
-            return .init(width: view.frame.width, height: height)
+            return .init(width: view.frame.width, height: height250)
         }
     }
     
@@ -92,13 +98,17 @@ class PersonController: BaseListController {
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: footerId, for: indexPath) as! PersonFooterCell
         
+        footer.delegate = self
+        
         let typeOfRequestMovie = self.typeOfRequest + Constants.movie_credits
         APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequestMovie) { [weak self] (movies: MovieByPerson) in
             guard let self = self else { return }
             self.movies = movies.cast
             footer.horizontalController.movies = self.movies
             
-            if self.personImages.count > 5 {
+            self.isLoadedDataForFooter = true
+            
+            if self.personImages?.count ?? 0 > 5 {
                 footer.isMoreMovies = true
             }
         }
@@ -106,7 +116,7 @@ class PersonController: BaseListController {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        let height: CGFloat = 190
+        let height: CGFloat = movies?.isEmpty ?? false ? 0 : 190
         return .init(width: view.frame.width, height: height)
     }
     
@@ -114,11 +124,20 @@ class PersonController: BaseListController {
 
 extension PersonController: PersonImageCellDelegate {
     func didTappedShowAllImages() {
-        print(personImages.count)
         if let personImages = personImages {
             let controller = PersonImagesListController(personImages: personImages)
             controller.navigationItem.title = personName
             navigationController?.pushViewController(controller, animated: true)
+        }
+    }
+}
+
+extension PersonController: PersonFooterCellDelegate {
+    func didTappedShowAllMovies() {
+        if let movies = movies {
+        let controllerMovie = PersonMoviesListController(movies: movies)
+        controllerMovie.navigationItem.title = personName
+        navigationController?.pushViewController(controllerMovie, animated: true)
         }
     }
 }
