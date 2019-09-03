@@ -1,5 +1,5 @@
 //
-//  SegmentedVC.swift
+//  SearchController.swift
 //  TMDBpub
 //
 //  Created by Maksim Nosov on 02/09/2019.
@@ -8,9 +8,9 @@
 
 import UIKit
 
-class SegmentedVC: UIViewController {
+class SearchController: UIViewController {
     
-    let segmentedControl: UISegmentedControl = {
+    lazy var segmentedControl: UISegmentedControl = {
         let sc = UISegmentedControl(items: ["Movies", "Persons"])
         sc.selectedSegmentIndex = 0
         sc.addTarget(self, action: #selector(handleSegmentChange), for: .valueChanged)
@@ -22,12 +22,8 @@ class SegmentedVC: UIViewController {
         updateView()
     }
     
-//    fileprivate let searchController = UISearchController(searchResultsController: nil)
-    
-//    var segmentControl: UISegmentedControl!
     var containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .yellow
         return view
     }()
 
@@ -41,9 +37,9 @@ class SegmentedVC: UIViewController {
         return viewController
     }()
     
-    private lazy var searchPersonViewController: SearchMovieController = {
+    private lazy var searchPeopleViewController: SearchPeopleController = {
         // Instantiate View Controller
-        var viewController = SearchMovieController()
+        var viewController = SearchPeopleController()
         
         // Add View Controller as Child View Controller
         self.addChild(viewController)
@@ -64,7 +60,7 @@ class SegmentedVC: UIViewController {
         view.backgroundColor = .white
         
         setupUI()
-//        setupSearchBar()
+        setupSearchBar()
         
         setupView()
     }
@@ -87,14 +83,14 @@ class SegmentedVC: UIViewController {
         stackView.anchor(top: view.safeAreaLayoutGuide.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .zero)
     }
     
-//    fileprivate func setupSearchBar() {
-//        definesPresentationContext = true
+    fileprivate func setupSearchBar() {
+        definesPresentationContext = true
 //        navigationItem.searchController = self.searchController
 //        navigationItem.hidesSearchBarWhenScrolling = false
 //        searchController.dimsBackgroundDuringPresentation = false
 //        searchController.searchBar.delegate = self
 //        searchController.searchBar.becomeFirstResponder()
-//    }
+    }
     
     private func add(asChildViewController viewController: UIViewController) {
         
@@ -125,11 +121,13 @@ class SegmentedVC: UIViewController {
     
     fileprivate func updateView() {
         if segmentedControl.selectedSegmentIndex == 0 {
-            remove(asChildViewController: searchPersonViewController)
+            remove(asChildViewController: searchPeopleViewController)
             add(asChildViewController: searchMovieViewController)
+            navigationItem.searchController = searchMovieViewController.searchController
         } else {
             remove(asChildViewController: searchMovieViewController)
-            add(asChildViewController: searchPersonViewController)
+            add(asChildViewController: searchPeopleViewController)
+            navigationItem.searchController = searchPeopleViewController.searchController
         }
     }
     

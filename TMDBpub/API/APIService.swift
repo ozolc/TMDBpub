@@ -54,12 +54,14 @@ class APIService {
         let requestURL = Constants.baseURL + typeOfRequest
         AF.request(requestURL, method: .get, parameters: parameters, encoding: URLEncoding.default).response { (dataResponse) in
             
+//            print(requestURL)
+            
             if let err = dataResponse.error {
                 print("Failed to contact \(requestURL)", err)
                 return
             }
             
-//            print(dataResponse.request)
+            print(dataResponse.request)
             
             guard let data = dataResponse.data else { return }
             do {

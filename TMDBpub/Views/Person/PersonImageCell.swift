@@ -46,10 +46,10 @@ class PersonImageCell: UICollectionViewCell {
         
 //        if horizontalController.personImages != nil {
         
-        addSeparator(at: [.bottom],
-                     color: UIColor.init(white: 0.75, alpha: 1),
-                     weight: 1,
-                     insets: .init(top: 0, left: 15, bottom: -4, right: 20))
+//        addSeparator(at: [.bottom],
+//                     color: UIColor.init(white: 0.75, alpha: 1),
+//                     weight: 1,
+//                     insets: .init(top: 0, left: 15, bottom: -4, right: 20))
         }
 //    }
     

@@ -17,8 +17,8 @@ class MovieDetailCell: UITableViewCell {
     var rating: Int! {
         didSet {
             ratingStackView.rating = rating
-            ratingLabel.text = "(" + String(rating) + "/10)"
-            ratingStackView.layoutSubviews()
+//            ratingLabel.text = "(" + String(rating) + "/10)"
+//            ratingStackView.layoutSubviews()
         }
     }
     
@@ -214,7 +214,9 @@ class MovieDetailCell: UITableViewCell {
         backgrondView.addSubview(sideTopStackView)
         sideTopStackView.anchor(top: nil, leading: posterView.trailingAnchor, bottom: posterView.bottomAnchor, trailing: titleStackView.trailingAnchor, padding: .init(top: 0, left: 8, bottom: 0, right: 0))
         
-        let ratingOverallStackView = UIStackView(arrangedSubviews: [ratingStackView, ratingLabel])
+        let ratingOverallStackView = UIStackView(arrangedSubviews: [ratingStackView,
+//                                                                    ratingLabel
+            ])
         ratingOverallStackView.spacing = 2
         
         ratingOverallStackView.distribution = .equalSpacing

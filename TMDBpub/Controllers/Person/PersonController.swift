@@ -51,7 +51,7 @@ class PersonController: BaseListController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return personImages?.isEmpty ?? false ? 1 : 2
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -96,10 +96,14 @@ class PersonController: BaseListController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if movies?.isEmpty ?? false {
+            return UICollectionReusableView()
+        } else {
         let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: footerId, for: indexPath) as! PersonFooterCell
         
         footer.delegate = self
         footer.horizontalController.delegate = self
+            print("footer")
         
         let typeOfRequestMovie = self.typeOfRequest + Constants.movie_credits
         APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequestMovie) { [weak self] (movies: MovieByPerson) in
@@ -114,6 +118,7 @@ class PersonController: BaseListController {
             }
         }
         return footer
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {

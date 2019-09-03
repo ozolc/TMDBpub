@@ -19,6 +19,7 @@ struct Constants {
     static let upcoming = "movie/upcoming"
     static let topRatedMovies = "movie/top_rated"
     static let searchMovies = "search/movie"
+    static let searchPerson = "search/person"
     static let popularMovies = "movie/popular"
     static let infoAboutGenre = "genre/movie/list"
     static let discoverMovie = "discover/movie"

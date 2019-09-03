@@ -7,6 +7,7 @@
 //
 
 import UIKit
+
 class SearchMovieController: UIViewController, UITableViewDataSource, UITableViewDelegate,  UISearchBarDelegate {
     
     let tableView = UITableView()
@@ -32,7 +33,7 @@ class SearchMovieController: UIViewController, UITableViewDataSource, UITableVie
     
     fileprivate var isSearchMode = false
     
-    fileprivate let searchController = UISearchController(searchResultsController: nil)
+    let searchController = UISearchController(searchResultsController: nil)
     var timer: Timer?
     
     override func viewDidLoad() {
@@ -52,7 +53,7 @@ class SearchMovieController: UIViewController, UITableViewDataSource, UITableVie
         
         view.addSubview(tableView)
         tableView.fillSuperview()
-
+        
 //        loadingGenresFromNet()
 
     }
@@ -118,7 +119,7 @@ class SearchMovieController: UIViewController, UITableViewDataSource, UITableVie
     
     fileprivate func setupSearchBar() {
         definesPresentationContext = true
-        parent?.navigationItem.searchController = self.searchController
+//        parent?.navigationItem.searchController = self.searchController
         parent?.navigationItem.hidesSearchBarWhenScrolling = false
         searchController.dimsBackgroundDuringPresentation = false
         searchController.searchBar.delegate = self

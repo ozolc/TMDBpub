@@ -24,3 +24,18 @@ struct Person: Codable {
     let imdb_id: String
     let homepage: String?
 }
+
+struct ResultPerson: Codable {
+    let page: Int?
+    let total_results: Int?
+    let total_pages: Int?
+    
+    let results: [ResultSinglePerson]?
+}
+
+struct ResultSinglePerson: Codable {
+    let id: Int?
+    let profile_path: String?
+    let name: String?
+    let popularity: Double?
+}
