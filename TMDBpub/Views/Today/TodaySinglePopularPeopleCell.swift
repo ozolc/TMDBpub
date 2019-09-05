@@ -1,5 +1,5 @@
 //
-//  TodaySingleCell.swift
+//  TodaySinglePopularPeopleCell.swift
 //  TMDBpub
 //
 //  Created by Maksim Nosov on 05/09/2019.
@@ -9,20 +9,19 @@
 import UIKit
 import SDWebImage
 
-class TodaySingleCell: BaseImageCell {
+class TodaySinglePopularPeopleCell: BaseImageCell {
     
-    var movie: Movie! {
+    var person: ResultSinglePerson! {
         didSet {
-            titleLabel.text = movie.title
-            originalTitleLabel.text = movie.original_title
+            titleLabel.text = person.name
             
-            if let posterUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: movie.poster_path ?? "", posterSize: Constants.PosterSize.w342.rawValue)) {
+            if let posterUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: person.profile_path ?? "", posterSize: Constants.PersonImageSize.w300_and_h450_bestv2.rawValue)) {
                 
                 posterImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
                 posterImageView.sd_setImage(with: posterUrl, placeholderImage: nil, options: [.highPriority]) {
                     (image, error, _, _) in
                     if (error != nil) {
-                        self.posterImageView.image = UIImage(named: Constants.moviePosterPlaceholderImageName)
+                        self.posterImageView.image = UIImage(named: "reviewProfile")
                     } else {
                         self.posterImageView.image = image
                     }
@@ -34,16 +33,8 @@ class TodaySingleCell: BaseImageCell {
     
     let titleLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+        label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         label.textColor = .black
-        label.textAlignment = .center
-        return label
-    }()
-    
-    let originalTitleLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 12, weight: .regular)
-        label.textColor = UIColor.darkGray
         label.textAlignment = .center
         return label
     }()
@@ -61,26 +52,17 @@ class TodaySingleCell: BaseImageCell {
     fileprivate func setupLayout() {
         posterImageView.layer.borderWidth = 0.1
         posterImageView.layer.borderColor = UIColor.darkGray.cgColor
-//        posterImageView.constrainHeight(constant: 145)
-//        posterImageView.constrainWidth(constant: 85)
         posterImageView.constrainHeight(constant: 140)
         
-                posterImageView.contentMode = .scaleAspectFill
-//                posterImageView.layer.cornerRadius = 16
-                posterImageView.clipsToBounds = true
+        posterImageView.contentMode = .scaleAspectFill
+        posterImageView.clipsToBounds = true
         
-        let titleStackView = VerticalStackView(arrangedSubviews: [
-            titleLabel,
-//            originalTitleLabel
-            ])
-//        titleStackView.constrainHeight(constant: 66)
+        let titleStackView = VerticalStackView(arrangedSubviews: [titleLabel])
         titleStackView.alignment = .center
         titleStackView.isLayoutMarginsRelativeArrangement = true
         titleStackView.layoutMargins = .init(top: 2, left: 4, bottom: 2, right: 4)
         
         let overallStackView = VerticalStackView(arrangedSubviews: [posterImageView,
-//                                                                    titleLabel,
-//                                                                    originalTitleLabel
                                                                     titleStackView
             ], spacing: 2)
         overallStackView.alignment = .center

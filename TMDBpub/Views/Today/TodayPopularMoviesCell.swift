@@ -1,24 +1,28 @@
 //
-//  TodayCell.swift
+//  TodayPopularMoviesCell.swift
 //  TMDBpub
 //
 //  Created by Maksim Nosov on 05/09/2019.
 //  Copyright © 2019 Maksim Nosov. All rights reserved.
 //
 
+protocol TodayMoviesCellDelegate: class {
+    func didTappedShowAllPopularMovies()
+}
+
 import UIKit
 
-class TodayCell: UICollectionViewCell {
+class TodayPopularMoviesCell: UICollectionViewCell {
+    
+    weak var delegate: TodayMoviesCellDelegate!
     
     let popularMoviesLabel = UILabel(text: "Popular Movies", font: .boldSystemFont(ofSize: 20))
     let showMorePopularMoviesButton = UIButton(title: "Show all", titleColor: .black, font: .boldSystemFont(ofSize: 12), backgroundColor: .white, target: self, action: #selector(handleShowMorePopularMovies))
     
-    let popularMoviesHorizontalController = PopularMoviesDetailController()
+    let popularMoviesHorizontalController = TodayPopularMoviesDetailController()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-//        backgroundColor = .yellow
         
         addSubview(popularMoviesLabel)
         addSubview(showMorePopularMoviesButton)
@@ -33,8 +37,7 @@ class TodayCell: UICollectionViewCell {
     }
     
     @objc fileprivate func handleShowMorePopularMovies() {
-//        delegate?.didTappedShowAllImages()
-        
+        delegate?.didTappedShowAllPopularMovies()
     }
     
     required init?(coder aDecoder: NSCoder) {

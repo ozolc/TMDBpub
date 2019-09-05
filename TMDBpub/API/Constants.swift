@@ -21,6 +21,7 @@ struct Constants {
     static let searchMovies = "search/movie"
     static let searchPerson = "search/person"
     static let popularMovies = "movie/popular"
+    static let popularPersons = "person/popular"
     static let infoAboutGenre = "genre/movie/list"
     static let discoverMovie = "discover/movie"
     static let imageYoutubeBaseURL = "https://i1.ytimg.com/vi/"

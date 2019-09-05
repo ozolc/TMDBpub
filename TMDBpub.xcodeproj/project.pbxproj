@@ -77,9 +77,14 @@
 		B0988D0C232110E900D574DE /* SearchGeneralController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0988D0B232110E900D574DE /* SearchGeneralController.swift */; };
 		B0988D0F2321139800D574DE /* SearchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0988D0E2321139800D574DE /* SearchProtocol.swift */; };
 		B0988D122321418C00D574DE /* TodayController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0988D112321418C00D574DE /* TodayController.swift */; };
-		B0988D152321429400D574DE /* TodayCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0988D142321429400D574DE /* TodayCell.swift */; };
-		B0988D172321474400D574DE /* PopularMoviesDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0988D162321474400D574DE /* PopularMoviesDetailController.swift */; };
-		B0988D192321569200D574DE /* TodaySingleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0988D182321569200D574DE /* TodaySingleCell.swift */; };
+		B0988D152321429400D574DE /* TodayPopularMoviesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0988D142321429400D574DE /* TodayPopularMoviesCell.swift */; };
+		B0988D172321474400D574DE /* TodayPopularMoviesDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0988D162321474400D574DE /* TodayPopularMoviesDetailController.swift */; };
+		B0988D192321569200D574DE /* TodaySingleMovieCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0988D182321569200D574DE /* TodaySingleMovieCell.swift */; };
+		B0988D1B23216B2C00D574DE /* TodaySinglePopularPeopleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0988D1A23216B2C00D574DE /* TodaySinglePopularPeopleCell.swift */; };
+		B0988D1D23216CA700D574DE /* TodayPopularPersonsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0988D1C23216CA700D574DE /* TodayPopularPersonsCell.swift */; };
+		B0988D1F23216DD200D574DE /* PopularPersonsDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0988D1E23216DD200D574DE /* PopularPersonsDetailController.swift */; };
+		B0988D21232175C700D574DE /* PersonListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0988D20232175C700D574DE /* PersonListController.swift */; };
+		B0988D23232176F000D574DE /* GenericPersonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0988D22232176F000D574DE /* GenericPersonCell.swift */; };
 		B0A46D9F231E77B300AA9C53 /* SearchPeopleController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A46D9E231E77B300AA9C53 /* SearchPeopleController.swift */; };
 		B0A46DA1231E7B1400AA9C53 /* SearchPeopleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A46DA0231E7B1400AA9C53 /* SearchPeopleCell.swift */; };
 		B0A7087D230E62FF0020C6B0 /* AccountTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B0A7087C230E62FF0020C6B0 /* AccountTableViewController.swift */; };
@@ -199,9 +204,14 @@
 		B0988D0B232110E900D574DE /* SearchGeneralController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGeneralController.swift; sourceTree = "<group>"; };
 		B0988D0E2321139800D574DE /* SearchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchProtocol.swift; sourceTree = "<group>"; };
 		B0988D112321418C00D574DE /* TodayController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayController.swift; sourceTree = "<group>"; };
-		B0988D142321429400D574DE /* TodayCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayCell.swift; sourceTree = "<group>"; };
-		B0988D162321474400D574DE /* PopularMoviesDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularMoviesDetailController.swift; sourceTree = "<group>"; };
-		B0988D182321569200D574DE /* TodaySingleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaySingleCell.swift; sourceTree = "<group>"; };
+		B0988D142321429400D574DE /* TodayPopularMoviesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPopularMoviesCell.swift; sourceTree = "<group>"; };
+		B0988D162321474400D574DE /* TodayPopularMoviesDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPopularMoviesDetailController.swift; sourceTree = "<group>"; };
+		B0988D182321569200D574DE /* TodaySingleMovieCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaySingleMovieCell.swift; sourceTree = "<group>"; };
+		B0988D1A23216B2C00D574DE /* TodaySinglePopularPeopleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodaySinglePopularPeopleCell.swift; sourceTree = "<group>"; };
+		B0988D1C23216CA700D574DE /* TodayPopularPersonsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayPopularPersonsCell.swift; sourceTree = "<group>"; };
+		B0988D1E23216DD200D574DE /* PopularPersonsDetailController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopularPersonsDetailController.swift; sourceTree = "<group>"; };
+		B0988D20232175C700D574DE /* PersonListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonListController.swift; sourceTree = "<group>"; };
+		B0988D22232176F000D574DE /* GenericPersonCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPersonCell.swift; sourceTree = "<group>"; };
 		B0A46D9E231E77B300AA9C53 /* SearchPeopleController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPeopleController.swift; sourceTree = "<group>"; };
 		B0A46DA0231E7B1400AA9C53 /* SearchPeopleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPeopleCell.swift; sourceTree = "<group>"; };
 		B0A7087C230E62FF0020C6B0 /* AccountTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountTableViewController.swift; sourceTree = "<group>"; };
@@ -497,6 +507,7 @@
 				B0353F5723168D0A00A8244A /* PersonImagesDetailController.swift */,
 				B0353F5B2316BCA700A8244A /* PersonImagesListController.swift */,
 				B07B3653231D5BA900C6B415 /* PersonMoviesListController.swift */,
+				B0988D20232175C700D574DE /* PersonListController.swift */,
 			);
 			path = Person;
 			sourceTree = "<group>";
@@ -511,6 +522,7 @@
 				B02916312317099B00EDCB11 /* SingleImageCell.swift */,
 				B070A7F2231C4B740023E25C /* PersonFooterCell.swift */,
 				B070A7F6231C50820023E25C /* SingleMovieCell.swift */,
+				B0988D22232176F000D574DE /* GenericPersonCell.swift */,
 			);
 			path = Person;
 			sourceTree = "<group>";
@@ -543,7 +555,8 @@
 			isa = PBXGroup;
 			children = (
 				B0988D112321418C00D574DE /* TodayController.swift */,
-				B0988D162321474400D574DE /* PopularMoviesDetailController.swift */,
+				B0988D162321474400D574DE /* TodayPopularMoviesDetailController.swift */,
+				B0988D1E23216DD200D574DE /* PopularPersonsDetailController.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -551,8 +564,10 @@
 		B0988D132321427B00D574DE /* Today */ = {
 			isa = PBXGroup;
 			children = (
-				B0988D142321429400D574DE /* TodayCell.swift */,
-				B0988D182321569200D574DE /* TodaySingleCell.swift */,
+				B0988D142321429400D574DE /* TodayPopularMoviesCell.swift */,
+				B0988D1C23216CA700D574DE /* TodayPopularPersonsCell.swift */,
+				B0988D182321569200D574DE /* TodaySingleMovieCell.swift */,
+				B0988D1A23216B2C00D574DE /* TodaySinglePopularPeopleCell.swift */,
 			);
 			path = Today;
 			sourceTree = "<group>";
@@ -885,6 +900,8 @@
 				B0204191230485760081D726 /* Cast.swift in Sources */,
 				B070A7F5231C4FF60023E25C /* PersonMoviesController.swift in Sources */,
 				B0A46D9F231E77B300AA9C53 /* SearchPeopleController.swift in Sources */,
+				B0988D1F23216DD200D574DE /* PopularPersonsDetailController.swift in Sources */,
+				B0988D1D23216CA700D574DE /* TodayPopularPersonsCell.swift in Sources */,
 				B092884E231825610075AE5A /* MovieImage.swift in Sources */,
 				B05330B422FDEAB300ECA238 /* GenericMoviesControllers.swift in Sources */,
 				B0C67922230071D700EC3C7A /* SearchMovieController.swift in Sources */,
@@ -900,8 +917,9 @@
 				B02041852303DF3D0081D726 /* MovieDetailToolCell.swift in Sources */,
 				B0715AFD2309839C00389D19 /* APIError.swift in Sources */,
 				B02916322317099B00EDCB11 /* SingleImageCell.swift in Sources */,
-				B0988D152321429400D574DE /* TodayCell.swift in Sources */,
+				B0988D152321429400D574DE /* TodayPopularMoviesCell.swift in Sources */,
 				B070A7F3231C4B740023E25C /* PersonFooterCell.swift in Sources */,
+				B0988D1B23216B2C00D574DE /* TodaySinglePopularPeopleCell.swift in Sources */,
 				B0CC773B231124930039DC78 /* RHButtonView.swift in Sources */,
 				B0C4FA80230C4DB0000870EE /* SessionDelete.swift in Sources */,
 				B0793F68230BD4A2006C490A /* RootViewController.swift in Sources */,
@@ -909,7 +927,7 @@
 				B0DB172A22FEA11800323CEC /* Genre.swift in Sources */,
 				B072280D2305944900DA248A /* TrailerMovieController.swift in Sources */,
 				B070A7FB231C567A0023E25C /* MovieByPerson.swift in Sources */,
-				B0988D172321474400D574DE /* PopularMoviesDetailController.swift in Sources */,
+				B0988D172321474400D574DE /* TodayPopularMoviesDetailController.swift in Sources */,
 				B0793F5D230A7D84006C490A /* TMDBAuthViewController.swift in Sources */,
 				B02041812302C6810081D726 /* UIApplication+Ext.swift in Sources */,
 				B020419B23057B4A0081D726 /* CastMovieHeader.swift in Sources */,
@@ -917,6 +935,7 @@
 				B080295C2315093100BC4FEC /* Doube+Ext.swift in Sources */,
 				B0793F6A230BD5B6006C490A /* SplashViewController.swift in Sources */,
 				B0A46DA1231E7B1400AA9C53 /* SearchPeopleCell.swift in Sources */,
+				B0988D23232176F000D574DE /* GenericPersonCell.swift in Sources */,
 				B0C6791523004A7D00EC3C7A /* String+Ext.swift in Sources */,
 				B0A7087D230E62FF0020C6B0 /* AccountTableViewController.swift in Sources */,
 				B0CC7736231124930039DC78 /* RHTriggerButtonView.swift in Sources */,
@@ -926,7 +945,7 @@
 				B0715AEB23092A7700389D19 /* LoginController.swift in Sources */,
 				B0DB171F22FE94D700323CEC /* Constants.swift in Sources */,
 				B0988D122321418C00D574DE /* TodayController.swift in Sources */,
-				B0988D192321569200D574DE /* TodaySingleCell.swift in Sources */,
+				B0988D192321569200D574DE /* TodaySingleMovieCell.swift in Sources */,
 				B020418A2303FCA50081D726 /* ReviewsMovieController.swift in Sources */,
 				B08029582313A83900BC4FEC /* PersonDetailCell.swift in Sources */,
 				B0CB8C17230FC2A1005B66E7 /* AccountFooterView.swift in Sources */,
@@ -952,6 +971,7 @@
 				B09288472317C7E10075AE5A /* PhotoController.swift in Sources */,
 				B080295A2313B83100BC4FEC /* Person.swift in Sources */,
 				B0353F5C2316BCA700A8244A /* PersonImagesListController.swift in Sources */,
+				B0988D21232175C700D574DE /* PersonListController.swift in Sources */,
 				B0B16288231BA889007DDA89 /* RatingControl.swift in Sources */,
 				B0CB8C192310047B005B66E7 /* ResponseResult.swift in Sources */,
 				B0C6791122FFCFF200EC3C7A /* MovieDetailMiddleCell.swift in Sources */,

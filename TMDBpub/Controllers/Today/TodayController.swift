@@ -10,11 +10,14 @@ import UIKit
 
 class TodayController: BaseListController {
     
-    let popularCellId = "popularCellId"
+    let popularMoviesCellId = "popularMoviesCellId"
+    let popularPersonsCellId = "popularPersonsCellId"
     
     var movies = [Movie]()
+    var persons = [ResultSinglePerson]()
     var currentPage = AppState.shared.currentPage
-    var typeOfRequest = Constants.popularMovies
+    var typeOfRequestPopularMovies = Constants.popularMovies
+    var typeOfRequestPopularPersons = Constants.popularPersons
     var totalPages = AppState.shared.totalPages
     
     override func viewDidLoad() {
@@ -25,19 +28,23 @@ class TodayController: BaseListController {
     
     fileprivate func setupCollectionView() {
         collectionView.backgroundColor = .white
-        collectionView.register(TodayCell.self, forCellWithReuseIdentifier: popularCellId)
+        collectionView.register(TodayPopularMoviesCell.self, forCellWithReuseIdentifier: popularMoviesCellId)
+        collectionView.register(TodayPopularPersonsCell.self, forCellWithReuseIdentifier: popularPersonsCellId)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 1
+        return 2
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         switch indexPath.item {
         case 0:
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: popularCellId, for: indexPath) as! TodayCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: popularMoviesCellId, for: indexPath) as! TodayPopularMoviesCell
             
-            APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequest, page: self.currentPage, completionHandler: { [weak self] (result: ResultsMovie) in
+            cell.delegate = self
+            cell.popularMoviesHorizontalController.delegate = self
+            
+            APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequestPopularMovies, page: self.currentPage, completionHandler: { [weak self] (result: ResultsMovie) in
                 
                 self?.totalPages = result.total_pages ?? 1
                 self?.movies = result.results
@@ -46,6 +53,24 @@ class TodayController: BaseListController {
             })
             
         return cell
+            
+        case 1:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: popularPersonsCellId, for: indexPath) as! TodayPopularPersonsCell
+            
+            cell.delegate = self
+            cell.popularPersonsHorizontalController.delegate = self
+            
+            APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequestPopularPersons, page: self.currentPage, completionHandler: { [weak self] (result: ResultPerson) in
+                
+                self?.totalPages = result.total_pages ?? 1
+                if let results = result.results {
+                    self?.persons = results
+                }
+                
+                cell.popularPersonsHorizontalController.popularPersons = self?.persons
+            })
+            
+            return cell
             
         default:
             return UICollectionViewCell.init(frame: .zero)
@@ -61,3 +86,38 @@ class TodayController: BaseListController {
         return .init(top: 8, left: 0, bottom: 8, right: 0)
     }
 }
+
+extension TodayController: TodayMoviesCellDelegate {
+    func didTappedShowAllPopularMovies() {
+        let controller = GenericMoviesControllers(typeOfRequest: Constants.popularMovies)
+        controller.navigationItem.title = "Popular movies"
+        navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
+extension TodayController: TodayPopularMoviesDetailDelegate {
+    func didTappedMovie(movie: Movie) {
+        let controller = MovieDetailController(movieId: movie.id)
+        controller.navigationItem.title = movie.title
+        navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
+extension TodayController: TodayPersonsCellDelegate {
+    func didTappedShowAllPopularPersons() {
+        let controller = PersonListController()
+        controller.navigationItem.title = "Popular People"
+        navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
+extension TodayController: PopularPersonsDetailDelegate {
+    func didTappedPerson(person: ResultSinglePerson) {
+        guard let personId = person.id else { return }
+        let controller = PersonController(personId: personId)
+        controller.navigationItem.title = person.name
+        navigationController?.pushViewController(controller, animated: true)
+    }
+    
+}
+
