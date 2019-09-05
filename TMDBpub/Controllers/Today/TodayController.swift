@@ -83,7 +83,7 @@ class TodayController: BaseListController {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .init(top: 8, left: 0, bottom: 8, right: 0)
+        return .init(top: 8, left: 0, bottom: 0, right: 0)
     }
 }
 

@@ -15,7 +15,7 @@ import UIKit
 class TodayPopularMoviesDetailController: HorizontalSnappingController, UICollectionViewDelegateFlowLayout {
     
     let cellId = "cellId"
-    fileprivate let spacing: CGFloat = 16
+    fileprivate let spacing: CGFloat = 8
     
     weak var delegate: TodayPopularMoviesDetailDelegate?
     
@@ -30,7 +30,7 @@ class TodayPopularMoviesDetailController: HorizontalSnappingController, UICollec
         collectionView.backgroundColor = .white
         collectionView.register(TodaySingleMovieCell.self, forCellWithReuseIdentifier: cellId)
 //        collectionView.backgroundColor = .purple
-        collectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 8)
+        collectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -51,7 +51,7 @@ class TodayPopularMoviesDetailController: HorizontalSnappingController, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: spacing, left: 0, bottom: spacing, right: spacing)
+        return UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -60,8 +60,8 @@ class TodayPopularMoviesDetailController: HorizontalSnappingController, UICollec
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let width = (view.frame.width - 4 * spacing) / 3
-        return CGSize(width: width, height: width * 1.60)
+        let width = (view.frame.width - 2 * spacing) / 3
+        return CGSize(width: width, height: width * 1.6)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

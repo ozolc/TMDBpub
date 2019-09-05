@@ -36,6 +36,7 @@ class TodaySingleMovieCell: BaseImageCell {
         label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         label.textColor = .black
         label.textAlignment = .center
+        label.constrainHeight(constant: 15)
         return label
     }()
     
@@ -44,25 +45,27 @@ class TodaySingleMovieCell: BaseImageCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = .white
+//        backgroundColor = .yellow
         
         setupLayout()
     }
     
     fileprivate func setupLayout() {
+        
         posterImageView.layer.borderWidth = 0.1
         posterImageView.layer.borderColor = UIColor.darkGray.cgColor
-        posterImageView.constrainHeight(constant: 140)
+//        posterImageView.constrainHeight(constant: 140)
+        posterImageView.contentMode = .scaleAspectFill
+        posterImageView.clipsToBounds = true
         
-                posterImageView.contentMode = .scaleAspectFill
-                posterImageView.clipsToBounds = true
+        let imageStackView = UIStackView(arrangedSubviews: [posterImageView])
         
         let titleStackView = VerticalStackView(arrangedSubviews: [titleLabel])
         titleStackView.alignment = .center
         titleStackView.isLayoutMarginsRelativeArrangement = true
         titleStackView.layoutMargins = .init(top: 2, left: 4, bottom: 2, right: 4)
         
-        let overallStackView = VerticalStackView(arrangedSubviews: [posterImageView,
+        let overallStackView = VerticalStackView(arrangedSubviews: [imageStackView,
                                                                     titleStackView
             ], spacing: 2)
         overallStackView.alignment = .center

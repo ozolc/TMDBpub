@@ -52,8 +52,7 @@ class TodaySinglePopularPeopleCell: BaseImageCell {
     fileprivate func setupLayout() {
         posterImageView.layer.borderWidth = 0.1
         posterImageView.layer.borderColor = UIColor.darkGray.cgColor
-        posterImageView.constrainHeight(constant: 140)
-        
+//        posterImageView.constrainHeight(constant: 140)
         posterImageView.contentMode = .scaleAspectFill
         posterImageView.clipsToBounds = true
         

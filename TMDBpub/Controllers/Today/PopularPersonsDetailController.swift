@@ -29,8 +29,7 @@ class PopularPersonsDetailController: HorizontalSnappingController, UICollection
         super.viewDidLoad()
         collectionView.backgroundColor = .white
         collectionView.register(TodaySinglePopularPeopleCell.self, forCellWithReuseIdentifier: cellId)
-        //        collectionView.backgroundColor = .purple
-        collectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 8)
+        collectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -51,7 +50,7 @@ class PopularPersonsDetailController: HorizontalSnappingController, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: spacing, left: 0, bottom: spacing, right: spacing)
+        return UIEdgeInsets(top: 0, left: 0, bottom: 8, right: 0)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -60,8 +59,8 @@ class PopularPersonsDetailController: HorizontalSnappingController, UICollection
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let width = (view.frame.width - 4 * spacing) / 3
-        return CGSize(width: width, height: width * 1.60)
+        let width = (view.frame.width - 2 * spacing) / 3
+        return CGSize(width: width, height: width * 1.6)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
