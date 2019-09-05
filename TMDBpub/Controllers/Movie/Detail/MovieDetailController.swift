@@ -29,7 +29,6 @@ class RHButtonStruct {
 class MovieDetailController: UIViewController {
     
     var tableView = UITableView()
-    var personImagesDetailController: PersonImagesDetailController!
     
     var isFavourited = false
     var isWatchlisted = false

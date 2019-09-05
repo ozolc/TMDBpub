@@ -36,7 +36,7 @@ class BaseImageCell: UICollectionViewCell {
         
         self.backgroundView?.layer.shadowOpacity = 0.4
         self.backgroundView?.layer.shadowRadius = 10
-        self.backgroundView?.layer.shadowOffset = .init(width: 0, height: 10)
+        self.backgroundView?.layer.shadowOffset = .init(width: 0, height: 2)
         self.backgroundView?.layer.shouldRasterize = true
     }
     
