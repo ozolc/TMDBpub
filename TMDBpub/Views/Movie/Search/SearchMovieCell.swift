@@ -75,7 +75,7 @@ class SearchMovieCell: UITableViewCell {
         iv.contentMode = .scaleAspectFill
         iv.layer.cornerRadius = 4
         iv.constrainWidth(constant: 96)
-        iv.constrainHeight(constant: 154)
+//        iv.constrainHeight(constant: 154)
         iv.clipsToBounds = true
         return iv
     }()
@@ -83,8 +83,8 @@ class SearchMovieCell: UITableViewCell {
     let tmdbImageView: UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "tmdb").withRenderingMode(.alwaysOriginal))
         iv.contentMode = .scaleAspectFit
-        iv.constrainWidth(constant: 15)
-        iv.constrainHeight(constant: 15)
+//        iv.constrainWidth(constant: 15)
+//        iv.constrainHeight(constant: 15)
         return iv
     }()
     
@@ -106,7 +106,9 @@ class SearchMovieCell: UITableViewCell {
     }
     
     fileprivate func setupLayout() {
-        let infoStackView = VerticalStackView (arrangedSubviews: [titleLabel, genreLabel, releaseDateLabel], spacing: 4)
+        let infoStackView = VerticalStackView (arrangedSubviews: [titleLabel,
+                                                                  genreLabel, releaseDateLabel
+            ], spacing: 4)
         infoStackView.distribution = .fillEqually
         
         let tmdbStackView = UIStackView(arrangedSubviews: [tmdbImageView, voteAverageLabel])

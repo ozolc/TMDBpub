@@ -65,7 +65,7 @@ class SearchPeopleCell: UITableViewCell {
         iv.contentMode = .scaleAspectFill
         iv.layer.cornerRadius = 4
         iv.constrainWidth(constant: 96)
-        iv.constrainHeight(constant: 154)
+//        iv.constrainHeight(constant: 154)
         iv.clipsToBounds = true
         return iv
     }()
@@ -73,8 +73,8 @@ class SearchPeopleCell: UITableViewCell {
     let tmdbImageView: UIImageView = {
         let iv = UIImageView(image: #imageLiteral(resourceName: "tmdb").withRenderingMode(.alwaysOriginal))
         iv.contentMode = .scaleAspectFit
-        iv.constrainWidth(constant: 15)
-        iv.constrainHeight(constant: 15)
+//        iv.constrainWidth(constant: 15)
+//        iv.constrainHeight(constant: 15)
         return iv
     }()
     

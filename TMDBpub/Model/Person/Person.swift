@@ -33,7 +33,7 @@ struct ResultPerson: Codable {
     let results: [ResultSinglePerson]?
 }
 
-struct ResultSinglePerson: Codable {
+struct ResultSinglePerson: Codable, SearchProtocol {
     let id: Int?
     let profile_path: String?
     let name: String?

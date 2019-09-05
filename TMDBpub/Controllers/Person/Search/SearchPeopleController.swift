@@ -88,17 +88,10 @@ class SearchPeopleController: UIViewController, UITableViewDataSource, UITableVi
                         if let result = result.results {
                             self?.persons = result
                         }
-                        
                         self?.query = searchText
-                        
-                        if let persons = self?.persons {
-                            self?.persons = persons.sorted(by: { ($0.popularity ?? 0) > ($1.popularity ?? 0) })
-                        }
-                        
                         DispatchQueue.main.async {
                             self?.tableView.reloadData()
                         }
-                        
                     })
                 })
             }

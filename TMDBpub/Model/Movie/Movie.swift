@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Movie: Codable {
+struct Movie: Codable, SearchProtocol {
     
     let id: Int
     let vote_average: Double

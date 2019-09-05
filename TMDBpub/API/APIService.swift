@@ -61,7 +61,7 @@ class APIService {
                 return
             }
             
-            print(dataResponse.request)
+//            print(dataResponse.request)
             
             guard let data = dataResponse.data else { return }
             do {

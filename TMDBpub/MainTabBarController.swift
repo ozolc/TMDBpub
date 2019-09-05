@@ -23,7 +23,7 @@ class MainTabBarController: UITabBarController {
             
 //            generateNavigationController(for: PersonController(personId: 2037), title: "Person", image: #imageLiteral(resourceName: "Profile").withRenderingMode(.alwaysTemplate)),
 //            generateNavigationController(for: TestViewController(), title: "Rating", image: #imageLiteral(resourceName: "popular").withRenderingMode(.alwaysTemplate)),
-            generateNavigationController(for: SearchController(), title: "Поиск", image: #imageLiteral(resourceName: "search").withRenderingMode(.alwaysTemplate)),
+            generateNavigationController(for: SearchGeneralController(), title: "Поиск", image: #imageLiteral(resourceName: "search").withRenderingMode(.alwaysTemplate)),
 //            generateNavigationController(for: MovieDetailController(movieId: 414044), title: "Detail", image:  #imageLiteral(resourceName: "Profile").withRenderingMode(.alwaysTemplate)),
             generateNavigationController(for: GenericMoviesControllers(typeOfRequest: Constants.popularMovies), title: "Популярные", image: #imageLiteral(resourceName: "popular").withRenderingMode(.alwaysTemplate)),
 //            generateNavigationController(for: SearchMovieController(), title: "Поиск", image: #imageLiteral(resourceName: "search").withRenderingMode(.alwaysTemplate)),
