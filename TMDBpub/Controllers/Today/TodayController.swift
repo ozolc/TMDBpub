@@ -12,12 +12,16 @@ class TodayController: BaseListController {
     
     let popularMoviesCellId = "popularMoviesCellId"
     let popularPersonsCellId = "popularPersonsCellId"
+    let nowPlayingMoviesCellId = "nowPlayingMoviesCellId"
     
     var movies = [Movie]()
     var persons = [ResultSinglePerson]()
+    var nowPlayingMovies = [Movie]()
     var currentPage = AppState.shared.currentPage
     var typeOfRequestPopularMovies = Constants.popularMovies
     var typeOfRequestPopularPersons = Constants.popularPersons
+    var typeOfRequestNowPlayingMovies = Constants.nowPlayingMovies
+    
     var totalPages = AppState.shared.totalPages
     
     override func viewDidLoad() {
@@ -30,10 +34,11 @@ class TodayController: BaseListController {
         collectionView.backgroundColor = .white
         collectionView.register(TodayPopularMoviesCell.self, forCellWithReuseIdentifier: popularMoviesCellId)
         collectionView.register(TodayPopularPersonsCell.self, forCellWithReuseIdentifier: popularPersonsCellId)
+        collectionView.register(TodayNowPlayingMoviesCell.self, forCellWithReuseIdentifier: nowPlayingMoviesCellId)
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -72,6 +77,22 @@ class TodayController: BaseListController {
             
             return cell
             
+        case 2:
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: nowPlayingMoviesCellId, for: indexPath) as! TodayNowPlayingMoviesCell
+            
+            cell.delegate = self
+            cell.nowPlayingMoviesHorizontalController.delegate = self
+            
+            APIService.shared.fetchMoviesStat(typeOfRequest: typeOfRequestNowPlayingMovies, page: self.currentPage, completionHandler: { [weak self] (result: ResultsMovie) in
+                
+                self?.totalPages = result.total_pages ?? 1
+                    self?.nowPlayingMovies = result.results
+                
+                cell.nowPlayingMoviesHorizontalController.movies = self?.nowPlayingMovies
+            })
+            
+            return cell
+            
         default:
             return UICollectionViewCell.init(frame: .zero)
         }
@@ -96,7 +117,7 @@ extension TodayController: TodayMoviesCellDelegate {
 }
 
 extension TodayController: TodayPopularMoviesDetailDelegate {
-    func didTappedMovie(movie: Movie) {
+    func didTappedNowPlayingMovie(movie: Movie) {
         let controller = MovieDetailController(movieId: movie.id)
         controller.navigationItem.title = movie.title
         navigationController?.pushViewController(controller, animated: true)
@@ -121,3 +142,18 @@ extension TodayController: PopularPersonsDetailDelegate {
     
 }
 
+extension TodayController: TodayNowPlayingMoviesCellDelegate {
+    func didTappedShowAllNowPlayingMovies() {
+        let controller = GenericMoviesControllers(typeOfRequest: Constants.nowPlayingMovies)
+        controller.navigationItem.title = "Now playing movies"
+        navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
+extension TodayController: TodayNowPlayingMoviesDetailDelegate {
+    func didTappedMovie(movie: Movie) {
+        let controller = MovieDetailController(movieId: movie.id)
+        controller.navigationItem.title = movie.title
+        navigationController?.pushViewController(controller, animated: true)
+    }
+}

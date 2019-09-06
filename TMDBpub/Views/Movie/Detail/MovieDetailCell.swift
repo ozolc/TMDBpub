@@ -26,7 +26,10 @@ class MovieDetailCell: UITableViewCell {
         didSet {
             titleLabel.text = movie.title
             originalTitleLabel.text = movie.original_title
-            voteAverageLabel.text = String(movie.vote_average)
+            
+            if let vote_average = movie.vote_average {
+                voteAverageLabel.text = String(vote_average)
+            }
             
             print(movie.id)
             

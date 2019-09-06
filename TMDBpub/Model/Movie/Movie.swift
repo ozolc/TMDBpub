@@ -11,9 +11,9 @@ import Foundation
 struct Movie: Codable, SearchProtocol {
     
     let id: Int
-    let vote_average: Double
-    let vote_count: Int
-    let title: String
+    let vote_average: Double?
+    let vote_count: Int?
+    let title: String?
     let popularity: Double
     let poster_path: String?
     let original_title: String

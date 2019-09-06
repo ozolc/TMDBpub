@@ -22,7 +22,9 @@ class SearchMovieCell: UITableViewCell {
     var movie: Movie! {
         didSet {
             titleLabel.text = movie.title
-            voteAverageLabel.text = String(movie.vote_average)
+            if let vote_average = movie.vote_average {
+                voteAverageLabel.text = String(vote_average)
+            }
             
             if let posterUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: movie.poster_path ?? "", posterSize: Constants.PosterSize.w154.rawValue)) {
                 
