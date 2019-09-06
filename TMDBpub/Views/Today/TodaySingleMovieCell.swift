@@ -15,7 +15,7 @@ class TodaySingleMovieCell: BaseImageCell {
         didSet {
             titleLabel.text = movie.title
             
-            if let posterUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: movie.poster_path ?? "", posterSize: Constants.PosterSize.w342.rawValue)) {
+            if let posterUrl = URL(string: Constants.fetchPosterUrl(withPosterPath: movie.poster_path ?? "", posterSize: Constants.PosterSize.w154.rawValue)) {
                 
                 posterImageView.sd_imageIndicator = SDWebImageActivityIndicator.gray
                 posterImageView.sd_setImage(with: posterUrl, placeholderImage: nil, options: [.highPriority]) {
@@ -36,7 +36,7 @@ class TodaySingleMovieCell: BaseImageCell {
         label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         label.textColor = .black
         label.textAlignment = .center
-        label.constrainHeight(constant: 15)
+        label.constrainHeight(constant: 20)
         return label
     }()
     
@@ -52,9 +52,12 @@ class TodaySingleMovieCell: BaseImageCell {
     
     fileprivate func setupLayout() {
         
+        self.backgroundView?.layer.cornerRadius = 0
+        
         posterImageView.layer.borderWidth = 0.1
         posterImageView.layer.borderColor = UIColor.darkGray.cgColor
 //        posterImageView.constrainHeight(constant: 140)
+//        posterImageView.constrainWidth(constant: 154)
         posterImageView.contentMode = .scaleAspectFill
         posterImageView.clipsToBounds = true
         

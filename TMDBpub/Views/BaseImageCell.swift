@@ -33,6 +33,7 @@ class BaseImageCell: UICollectionViewCell {
         self.backgroundView?.fillSuperview()
         self.backgroundView?.backgroundColor = .white
         self.backgroundView?.layer.cornerRadius = 16
+//        self.backgroundView?.clipsToBounds = true
         
         self.backgroundView?.layer.shadowOpacity = 0.4
         self.backgroundView?.layer.shadowRadius = 10

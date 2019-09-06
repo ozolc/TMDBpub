@@ -36,6 +36,7 @@ class TodaySinglePopularPeopleCell: BaseImageCell {
         label.font = UIFont.systemFont(ofSize: 12, weight: .bold)
         label.textColor = .black
         label.textAlignment = .center
+        label.constrainHeight(constant: 20)
         return label
     }()
     

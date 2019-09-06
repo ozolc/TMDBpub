@@ -15,7 +15,7 @@ import UIKit
 class PopularPersonsDetailController: HorizontalSnappingController, UICollectionViewDelegateFlowLayout {
     
     let cellId = "cellId"
-    fileprivate let spacing: CGFloat = 16
+    fileprivate let spacing: CGFloat = 8
     
     weak var delegate: PopularPersonsDetailDelegate?
     
@@ -59,8 +59,10 @@ class PopularPersonsDetailController: HorizontalSnappingController, UICollection
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let width = (view.frame.width - 2 * spacing) / 3
-        return CGSize(width: width, height: width * 1.6)
+        let cellHeight = (collectionView.bounds.size.height - spacing)
+        let cellWidth = (collectionView.bounds.size.width - 2 * spacing) / 3
+        
+        return CGSize(width: CGFloat(cellWidth), height: CGFloat(cellHeight))
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

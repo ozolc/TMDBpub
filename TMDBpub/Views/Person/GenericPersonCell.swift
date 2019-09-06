@@ -61,7 +61,7 @@ class GenericPersonCell: BaseImageCell {
         let titleStackView = VerticalStackView(arrangedSubviews: [
             titleLabel,
             ], spacing: 4)
-        titleStackView.constrainHeight(constant: 66)
+        titleStackView.constrainHeight(constant: 24)
         titleStackView.alignment = .center
         titleStackView.distribution = .equalSpacing
         titleStackView.isLayoutMarginsRelativeArrangement = true

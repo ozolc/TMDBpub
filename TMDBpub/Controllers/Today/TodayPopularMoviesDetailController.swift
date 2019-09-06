@@ -30,7 +30,7 @@ class TodayPopularMoviesDetailController: HorizontalSnappingController, UICollec
         collectionView.backgroundColor = .white
         collectionView.register(TodaySingleMovieCell.self, forCellWithReuseIdentifier: cellId)
 //        collectionView.backgroundColor = .purple
-        collectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
+//        collectionView.contentInset = .init(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -59,12 +59,17 @@ class TodayPopularMoviesDetailController: HorizontalSnappingController, UICollec
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+        let cellHeight = (collectionView.bounds.size.height - spacing)
+        let cellWidth = (collectionView.bounds.size.width - 2 * spacing) / 3
         
-        let width = (view.frame.width - 2 * spacing) / 3
-        return CGSize(width: width, height: width * 1.6)
+        return CGSize(width: CGFloat(cellWidth), height: CGFloat(cellHeight))
+
+//        let width = (view.frame.width - 2 * spacing) / 3
+//        return CGSize(width: width, height: width * 1.6)
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! TodaySingleMovieCell
         
         if let popularMovies = popularMovies {
